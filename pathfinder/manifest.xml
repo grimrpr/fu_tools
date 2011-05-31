@@ -1,0 +1,32 @@
+<package>
+  <description brief="pathfinder">
+
+     pathfinder
+
+  </description>
+  <author>Simon Schmitt</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/pathfinder</url>
+  <depend package="tf"/>
+  <depend package="pcl"/>
+  <depend package="eigen"/>
+  <depend package="rospy"/>
+  <depend package="roscpp"/>
+  <depend package="rosbag"/>
+  <depend package="pcl_ros"/>
+  <depend package="opencv2"/>
+  <depend package="cv_bridge"/>
+  <depend package="sensor_msgs"/>
+  <depend package="openni_camera"/>
+  <depend package="geometry_msgs"/>
+  <depend package="image_geometry"/>
+  <depend package="hogman_minimal"/>
+  <depend package="visualization_msgs"/>
+  <depend package="nav_msgs"/>
+  <rosdep name="opengl"/>
+  <rosdep name="qt4"/>
+
+</package>
+
+
