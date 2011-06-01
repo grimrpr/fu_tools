@@ -40,7 +40,7 @@ CMAKE_BINARY_DIR = /opt/ros/diamondback/stacks/fu_tools/pathfinder/build
 # Utility rule file for clean-test-results.
 
 CMakeFiles/clean-test-results:
-	if ! rm -rf /home/pp/.ros/test_results/pathfinder; then echo WARNING:\ failed\ to\ remove\ test-results\ directory ; fi
+	if ! rm -rf /home/rimesime/.ros/test_results/pathfinder; then echo WARNING:\ failed\ to\ remove\ test-results\ directory ; fi
 
 clean-test-results: CMakeFiles/clean-test-results
 clean-test-results: CMakeFiles/clean-test-results.dir/build.make
