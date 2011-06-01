@@ -1,0 +1,10 @@
+<launch>
+
+  <include file="$(find openni_camera)/launch/openni_node.launch"/>
+  <node pkg="stripped_rgbdslam" type="stripped_rgbdslam" name="stripped_rgbdslam" cwd="node" required="true" output="log" > </node>
+  <node pkg="pathfinder" type="pathfinder" name="pathfinder" cwd="node" required="true" output="log" > </node>
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find pathfinder)/launch/rvizconf.vcg" required="true" output="log" > </node>
+
+  <!--node pkg="rxtools" type="rxconsole" name="rxconsole" output="log" > </node-->
+
+</launch>

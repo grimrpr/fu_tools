@@ -29,5 +29,4 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 #rosbuild_add_executable(example examples/example.cpp)
 #target_link_libraries(example ${PROJECT_NAME})
 
-rosbuild_add_executable(talker src/talker.cpp)
-rosbuild_add_executable(listener src/listener.cpp)
+rosbuild_add_executable(${PROJECT_NAME} src/main.cpp)

@@ -161,17 +161,17 @@ clean-test-results/fast:
 .PHONY : clean-test-results/fast
 
 #=============================================================================
-# Target rules for targets named listener
+# Target rules for targets named pathfinder
 
 # Build rule for target.
-listener: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 listener
-.PHONY : listener
+pathfinder: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pathfinder
+.PHONY : pathfinder
 
 # fast build rule for target.
-listener/fast:
-	$(MAKE) -f CMakeFiles/listener.dir/build.make CMakeFiles/listener.dir/build
-.PHONY : listener/fast
+pathfinder/fast:
+	$(MAKE) -f CMakeFiles/pathfinder.dir/build.make CMakeFiles/pathfinder.dir/build
+.PHONY : pathfinder/fast
 
 #=============================================================================
 # Target rules for targets named rosbuild_precompile
@@ -239,19 +239,6 @@ rospack_gensrv/fast:
 .PHONY : rospack_gensrv/fast
 
 #=============================================================================
-# Target rules for targets named talker
-
-# Build rule for target.
-talker: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 talker
-.PHONY : talker
-
-# fast build rule for target.
-talker/fast:
-	$(MAKE) -f CMakeFiles/talker.dir/build.make CMakeFiles/talker.dir/build
-.PHONY : talker/fast
-
-#=============================================================================
 # Target rules for targets named test
 
 # Build rule for target.
@@ -317,34 +304,19 @@ tests/fast:
 .PHONY : tests/fast
 
 # target to build an object file
-src/listener.o:
-	$(MAKE) -f CMakeFiles/listener.dir/build.make CMakeFiles/listener.dir/src/listener.o
-.PHONY : src/listener.o
+src/main.o:
+	$(MAKE) -f CMakeFiles/pathfinder.dir/build.make CMakeFiles/pathfinder.dir/src/main.o
+.PHONY : src/main.o
 
 # target to preprocess a source file
-src/listener.i:
-	$(MAKE) -f CMakeFiles/listener.dir/build.make CMakeFiles/listener.dir/src/listener.i
-.PHONY : src/listener.i
+src/main.i:
+	$(MAKE) -f CMakeFiles/pathfinder.dir/build.make CMakeFiles/pathfinder.dir/src/main.i
+.PHONY : src/main.i
 
 # target to generate assembly for a file
-src/listener.s:
-	$(MAKE) -f CMakeFiles/listener.dir/build.make CMakeFiles/listener.dir/src/listener.s
-.PHONY : src/listener.s
-
-# target to build an object file
-src/talker.o:
-	$(MAKE) -f CMakeFiles/talker.dir/build.make CMakeFiles/talker.dir/src/talker.o
-.PHONY : src/talker.o
-
-# target to preprocess a source file
-src/talker.i:
-	$(MAKE) -f CMakeFiles/talker.dir/build.make CMakeFiles/talker.dir/src/talker.i
-.PHONY : src/talker.i
-
-# target to generate assembly for a file
-src/talker.s:
-	$(MAKE) -f CMakeFiles/talker.dir/build.make CMakeFiles/talker.dir/src/talker.s
-.PHONY : src/talker.s
+src/main.s:
+	$(MAKE) -f CMakeFiles/pathfinder.dir/build.make CMakeFiles/pathfinder.dir/src/main.s
+.PHONY : src/main.s
 
 # Help Target
 help:
@@ -358,25 +330,21 @@ help:
 	@echo "... ROSBUILD_gensrv_lisp"
 	@echo "... clean-test-results"
 	@echo "... edit_cache"
-	@echo "... listener"
+	@echo "... pathfinder"
 	@echo "... rebuild_cache"
 	@echo "... rosbuild_precompile"
 	@echo "... rosbuild_premsgsrvgen"
 	@echo "... rospack_genmsg"
 	@echo "... rospack_genmsg_libexe"
 	@echo "... rospack_gensrv"
-	@echo "... talker"
 	@echo "... test"
 	@echo "... test-future"
 	@echo "... test-results"
 	@echo "... test-results-run"
 	@echo "... tests"
-	@echo "... src/listener.o"
-	@echo "... src/listener.i"
-	@echo "... src/listener.s"
-	@echo "... src/talker.o"
-	@echo "... src/talker.i"
-	@echo "... src/talker.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 .PHONY : help
 
 

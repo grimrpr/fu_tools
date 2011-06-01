@@ -1,31 +1,20 @@
 <package>
-  <description brief="pathfinder">
+  <description brief="Pathfinder - path retrieving and visualization">
 
-     pathfinder
+     Pathfinder collects position data from multiple devices and publishes
+     the most accurate position available.
 
   </description>
-  <author>Simon Schmitt</author>
-  <license>BSD</license>
+  <author>Simon Schmitt, Benjamin Aschenbrenner</author>
+  <license></license>
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/pathfinder</url>
-  <depend package="tf"/>
-  <depend package="pcl"/>
+  <url></url>
   <depend package="eigen"/>
   <depend package="rospy"/>
   <depend package="roscpp"/>
-  <depend package="rosbag"/>
-  <depend package="pcl_ros"/>
-  <depend package="opencv2"/>
-  <depend package="cv_bridge"/>
-  <depend package="sensor_msgs"/>
-  <depend package="openni_camera"/>
   <depend package="geometry_msgs"/>
-  <depend package="image_geometry"/>
-  <depend package="hogman_minimal"/>
   <depend package="visualization_msgs"/>
   <depend package="nav_msgs"/>
-  <rosdep name="opengl"/>
-  <rosdep name="qt4"/>
 
 </package>
 

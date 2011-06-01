@@ -1,0 +1,39 @@
+Background\ ColorR=0
+Background\ ColorG=0
+Background\ ColorB=0
+Fixed\ Frame=/rgbdslam/path
+Target\ Frame=<Fixed Frame>
+Grid.Alpha=0,5
+Grid.Cell\ Size=1
+Grid.ColorR=0,5
+Grid.ColorG=0,5
+Grid.ColorB=0,5
+Grid.Enabled=1
+Grid.Line\ Style=0
+Grid.Line\ Width=0,03
+Grid.Normal\ Cell\ Count=0
+Grid.OffsetX=0
+Grid.OffsetY=0
+Grid.OffsetZ=0
+Grid.Plane=0
+Grid.Plane\ Cell\ Count=10
+Grid.Reference\ Frame=<Fixed Frame>
+Path.Alpha=1
+Path.ColorR=1
+Path.ColorG=0
+Path.ColorB=0,0196078
+Path.Enabled=1
+Path.Topic=/rgbdslam/path
+Tool\ 2D\ Nav\ GoalTopic=goal
+Tool\ 2D\ Pose\ EstimateTopic=initialpose
+Camera\ Type=rviz::OrbitViewController
+Camera\ Config=1.26862 2.30176 10.2221 0 0 0
+Property\ Grid\ State=selection=;expanded=.Global Options,Path.Enabled;scrollpos=0,0;splitterpos=284,569;ispageselected=1
+[Display0]
+Name=Grid
+Package=rviz
+ClassName=rviz::GridDisplay
+[Display1]
+Name=Path
+Package=rviz
+ClassName=rviz::PathDisplay
