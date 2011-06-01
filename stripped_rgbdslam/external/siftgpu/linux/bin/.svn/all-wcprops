@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/external/siftgpu/linux/bin
+END
+SimpleSIFT
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/external/siftgpu/linux/bin/SimpleSIFT
+END
+speed
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/external/siftgpu/linux/bin/speed
+END
+MultiThreadSIFT
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/external/siftgpu/linux/bin/MultiThreadSIFT
+END
+TestWinGlut
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/external/siftgpu/linux/bin/TestWinGlut
+END

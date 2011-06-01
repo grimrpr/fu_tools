@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/gicp
+END
+scan2ascii.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/gicp/scan2ascii.cpp
+END
+bfgs_funcs.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/gicp/bfgs_funcs.cpp
+END
+transform.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/gicp/transform.h
+END
+optimize.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/gicp/optimize.cpp
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/gicp/LICENSE
+END
+test_gicp.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/gicp/test_gicp.cpp
+END
+gicp.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/gicp/gicp.cpp
+END
+scan.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/gicp/scan.cpp
+END
+optimize.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/gicp/optimize.h
+END
+gicp.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/gicp/gicp.h
+END
+scan.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/gicp/scan.h
+END
+transform.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/gicp/transform.cpp
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/gicp/README
+END

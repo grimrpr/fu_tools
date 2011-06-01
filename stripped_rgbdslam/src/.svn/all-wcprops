@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/1596/trunk/freiburg_tools/rgbdslam/src
+END
+graph_manager.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/src/graph_manager.h
+END
+globaldefinitions.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/1596/trunk/freiburg_tools/rgbdslam/src/globaldefinitions.h
+END
+openni_listener.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/1596/trunk/freiburg_tools/rgbdslam/src/openni_listener.h
+END
+qtros.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/src/qtros.cpp
+END
+qtros.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/src/qtros.h
+END
+qtcv.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/src/qtcv.cpp
+END
+gicp-fallback.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/src/gicp-fallback.cpp
+END
+qtcv.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/src/qtcv.h
+END
+gicp-fallback.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/src/gicp-fallback.h
+END
+sift_gpu_feature_detector.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/src/sift_gpu_feature_detector.cpp
+END
+main.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/src/main.cpp
+END
+glviewer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/src/glviewer.cpp
+END
+node.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/1596/trunk/freiburg_tools/rgbdslam/src/node.cpp
+END
+glviewer.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/src/glviewer.h
+END
+sift_gpu_feature_detector.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/src/sift_gpu_feature_detector.h
+END
+node.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/1596/trunk/freiburg_tools/rgbdslam/src/node.h
+END
+graph_manager.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/1596/trunk/freiburg_tools/rgbdslam/src/graph_manager.cpp
+END
+globaldefinitions.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/1596/trunk/freiburg_tools/rgbdslam/src/globaldefinitions.cpp
+END
+openni_listener.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/1596/trunk/freiburg_tools/rgbdslam/src/openni_listener.cpp
+END
+matching_result.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/1446/trunk/freiburg_tools/rgbdslam/src/matching_result.h
+END
