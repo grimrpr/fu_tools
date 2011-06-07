@@ -1,19 +1,16 @@
 <launch>
 
-  <include file="$(find openni_camera)/launch/openni_node.launch"/>
-  <!--param name="device_id" value="#2" / -->
-  <!--param name="rgb_frame_id" value="/openni_rgb_optical_frame" / -->
-  <!--param name="depth_frame_id" value="/openni_depth_optical_frame" / -->
-
-<!--
   <arg name="debug" default="false"/>
   <arg if="$(arg debug)" name="launch_prefix" value="xterm -rv -e gdb -ex run -args"/>
   <arg unless="$(arg debug)" name="launch_prefix" value=""/>
-  <node pkg="openni_camera" type="openni_node" name="openni_node1" output="screen" launch-prefix="$(arg launch_prefix)">
+
+  <!-- openni_node0 -->
+  <remap from="camera" to="camera0"/>
+  <node pkg="openni_camera" type="openni_node" name="openni_node0" output="screen" launch-prefix="$(arg launch_prefix)">
     <param name="device_id" value="#1"/>
     <rosparam command="load" file="$(find openni_camera)/info/openni_params.yaml" />
-    <param name="rgb_frame_id" value="/openni_rgb_optical_frame" />
-    <param name="depth_frame_id" value="/openni_depth_optical_frame" />
+    <param name="rgb_frame_id" value="/openni_rgb_optical_frame0" />
+    <param name="depth_frame_id" value="/openni_depth_optical_frame0" />
     <param name="use_indices" value="false" />
     <param name="depth_registration" value="true" />
     <param name="image_mode" value="2" />
@@ -22,11 +19,18 @@
     <param name="depth_time_offset" value="0" />
     <param name="image_time_offset" value="0" />
   </node>
-  <node pkg="openni_camera" type="openni_node" name="openni_node2" output="screen" launch-prefix="$(arg launch_prefix)">
+  <!-- kinect_frames.launch -->
+  <node pkg="tf" type="static_transform_publisher" name="kinect_base_link00" args="0 -0.02 0 0 0 0  /openni_camera0 /openni_depth_frame0 100" />  
+  <node pkg="tf" type="static_transform_publisher" name="kinect_base_link01" args="0 -0.04 0 0 0 0  /openni_camera0 /openni_rgb_frame0 100" />  
+  <node pkg="tf" type="static_transform_publisher" name="kinect_base_link02" args="0 0 0 -1.57 0 -1.57 /openni_depth_frame0 /openni_depth_optical_frame0  100" />  
+  <node pkg="tf" type="static_transform_publisher" name="kinect_base_link03" args="0 0 0 -1.57 0 -1.57 /openni_rgb_frame0 /openni_rgb_optical_frame0 100" />  
+  <!-- openni_node1 -->
+  <remap from="camera0" to="camera1"/>
+  <node pkg="openni_camera" type="openni_node" name="openni_node1" output="screen" launch-prefix="$(arg launch_prefix)">
     <param name="device_id" value="#2"/>
     <rosparam command="load" file="$(find openni_camera)/info/openni_params.yaml" />
-    <param name="rgb_frame_id" value="/openni_rgb_optical_frame" />
-    <param name="depth_frame_id" value="/openni_depth_optical_frame" />
+    <param name="rgb_frame_id" value="/openni_rgb_optical_frame1" />
+    <param name="depth_frame_id" value="/openni_depth_optical_frame1" />
     <param name="use_indices" value="false" />
     <param name="depth_registration" value="true" />
     <param name="image_mode" value="2" />
@@ -35,17 +39,20 @@
     <param name="depth_time_offset" value="0" />
     <param name="image_time_offset" value="0" />
   </node>
-  <include file="$(find openni_camera)/launch/kinect_frames.launch"/>
--->
+  <!-- kinect_frames.launch -->
+  <node pkg="tf" type="static_transform_publisher" name="kinect_base_link10" args="0 -0.02 0 0 0 0  /openni_camera1 /openni_depth_frame1 100" />  
+  <node pkg="tf" type="static_transform_publisher" name="kinect_base_link11" args="0 -0.04 0 0 0 0  /openni_camera1 /openni_rgb_frame1 100" />  
+  <node pkg="tf" type="static_transform_publisher" name="kinect_base_link12" args="0 0 0 -1.57 0 -1.57 /openni_depth_frame1 /openni_depth_optical_frame1  100" />  
+  <node pkg="tf" type="static_transform_publisher" name="kinect_base_link13" args="0 0 0 -1.57 0 -1.57 /openni_rgb_frame1 /openni_rgb_optical_frame1 100" />  
 
 
 
 
-
-  <node pkg="stripped_rgbdslam" type="stripped_rgbdslam" name="stripped_rgbdslam" cwd="node" required="true" output="log" > </node>
+  <remap from="camera" to="camera0"/>
+  <node pkg="stripped_rgbdslam" type="stripped_rgbdslam" name="stripped_rgbdslam" cwd="node" required="true" output="log" args="0"> </node>
   <node pkg="pathfinder" type="pathfinder" name="pathfinder" cwd="node" required="true" output="log" > </node>
   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find pathfinder)/launch/rvizconf.vcg" required="true" output="log" > </node>
 
-  <!--node pkg="rxtools" type="rxconsole" name="rxconsole" output="log" > </node-->
+  <!-- node pkg="rxtools" type="rxconsole" name="rxconsole" output="log" > </node-->
 
 </launch>
