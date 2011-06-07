@@ -24,6 +24,8 @@
 //Determines whether or not to process node pairs concurrently
 #define CONCURRENT_EDGE_COMPUTATION 1
 
+//Kinect device number
+extern char* kinect_device_number;
 
 ///This file contains the parameters that determine the
 ///behaviour of the program

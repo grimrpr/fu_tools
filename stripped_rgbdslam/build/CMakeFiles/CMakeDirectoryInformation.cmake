@@ -51,7 +51,7 @@ SET(CMAKE_C_INCLUDE_PATH
   "/opt/ros/diamondback/stacks/vision_opencv/image_geometry/include"
   "/opt/ros/diamondback/stacks/vision_opencv/opencv2/opencv/include"
   "/opt/ros/diamondback/stacks/vision_opencv/opencv2/opencv/include/opencv"
-  "/opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include"
+  "/opt/ros/diamondback/stacks/hogman_minimal/include"
   "/opt/ros/diamondback/stacks/common_msgs/visualization_msgs/msg_gen/cpp/include"
   "/opt/ros/diamondback/stacks/common_msgs/nav_msgs/msg_gen/cpp/include"
   "/opt/ros/diamondback/stacks/common_msgs/nav_msgs/srv_gen/cpp/include"

@@ -53,18 +53,19 @@ int main(int argc, char** argv)
   GraphManager graph_mgr(qtRos.getNodeHandle(), window.getGLViewer());
   
   //add kinect device number to global topics
+  kinect_device_number = argv[1];
   std::string cam("/camera");
-  cam += argv[1];
+  cam += kinect_device_number;
 
   std::string topic_image_mono_str(cam + global_topic_image_mono);
   std::string topic_image_depth_str(cam + global_topic_image_depth);
-  std::string topic_image_points_str(cam + global_topic_image_points);
+  std::string topic_image_points_str(cam + global_topic_points);
 
   //Instantiate the kinect image listener
   OpenNIListener kinect_listener(qtRos.getNodeHandle(), &graph_mgr,
-                                 topic_image_mono_str,
-                                 topic_image_depth_str,
-                                 topic_image_points_str,
+                                 topic_image_mono_str.c_str(),
+                                 topic_image_depth_str.c_str(),
+                                 topic_image_points_str.c_str(),
                                  global_feature_extractor_type, //FAST is really fast but the Keypoints are not robust
                                  global_feature_detector_type);
 

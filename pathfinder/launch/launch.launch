@@ -48,8 +48,8 @@
 
 
 
-  <remap from="camera" to="camera0"/>
-  <node pkg="stripped_rgbdslam" type="stripped_rgbdslam" name="stripped_rgbdslam" cwd="node" required="true" output="log" args="0"> </node>
+  <node pkg="stripped_rgbdslam" type="stripped_rgbdslam" name="stripped_rgbdslam0" cwd="node" required="true" output="log" args="0"> </node>
+  <node pkg="stripped_rgbdslam" type="stripped_rgbdslam" name="stripped_rgbdslam1" cwd="node" required="true" output="log" args="1"> </node>
   <node pkg="pathfinder" type="pathfinder" name="pathfinder" cwd="node" required="true" output="log" > </node>
   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find pathfinder)/launch/rvizconf.vcg" required="true" output="log" > </node>
 
