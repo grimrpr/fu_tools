@@ -39,7 +39,7 @@
 #include "geometry_msgs/Pose.h"
 #include "geometry_msgs/PoseStamped.h"
 
-ros::Publisher path_pub;
+ros::Publisher pose_pub;
 
 QMatrix4x4 hogman2QMatrix(const Transformation3 hogman_trans) {
 	std::clock_t starttime = std::clock();
@@ -103,7 +103,7 @@ GraphManager::GraphManager(ros::NodeHandle nh, GLViewer* glviewer) :
 			batch_processing_runs_(false) {
 	std::clock_t starttime = std::clock();
 
-        path_pub = nh.advertise<nav_msgs::Path>("/rgbdslam/path", 1000);
+  pose_pub = nh.advertise<geometry_msgs::PoseStamped>("/stripped_rgbdslam_1/currentPose", 100);
 
 	int numLevels = 3;
 	int nodeDistance = 2;
@@ -460,6 +460,7 @@ bool GraphManager::addNode(Node* new_node) {
 	ROS_ERROR("%f", kinect_transform_.getRotation().getZ());
 	ROS_ERROR("%f", kinect_transform_.getRotation().getW());
 
+  /*
 	// Send Path info
 	nav_msgs::Path p;
     	std::vector<geometry_msgs::PoseStamped> v;
@@ -473,10 +474,10 @@ bool GraphManager::addNode(Node* new_node) {
    		geometry_msgs::PoseStamped p1;
 
    		p1.header.frame_id = "/rgbdslam/path";
-		p1.header.stamp = ros::Time::now();
-		p1.pose.position.x = matrix_list->front()(0,3);
-   		p1.pose.position.y = matrix_list->front()(1,3);
-   		p1.pose.position.z = matrix_list->front()(2,3);
+		  p1.header.stamp = ros::Time::now();
+	  	p1.pose.position.x = matrix_list->front()(0,3);
+   		p1.pose.position.z = 0; //(-1) *  matrix_list->front()(1,3);
+   		p1.pose.position.y = matrix_list->front()(2,3);
    		p1.pose.orientation.x = 0;
    		p1.pose.orientation.y = 0;
    		p1.pose.orientation.z = 0;
@@ -489,6 +490,23 @@ bool GraphManager::addNode(Node* new_node) {
 	p.poses=v;
 
 	path_pub.publish(p);
+  */
+
+  ROS_ERROR("addNode: publishing currentPose...");
+
+  geometry_msgs::PoseStamped currentPose;
+
+  currentPose.header.frame_id = "/stripped_rgbdslam_1/currentPose";
+  currentPose.header.stamp = ros::Time::now();
+  currentPose.pose.position.x = kinect_transform_.getOrigin().x();
+  currentPose.pose.position.z = kinect_transform_.getOrigin().z();
+  currentPose.pose.position.y = kinect_transform_.getOrigin().y();
+  currentPose.pose.orientation.x = 0;
+  currentPose.pose.orientation.y = 0;
+  currentPose.pose.orientation.z = 0;
+  currentPose.pose.orientation.w = 0;
+
+  pose_pub.publish(currentPose);
 
 	// !simon
 

@@ -11,13 +11,39 @@
 #include "geometry_msgs/Pose.h"
 #include "geometry_msgs/PoseStamped.h"
 
+nav_msgs::Path path;
+std::vector<geometry_msgs::PoseStamped> vecPoses;
+ros::Publisher path_pub;
+ros::Subscriber pose_sub;
+
+void poseCallback(const geometry_msgs::PoseStamped::ConstPtr& msg){
+
+  ROS_ERROR("poseCallback: publishing path...");
+
+  ROS_ERROR("%f",msg->pose.position.x);
+
+
+  path.header.stamp = ros::Time::now();
+
+  path.poses.push_back(*msg);
+
+  path_pub.publish(path);
+
+}
+
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "pathfinder");
 
   ros::NodeHandle n;
 
-  ros::Publisher chatter_pub = n.advertise<nav_msgs::Path>("pathfinder/path", 1000);
+  pose_sub = n.subscribe<geometry_msgs::PoseStamped>("/stripped_rgbdslam_1/currentPose",100,poseCallback);
+  path_pub = n.advertise<nav_msgs::Path>("/pathfinder/path", 1000);
+
+  // Initialize path object
+  path.header.frame_id="/pathfinder/path";
+  path.poses=vecPoses;
+
   /*
   ros::Publisher map_pub = n.advertise<nav_msgs::OccupancyGrid>("talker/map",10);
   nav_msgs::OccupancyGrid map;
@@ -46,7 +72,6 @@ int main(int argc, char **argv)
 
   ros::Rate loop_rate(1);
 
-  int count = 0;
   while (ros::ok())
   {
     //std_msgs::String msg;
@@ -55,12 +80,7 @@ int main(int argc, char **argv)
     //msg.data = ss.str();
     //ROS_INFO("%s", msg.data.c_str());
 
-    nav_msgs::Path p;
-    std::vector<geometry_msgs::PoseStamped> v;
-
-    p.header.stamp = ros::Time::now();
-    p.header.frame_id="/pathfinder/path";
-
+    /*
     geometry_msgs::PoseStamped p1;
     geometry_msgs::PoseStamped p2;
     
@@ -86,14 +106,11 @@ int main(int argc, char **argv)
 
     v.push_back(p1);
     v.push_back(p2);
-    p.poses=v;
-
-    chatter_pub.publish(p);
+    */
 
     ros::spinOnce();
 
     loop_rate.sleep();
-    ++count;
   }
 
   return 0;

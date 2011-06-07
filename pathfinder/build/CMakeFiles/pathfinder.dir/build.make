@@ -77,6 +77,37 @@ CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/ros_comm/tools
 CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common_msgs/geometry_msgs/manifest.xml
 CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common_msgs/visualization_msgs/manifest.xml
 CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common_msgs/nav_msgs/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/geometry/bullet/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/geometry/angles/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/ros_comm/tools/rosnode/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/ros_comm/tools/rosmsg/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/ros_comm/tools/rostopic/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/ros_comm/tools/rosservice/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/ros_comm/utilities/roswtf/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/ros_comm/utilities/message_filters/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/geometry/tf/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/perception_pcl/cminpack/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/perception_pcl/flann/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/perception_pcl/pcl/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common/tinyxml/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common/pluginlib/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common/bond/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common/smclib/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common/bondcpp/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common/nodelet/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common/nodelet_topic_tools/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/driver_common/dynamic_reconfigure/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/perception_pcl/pcl_ros/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/vision_opencv/opencv2/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/vision_opencv/cv_bridge/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/image_common/image_transport/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common_msgs/stereo_msgs/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/openni_kinect/openni/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/openni_kinect/openni_camera/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/vision_opencv/image_geometry/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/hogman_minimal/manifest.xml
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/manifest.xml
 CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/ros_comm/messages/rosgraph_msgs/msg_gen/generated
 CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/ros_comm/messages/std_msgs/msg_gen/generated
 CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/ros_comm/clients/cpp/roscpp/msg_gen/generated
@@ -86,17 +117,27 @@ CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common_msgs/ge
 CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common_msgs/visualization_msgs/msg_gen/generated
 CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common_msgs/nav_msgs/msg_gen/generated
 CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common_msgs/nav_msgs/srv_gen/generated
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/generated
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/srv_gen/generated
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/geometry/tf/msg_gen/generated
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/geometry/tf/srv_gen/generated
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/perception_pcl/pcl/msg_gen/generated
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common/bond/msg_gen/generated
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common/nodelet/srv_gen/generated
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/driver_common/dynamic_reconfigure/msg_gen/generated
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/driver_common/dynamic_reconfigure/srv_gen/generated
+CMakeFiles/pathfinder.dir/src/main.o: /opt/ros/diamondback/stacks/common_msgs/stereo_msgs/msg_gen/generated
 	$(CMAKE_COMMAND) -E cmake_progress_report /opt/ros/diamondback/stacks/fu_tools/pathfinder/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/pathfinder.dir/src/main.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DEIGEN_USE_NEW_STDVECTOR -DEIGEN2_SUPPORT -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/pathfinder.dir/src/main.o -c /opt/ros/diamondback/stacks/fu_tools/pathfinder/src/main.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DTIXML_USE_STL -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -DEIGEN_USE_NEW_STDVECTOR -DEIGEN2_SUPPORT -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/pathfinder.dir/src/main.o -c /opt/ros/diamondback/stacks/fu_tools/pathfinder/src/main.cpp
 
 CMakeFiles/pathfinder.dir/src/main.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pathfinder.dir/src/main.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DEIGEN_USE_NEW_STDVECTOR -DEIGEN2_SUPPORT -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /opt/ros/diamondback/stacks/fu_tools/pathfinder/src/main.cpp > CMakeFiles/pathfinder.dir/src/main.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DTIXML_USE_STL -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -DEIGEN_USE_NEW_STDVECTOR -DEIGEN2_SUPPORT -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /opt/ros/diamondback/stacks/fu_tools/pathfinder/src/main.cpp > CMakeFiles/pathfinder.dir/src/main.i
 
 CMakeFiles/pathfinder.dir/src/main.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pathfinder.dir/src/main.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DEIGEN_USE_NEW_STDVECTOR -DEIGEN2_SUPPORT -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /opt/ros/diamondback/stacks/fu_tools/pathfinder/src/main.cpp -o CMakeFiles/pathfinder.dir/src/main.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DTIXML_USE_STL -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -DEIGEN_USE_NEW_STDVECTOR -DEIGEN2_SUPPORT -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /opt/ros/diamondback/stacks/fu_tools/pathfinder/src/main.cpp -o CMakeFiles/pathfinder.dir/src/main.s
 
 CMakeFiles/pathfinder.dir/src/main.o.requires:
 .PHONY : CMakeFiles/pathfinder.dir/src/main.o.requires
