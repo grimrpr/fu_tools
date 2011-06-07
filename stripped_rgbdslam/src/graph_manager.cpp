@@ -14,6 +14,7 @@
  * along with RGBDSLAM.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "globaldefinitions.h"
 #include <hogman_minimal/stuff/macros.h>
 #include <hogman_minimal/math/transformation.h>
 #include <sys/time.h>
@@ -120,10 +121,10 @@ GraphManager::GraphManager(ros::NodeHandle nh, GLViewer* glviewer) :
 			batch_processing_runs_(false) {
 	std::clock_t starttime = std::clock();
 
-  pose_pub_topic = "/stripped_rgbdslam_";
-  pose_pub_topic += kinect_device_number;
-  pose_pub_topic += "/currentPose";
-  pose_pub = nh.advertise<geometry_msgs::PoseStamped>(pose_pub_topic, 100);
+	pose_pub_topic = "/stripped_rgbdslam_";
+	pose_pub_topic += stripped_rgbdslam_kinect_device_number;
+	pose_pub_topic += "/currentPose";
+	pose_pub = nh.advertise<geometry_msgs::PoseStamped>(pose_pub_topic, 100);
 
 	int numLevels = 3;
 	int nodeDistance = 2;

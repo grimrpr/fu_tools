@@ -52,10 +52,13 @@ int main(int argc, char** argv)
   window.show();
   GraphManager graph_mgr(qtRos.getNodeHandle(), window.getGLViewer());
   
-  //add kinect device number to global topics
-  kinect_device_number = argv[1];
+  //add kinect device number to global topics if more than one kinect shall run
+  if(argc>0)
+    stripped_rgbdslam_kinect_device_number = argv[1];
+  else
+    stripped_rgbdslam_kinect_device_number = "";
   std::string cam("/camera");
-  cam += kinect_device_number;
+  cam += stripped_rgbdslam_kinect_device_number;
 
   std::string topic_image_mono_str(cam + global_topic_image_mono);
   std::string topic_image_depth_str(cam + global_topic_image_depth);
