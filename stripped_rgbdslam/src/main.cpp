@@ -54,7 +54,7 @@ int main(int argc, char** argv)
   
   //add kinect device number to global topics
   std::string cam("/camera");
-  cam += args[1];
+  cam += argv[1];
 
   std::string topic_image_mono_str(cam + global_topic_image_mono);
   std::string topic_image_depth_str(cam + global_topic_image_depth);

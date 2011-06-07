@@ -1181,6 +1181,45 @@ CMakeFiles/stripped_rgbdslam.dir/src/graph_manager.o
  /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/PointField.h
  /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/RegionOfInterest.h
  /opt/ros/diamondback/stacks/common_msgs/visualization_msgs/msg_gen/cpp/include/visualization_msgs/Marker.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/csparse/cs.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/dijkstra.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/graph.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/loadEdges3d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph2d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph3d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph3d_gradient.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer2d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer3d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/csparse_helper.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer2d_hchol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer3d_hchol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_aux.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_batch.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_incremental.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/angle.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/axis_angle.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/axis_angle.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/matrix_n.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/matrix_n.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/quaternion.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/quaternion.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/rotation_matrix.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/rotation_matrix.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/transformation.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/vector_n.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/vector_n.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/array_allocator.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/color_macros.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/macros.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/os_specific.h
  /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/src/../gicp/gicp.h
  /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/src/../gicp/transform.h
  /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/src/gicp-fallback.h
@@ -1387,45 +1426,6 @@ CMakeFiles/stripped_rgbdslam.dir/src/graph_manager.o
  /opt/ros/diamondback/stacks/geometry/tf/include/tf/transform_listener.h
  /opt/ros/diamondback/stacks/geometry/tf/msg_gen/cpp/include/tf/tfMessage.h
  /opt/ros/diamondback/stacks/geometry/tf/srv_gen/cpp/include/tf/FrameGraph.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/csparse/cs.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/dijkstra.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/graph.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/loadEdges3d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph2d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph3d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph3d_gradient.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer2d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer3d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/csparse_helper.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer2d_hchol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer3d_hchol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_aux.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_batch.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_incremental.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/angle.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/axis_angle.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/axis_angle.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/matrix_n.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/matrix_n.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/quaternion.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/quaternion.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/rotation_matrix.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/rotation_matrix.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/transformation.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/vector_n.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/vector_n.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/array_allocator.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/color_macros.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/macros.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/os_specific.h
  /opt/ros/diamondback/stacks/perception_pcl/flann/include/flann/algorithms/all_indices.h
  /opt/ros/diamondback/stacks/perception_pcl/flann/include/flann/algorithms/autotuned_index.h
  /opt/ros/diamondback/stacks/perception_pcl/flann/include/flann/algorithms/composite_index.h
@@ -1749,6 +1749,45 @@ CMakeFiles/stripped_rgbdslam.dir/src/main.o
  /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/PointCloud2.h
  /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/PointField.h
  /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/RegionOfInterest.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/csparse/cs.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/dijkstra.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/graph.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/loadEdges3d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph2d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph3d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph3d_gradient.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer2d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer3d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/csparse_helper.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer2d_hchol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer3d_hchol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_aux.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_batch.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_incremental.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/angle.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/axis_angle.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/axis_angle.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/matrix_n.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/matrix_n.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/quaternion.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/quaternion.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/rotation_matrix.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/rotation_matrix.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/transformation.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/vector_n.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/vector_n.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/array_allocator.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/color_macros.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/macros.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/os_specific.h
  /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/src/../gicp/gicp.h
  /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/src/../gicp/transform.h
  /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/src/gicp-fallback.h
@@ -1956,45 +1995,6 @@ CMakeFiles/stripped_rgbdslam.dir/src/main.o
  /opt/ros/diamondback/stacks/geometry/tf/include/tf/transform_broadcaster.h
  /opt/ros/diamondback/stacks/geometry/tf/include/tf/transform_datatypes.h
  /opt/ros/diamondback/stacks/geometry/tf/msg_gen/cpp/include/tf/tfMessage.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/csparse/cs.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/dijkstra.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/graph.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/loadEdges3d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph2d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph3d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph3d_gradient.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer2d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer3d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/csparse_helper.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer2d_hchol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer3d_hchol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_aux.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_batch.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_incremental.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/angle.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/axis_angle.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/axis_angle.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/matrix_n.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/matrix_n.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/quaternion.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/quaternion.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/rotation_matrix.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/rotation_matrix.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/transformation.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/vector_n.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/vector_n.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/array_allocator.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/color_macros.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/macros.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/os_specific.h
  /opt/ros/diamondback/stacks/perception_pcl/flann/include/flann/algorithms/all_indices.h
  /opt/ros/diamondback/stacks/perception_pcl/flann/include/flann/algorithms/autotuned_index.h
  /opt/ros/diamondback/stacks/perception_pcl/flann/include/flann/algorithms/composite_index.h
@@ -2667,6 +2667,45 @@ CMakeFiles/stripped_rgbdslam.dir/src/moc_graph_manager.o
  /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/PointCloud2.h
  /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/PointField.h
  /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/RegionOfInterest.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/csparse/cs.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/dijkstra.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/graph.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/loadEdges3d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph2d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph3d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph3d_gradient.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer2d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer3d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/csparse_helper.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer2d_hchol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer3d_hchol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_aux.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_batch.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_incremental.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/angle.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/axis_angle.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/axis_angle.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/matrix_n.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/matrix_n.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/quaternion.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/quaternion.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/rotation_matrix.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/rotation_matrix.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/transformation.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/vector_n.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/vector_n.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/array_allocator.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/color_macros.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/macros.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/os_specific.h
  /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/build/src/../../src/../gicp/gicp.h
  /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/build/src/../../src/../gicp/transform.h
  /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/build/src/../../src/gicp-fallback.h
@@ -2871,45 +2910,6 @@ CMakeFiles/stripped_rgbdslam.dir/src/moc_graph_manager.o
  /opt/ros/diamondback/stacks/geometry/tf/include/tf/transform_broadcaster.h
  /opt/ros/diamondback/stacks/geometry/tf/include/tf/transform_datatypes.h
  /opt/ros/diamondback/stacks/geometry/tf/msg_gen/cpp/include/tf/tfMessage.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/csparse/cs.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/dijkstra.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/graph.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/loadEdges3d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph2d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph3d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph3d_gradient.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer2d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer3d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/csparse_helper.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer2d_hchol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer3d_hchol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_aux.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_batch.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_incremental.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/angle.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/axis_angle.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/axis_angle.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/matrix_n.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/matrix_n.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/quaternion.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/quaternion.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/rotation_matrix.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/rotation_matrix.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/transformation.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/vector_n.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/vector_n.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/array_allocator.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/color_macros.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/macros.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/os_specific.h
  /opt/ros/diamondback/stacks/perception_pcl/flann/include/flann/algorithms/all_indices.h
  /opt/ros/diamondback/stacks/perception_pcl/flann/include/flann/algorithms/autotuned_index.h
  /opt/ros/diamondback/stacks/perception_pcl/flann/include/flann/algorithms/composite_index.h
@@ -3203,6 +3203,45 @@ CMakeFiles/stripped_rgbdslam.dir/src/moc_openni_listener.o
  /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/PointCloud2.h
  /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/PointField.h
  /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/RegionOfInterest.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/csparse/cs.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/dijkstra.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/graph.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/loadEdges3d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph2d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph3d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph3d_gradient.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer2d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer3d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/csparse_helper.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer2d_hchol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer3d_hchol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_aux.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_batch.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_incremental.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/angle.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/axis_angle.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/axis_angle.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/matrix_n.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/matrix_n.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/quaternion.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/quaternion.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/rotation_matrix.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/rotation_matrix.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/transformation.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/vector_n.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/vector_n.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/array_allocator.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/color_macros.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/macros.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/os_specific.h
  /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/build/src/../../src/../gicp/gicp.h
  /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/build/src/../../src/../gicp/transform.h
  /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/build/src/../../src/gicp-fallback.h
@@ -3408,45 +3447,6 @@ CMakeFiles/stripped_rgbdslam.dir/src/moc_openni_listener.o
  /opt/ros/diamondback/stacks/geometry/tf/include/tf/transform_broadcaster.h
  /opt/ros/diamondback/stacks/geometry/tf/include/tf/transform_datatypes.h
  /opt/ros/diamondback/stacks/geometry/tf/msg_gen/cpp/include/tf/tfMessage.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/csparse/cs.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/dijkstra.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/graph.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/loadEdges3d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph2d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph3d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph3d_gradient.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer2d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer3d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/csparse_helper.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer2d_hchol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer3d_hchol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_aux.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_batch.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_incremental.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/angle.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/axis_angle.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/axis_angle.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/matrix_n.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/matrix_n.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/quaternion.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/quaternion.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/rotation_matrix.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/rotation_matrix.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/transformation.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/vector_n.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/vector_n.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/array_allocator.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/color_macros.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/macros.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/os_specific.h
  /opt/ros/diamondback/stacks/perception_pcl/flann/include/flann/algorithms/all_indices.h
  /opt/ros/diamondback/stacks/perception_pcl/flann/include/flann/algorithms/autotuned_index.h
  /opt/ros/diamondback/stacks/perception_pcl/flann/include/flann/algorithms/composite_index.h
@@ -4196,6 +4196,21 @@ CMakeFiles/stripped_rgbdslam.dir/src/node.o
  /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/PointCloud2.h
  /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/PointField.h
  /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/RegionOfInterest.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/loadEdges3d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/angle.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/axis_angle.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/axis_angle.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/matrix_n.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/matrix_n.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/quaternion.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/quaternion.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/rotation_matrix.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/rotation_matrix.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/transformation.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/vector_n.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/vector_n.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/array_allocator.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/macros.h
  /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/src/../gicp/gicp.h
  /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/src/../gicp/transform.h
  /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/src/gicp-fallback.h
@@ -4387,21 +4402,6 @@ CMakeFiles/stripped_rgbdslam.dir/src/node.o
  /opt/ros/diamondback/stacks/geometry/eigen/include/Eigen/src/misc/Image.h
  /opt/ros/diamondback/stacks/geometry/eigen/include/Eigen/src/misc/Kernel.h
  /opt/ros/diamondback/stacks/geometry/eigen/include/Eigen/src/misc/Solve.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/loadEdges3d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/angle.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/axis_angle.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/axis_angle.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/matrix_n.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/matrix_n.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/quaternion.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/quaternion.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/rotation_matrix.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/rotation_matrix.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/transformation.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/vector_n.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/vector_n.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/array_allocator.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/macros.h
  /opt/ros/diamondback/stacks/perception_pcl/flann/include/flann/algorithms/all_indices.h
  /opt/ros/diamondback/stacks/perception_pcl/flann/include/flann/algorithms/autotuned_index.h
  /opt/ros/diamondback/stacks/perception_pcl/flann/include/flann/algorithms/composite_index.h
@@ -4667,6 +4667,45 @@ CMakeFiles/stripped_rgbdslam.dir/src/openni_listener.o
  /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/PointCloud2.h
  /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/PointField.h
  /opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/RegionOfInterest.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/csparse/cs.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/dijkstra.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/graph.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/loadEdges3d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph2d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph3d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph/posegraph3d_gradient.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer2d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer3d.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/csparse_helper.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer2d_hchol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer3d_hchol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_aux.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_batch.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_incremental.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/angle.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/axis_angle.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/axis_angle.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/matrix_n.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/matrix_n.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/quaternion.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/quaternion.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/rotation_matrix.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/rotation_matrix.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/transformation.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/vector_n.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/math/vector_n.hpp
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/array_allocator.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/color_macros.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/macros.h
+ /opt/ros/diamondback/stacks/freiburg_tools/hogman_minimal/include/hogman_minimal/stuff/os_specific.h
  /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/src/../gicp/gicp.h
  /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/src/../gicp/transform.h
  /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/src/gicp-fallback.h
@@ -4874,45 +4913,6 @@ CMakeFiles/stripped_rgbdslam.dir/src/openni_listener.o
  /opt/ros/diamondback/stacks/geometry/tf/include/tf/transform_listener.h
  /opt/ros/diamondback/stacks/geometry/tf/msg_gen/cpp/include/tf/tfMessage.h
  /opt/ros/diamondback/stacks/geometry/tf/srv_gen/cpp/include/tf/FrameGraph.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/csparse/cs.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/dijkstra.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/graph.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/loadEdges3d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph2d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph3d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph/posegraph3d_gradient.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer2d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer/graph_optimizer3d.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/csparse_helper.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer2d_hchol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer3d_hchol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_chol.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_aux.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_batch.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/graph_optimizer_hogman/graph_optimizer_hchol_incremental.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/angle.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/axis_angle.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/axis_angle.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/matrix_n.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/matrix_n.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/quaternion.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/quaternion.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/rotation_matrix.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/rotation_matrix.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/transformation.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/vector_n.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/math/vector_n.hpp
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/array_allocator.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/color_macros.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/macros.h
- /opt/ros/diamondback/stacks/hogman_minimal/include/hogman_minimal/stuff/os_specific.h
  /opt/ros/diamondback/stacks/perception_pcl/flann/include/flann/algorithms/all_indices.h
  /opt/ros/diamondback/stacks/perception_pcl/flann/include/flann/algorithms/autotuned_index.h
  /opt/ros/diamondback/stacks/perception_pcl/flann/include/flann/algorithms/composite_index.h
