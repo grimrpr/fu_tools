@@ -40,7 +40,7 @@ CMAKE_BINARY_DIR = /opt/ros/diamondback/stacks/fu_tools/stripped_rgbdslam/build
 # Utility rule file for clean-test-results.
 
 CMakeFiles/clean-test-results:
-	if ! rm -rf /home/rimesime/.ros/test_results/stripped_rgbdslam; then echo WARNING:\ failed\ to\ remove\ test-results\ directory ; fi
+	if ! rm -rf /home/benni/.ros/test_results/stripped_rgbdslam; then echo WARNING:\ failed\ to\ remove\ test-results\ directory ; fi
 
 clean-test-results: CMakeFiles/clean-test-results
 clean-test-results: CMakeFiles/clean-test-results.dir/build.make

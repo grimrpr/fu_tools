@@ -29,9 +29,9 @@ const char* global_topic_points =      "/camera/rgb/points";
 
 //Kinect topics for multiple Kinect use
 //complete topicname is constructed in main
-const char* global_topic_image_mono =  "/rgb/image_mono";
-const char* global_topic_image_depth = "/depth/image";
-const char* global_topic_points =      "/rgb/points";
+const char* global_topic_image_mono =   "/rgb/image_mono";
+const char* global_topic_image_depth =  "/depth/image";
+const char* global_topic_image_points = "/rgb/points";
 
 
 ///Use these keypoints/features
