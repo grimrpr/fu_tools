@@ -1,7 +1,7 @@
 Background\ ColorR=0
 Background\ ColorG=0
 Background\ ColorB=0
-Fixed\ Frame=/rgbdslam/path
+Fixed\ Frame=/pathfinder/path
 Target\ Frame=<Fixed Frame>
 Grid.Alpha=0,5
 Grid.Cell\ Size=1
@@ -23,7 +23,7 @@ Path.ColorR=1
 Path.ColorG=0
 Path.ColorB=0,0196078
 Path.Enabled=1
-Path.Topic=/rgbdslam/path
+Path.Topic=/pathfinder/path
 Tool\ 2D\ Nav\ GoalTopic=goal
 Tool\ 2D\ Pose\ EstimateTopic=initialpose
 Camera\ Type=rviz::OrbitViewController
