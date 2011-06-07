@@ -1,2 +1,3 @@
-# Ignoring any build folder in all sub directories
+# Ignoring any build and bin folder in all sub directories
 build/
+bin/
