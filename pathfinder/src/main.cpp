@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 
   ros::NodeHandle n;
 
-  pose_sub = n.subscribe<geometry_msgs::PoseStamped>("/stripped_rgbdslam_1/currentPose",100,poseCallback);
+  pose_sub = n.subscribe<geometry_msgs::PoseStamped>("/stripped_rgbdslam0/currentPose",100,poseCallback);
   path_pub = n.advertise<nav_msgs::Path>("/pathfinder/path", 1000);
 
   // Initialize path object

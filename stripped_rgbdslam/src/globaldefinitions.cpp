@@ -33,8 +33,6 @@ const char* global_topic_image_mono =   "/rgb/image_mono";
 const char* global_topic_image_depth =  "/depth/image";
 const char* global_topic_points = "/rgb/points";
 
-char* stripped_rgbdslam_kinect_device_number = "";
-
 ///Use these keypoints/features
 const char* global_feature_detector_type =  "SURF";
 const char* global_feature_extractor_type = "SURF";

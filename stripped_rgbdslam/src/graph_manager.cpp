@@ -121,8 +121,7 @@ GraphManager::GraphManager(ros::NodeHandle nh, GLViewer* glviewer) :
 			batch_processing_runs_(false) {
 	std::clock_t starttime = std::clock();
 
-	pose_pub_topic = "/stripped_rgbdslam_";
-	pose_pub_topic += stripped_rgbdslam_kinect_device_number;
+	pose_pub_topic = ros::this_node::getName().c_str();
 	pose_pub_topic += "/currentPose";
 	pose_pub = nh.advertise<geometry_msgs::PoseStamped>(pose_pub_topic, 100);
 
