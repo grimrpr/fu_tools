@@ -41,6 +41,22 @@
 
 ros::Publisher pose_pub;
 
+void publishCurrentPose(const tf::Transform t){
+  geometry_msgs::PoseStamped currentPose;
+
+  currentPose.header.frame_id = "/stripped_rgbdslam_1/currentPose";
+  currentPose.header.stamp = ros::Time::now();
+  currentPose.pose.position.x = t.getOrigin().x();
+  currentPose.pose.position.y = t.getOrigin().z(); // switching axes seems necessary here
+  currentPose.pose.position.z = t.getOrigin().y(); // switching axes seems necessary here
+  currentPose.pose.orientation.x = t.getRotation().getX();
+  currentPose.pose.orientation.y = t.getRotation().getY();
+  currentPose.pose.orientation.z = t.getRotation().getZ();
+  currentPose.pose.orientation.w = t.getRotation().getW();
+
+  pose_pub.publish(currentPose);
+}
+
 QMatrix4x4 hogman2QMatrix(const Transformation3 hogman_trans) {
 	std::clock_t starttime = std::clock();
 	_Matrix<4, 4, double> m = hogman_trans.toMatrix(); //_Matrix< 4, 4, double >
@@ -299,40 +315,6 @@ bool GraphManager::addNode(Node* new_node) {
 	//vertex at the origin, of which the position is very certain
 	if (graph_.size() == 0) {
 
-	// simon: Filter Pixelwolke
-/*
- *
-		ROS_ERROR("hallo welt2");
-		ofstream file;
-		file.open("/home/rimesime/Desktop/name.txt");
-		file << "hallo welt2" << endl;
-		file.close();
-		ROS_ERROR("hallo welt2");
-
-		ROS_ERROR("HERE: 1");
-		// Create tmp pc
-		pointcloud_type *tmp_pc = new pointcloud_type;
-		pcl::PCLBase<pcl::PointXYZRGB>::PointCloudConstPtr tmp_const_cloud_ptr = boost::make_shared<PointCloud_RGB> (*tmp_pc);
-		pcl::PCLBase<pcl::PointXYZRGB>::PointCloudConstPtr const_cloud_ptr = boost::make_shared<PointCloud_RGB> (new_node->pc_col);
-
-		ROS_ERROR("HERE: 2");
-		// Create the filtering object
-		pcl::VoxelGrid<sensor_msgs::PointCloud> sor;
-		sor.setInputCloud(const_cloud_ptr);
-		sor.setLeafSize(0.1, 0.1, 0.1);
-
-		ROS_ERROR("HERE: 3");
-
-		sor.filter(*tmp_const_cloud_ptr);
-
-		ROS_ERROR("HERE: 4");
-		new_node->pc_col = *tmp_pc;
-
-		ROS_ERROR("HERE: 5");
-*/
-	// !simon
-
-
 		new_node->buildFlannIndex(); // create index so that next nodes can use it
 		graph_[new_node->id_] = new_node;
 		optimizer_->addVertex(0, Transformation3(), 1e9 * Matrix6::eye(1.0)); //fix at origin
@@ -345,6 +327,9 @@ bool GraphManager::addNode(Node* new_node) {
 		Q_EMIT setPointCloud(the_pc, latest_transform_);
 		ROS_DEBUG("GraphManager is thread %d, New Node is at (%p, %p)",
 				(unsigned int) QThread::currentThreadId(), new_node, graph_[0]);
+
+    publishCurrentPose(kinect_transform_);
+
 		return true;
 	}
 
@@ -450,15 +435,6 @@ bool GraphManager::addNode(Node* new_node) {
 					/ (double) CLOCKS_PER_SEC << "sec");
 
 	// simon
-	ROS_ERROR("Translation(xyz):");
-	ROS_ERROR("%f", kinect_transform_.getOrigin().x());
-	ROS_ERROR("%f", kinect_transform_.getOrigin().y());
-	ROS_ERROR("%f", kinect_transform_.getOrigin().z());
-	ROS_ERROR("Rotation(xyzw):");
-	ROS_ERROR("%f", kinect_transform_.getRotation().getX());
-	ROS_ERROR("%f", kinect_transform_.getRotation().getY());
-	ROS_ERROR("%f", kinect_transform_.getRotation().getZ());
-	ROS_ERROR("%f", kinect_transform_.getRotation().getW());
 
   /*
 	// Send Path info
@@ -492,21 +468,7 @@ bool GraphManager::addNode(Node* new_node) {
 	path_pub.publish(p);
   */
 
-  ROS_ERROR("addNode: publishing currentPose...");
-
-  geometry_msgs::PoseStamped currentPose;
-
-  currentPose.header.frame_id = "/stripped_rgbdslam_1/currentPose";
-  currentPose.header.stamp = ros::Time::now();
-  currentPose.pose.position.x = kinect_transform_.getOrigin().x();
-  currentPose.pose.position.z = kinect_transform_.getOrigin().z();
-  currentPose.pose.position.y = kinect_transform_.getOrigin().y();
-  currentPose.pose.orientation.x = 0;
-  currentPose.pose.orientation.y = 0;
-  currentPose.pose.orientation.z = 0;
-  currentPose.pose.orientation.w = 0;
-
-  pose_pub.publish(currentPose);
+  publishCurrentPose(kinect_transform_);
 
 	// !simon
 
