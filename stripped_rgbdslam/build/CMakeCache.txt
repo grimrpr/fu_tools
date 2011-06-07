@@ -185,8 +185,8 @@ QT_DESIGNER_EXECUTABLE:FILEPATH=/usr/bin/designer-qt4
 //The location of the Qt docs
 QT_DOC_DIR:PATH=/usr/share/qt4/doc
 
-//The location of the Qt imports
-QT_IMPORTS_DIR:PATH=QT_IMPORTS_DIR-NOTFOUND
+//Qt library dir
+QT_LIBRARY_DIR:PATH=/usr/lib
 
 //Path to a program.
 QT_LINGUIST_EXECUTABLE:FILEPATH=/usr/bin/linguist-qt4
@@ -205,9 +205,6 @@ QT_MOC_EXECUTABLE:FILEPATH=/usr/bin/moc-qt4
 
 //Path to a file.
 QT_PHONON_INCLUDE_DIR:PATH=QT_PHONON_INCLUDE_DIR-NOTFOUND
-
-//The Qt PHONON library
-QT_PHONON_LIBRARY:STRING=
 
 //Path to a library.
 QT_PHONON_LIBRARY_DEBUG:FILEPATH=QT_PHONON_LIBRARY_DEBUG-NOTFOUND
@@ -239,9 +236,6 @@ QT_QT3SUPPORT_LIBRARY_RELEASE:FILEPATH=/usr/lib/libQt3Support.so
 //Path to a file.
 QT_QTASSISTANTCLIENT_INCLUDE_DIR:PATH=QT_QTASSISTANTCLIENT_INCLUDE_DIR-NOTFOUND
 
-//The Qt QTASSISTANTCLIENT library
-QT_QTASSISTANTCLIENT_LIBRARY:STRING=
-
 //Path to a library.
 QT_QTASSISTANTCLIENT_LIBRARY_DEBUG:FILEPATH=QT_QTASSISTANTCLIENT_LIBRARY_DEBUG-NOTFOUND
 
@@ -250,9 +244,6 @@ QT_QTASSISTANTCLIENT_LIBRARY_RELEASE:FILEPATH=QT_QTASSISTANTCLIENT_LIBRARY_RELEA
 
 //Path to a file.
 QT_QTASSISTANT_INCLUDE_DIR:PATH=QT_QTASSISTANT_INCLUDE_DIR-NOTFOUND
-
-//The Qt QTASSISTANT library
-QT_QTASSISTANT_LIBRARY:STRING=
 
 //Path to a library.
 QT_QTASSISTANT_LIBRARY_DEBUG:FILEPATH=QT_QTASSISTANT_LIBRARY_DEBUG-NOTFOUND
@@ -356,9 +347,6 @@ QT_QTHELP_LIBRARY_RELEASE:FILEPATH=/usr/lib/libQtHelp.so
 //Path to a file.
 QT_QTMOTIF_INCLUDE_DIR:PATH=QT_QTMOTIF_INCLUDE_DIR-NOTFOUND
 
-//The Qt QTMOTIF library
-QT_QTMOTIF_LIBRARY:STRING=
-
 //Path to a library.
 QT_QTMOTIF_LIBRARY_DEBUG:FILEPATH=QT_QTMOTIF_LIBRARY_DEBUG-NOTFOUND
 
@@ -367,9 +355,6 @@ QT_QTMOTIF_LIBRARY_RELEASE:FILEPATH=QT_QTMOTIF_LIBRARY_RELEASE-NOTFOUND
 
 //Path to a file.
 QT_QTMULTIMEDIA_INCLUDE_DIR:PATH=QT_QTMULTIMEDIA_INCLUDE_DIR-NOTFOUND
-
-//The Qt QTMULTIMEDIA library
-QT_QTMULTIMEDIA_LIBRARY:STRING=
 
 //Path to a library.
 QT_QTMULTIMEDIA_LIBRARY_DEBUG:FILEPATH=QT_QTMULTIMEDIA_LIBRARY_DEBUG-NOTFOUND
@@ -391,9 +376,6 @@ QT_QTNETWORK_LIBRARY_RELEASE:FILEPATH=/usr/lib/libQtNetwork.so
 
 //Path to a file.
 QT_QTNSPLUGIN_INCLUDE_DIR:PATH=QT_QTNSPLUGIN_INCLUDE_DIR-NOTFOUND
-
-//The Qt QTNSPLUGIN library
-QT_QTNSPLUGIN_LIBRARY:STRING=
 
 //Path to a library.
 QT_QTNSPLUGIN_LIBRARY_DEBUG:FILEPATH=QT_QTNSPLUGIN_LIBRARY_DEBUG-NOTFOUND
@@ -688,12 +670,8 @@ QT_DESIGNER_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_DOC_DIR
 QT_DOC_DIR-ADVANCED:INTERNAL=1
 QT_HEADERS_DIR:INTERNAL=/usr/include/qt4
-//ADVANCED property for variable: QT_IMPORTS_DIR
-QT_IMPORTS_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_LIBRARY_DIR
 QT_LIBRARY_DIR-ADVANCED:INTERNAL=1
-//Qt library dir
-QT_LIBRARY_DIR:INTERNAL=/usr/lib
 //ADVANCED property for variable: QT_LINGUIST_EXECUTABLE
 QT_LINGUIST_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_LRELEASE_EXECUTABLE
@@ -706,8 +684,6 @@ QT_MKSPECS_DIR-ADVANCED:INTERNAL=1
 QT_MOC_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_PHONON_INCLUDE_DIR
 QT_PHONON_INCLUDE_DIR-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: QT_PHONON_LIBRARY
-QT_PHONON_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_PHONON_LIBRARY_DEBUG
 QT_PHONON_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_PHONON_LIBRARY_RELEASE
@@ -727,16 +703,12 @@ QT_QT3SUPPORT_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 QT_QT3SUPPORT_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_QTASSISTANTCLIENT_INCLUDE_DIR
 QT_QTASSISTANTCLIENT_INCLUDE_DIR-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: QT_QTASSISTANTCLIENT_LIBRARY
-QT_QTASSISTANTCLIENT_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_QTASSISTANTCLIENT_LIBRARY_DEBUG
 QT_QTASSISTANTCLIENT_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_QTASSISTANTCLIENT_LIBRARY_RELEASE
 QT_QTASSISTANTCLIENT_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_QTASSISTANT_INCLUDE_DIR
 QT_QTASSISTANT_INCLUDE_DIR-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: QT_QTASSISTANT_LIBRARY
-QT_QTASSISTANT_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_QTASSISTANT_LIBRARY_DEBUG
 QT_QTASSISTANT_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_QTASSISTANT_LIBRARY_RELEASE
@@ -805,16 +777,12 @@ QT_QTHELP_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 QT_QTHELP_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_QTMOTIF_INCLUDE_DIR
 QT_QTMOTIF_INCLUDE_DIR-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: QT_QTMOTIF_LIBRARY
-QT_QTMOTIF_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_QTMOTIF_LIBRARY_DEBUG
 QT_QTMOTIF_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_QTMOTIF_LIBRARY_RELEASE
 QT_QTMOTIF_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_QTMULTIMEDIA_INCLUDE_DIR
 QT_QTMULTIMEDIA_INCLUDE_DIR-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: QT_QTMULTIMEDIA_LIBRARY
-QT_QTMULTIMEDIA_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_QTMULTIMEDIA_LIBRARY_DEBUG
 QT_QTMULTIMEDIA_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_QTMULTIMEDIA_LIBRARY_RELEASE
@@ -829,8 +797,6 @@ QT_QTNETWORK_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 QT_QTNETWORK_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_QTNSPLUGIN_INCLUDE_DIR
 QT_QTNSPLUGIN_INCLUDE_DIR-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: QT_QTNSPLUGIN_LIBRARY
-QT_QTNSPLUGIN_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_QTNSPLUGIN_LIBRARY_DEBUG
 QT_QTNSPLUGIN_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: QT_QTNSPLUGIN_LIBRARY_RELEASE
@@ -932,7 +898,7 @@ Q_WS_WIN:INTERNAL=
 //Have symbol Q_WS_X11
 Q_WS_X11:INTERNAL=1
 _rosbuild_EXPORTS:INTERNAL=
-_rosbuild_cached_flag_time:INTERNAL=1307456345.61
+_rosbuild_cached_flag_time:INTERNAL=1307458209.09
 _roslang_LANGS:INTERNAL=roslisp;rospy;roscpp
 _rospack_deps_manifests_invoke_result:INTERNAL=/opt/ros/diamondback/ros/core/rosbuild/manifest.xml;/opt/ros/diamondback/ros/core/roslang/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/utilities/cpp_common/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/clients/cpp/roscpp_traits/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/utilities/rostime/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/clients/cpp/roscpp_serialization/manifest.xml;/opt/ros/diamondback/ros/tools/rospack/manifest.xml;/opt/ros/diamondback/ros/core/roslib/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/utilities/xmlrpcpp/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/tools/rosconsole/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/messages/std_msgs/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/messages/rosgraph_msgs/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/clients/cpp/roscpp/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/clients/rospy/manifest.xml;/opt/ros/diamondback/ros/tools/rosclean/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/tools/rosgraph/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/tools/rosmaster/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/tools/rosout/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/tools/roslaunch/manifest.xml;/opt/ros/diamondback/ros/tools/rosunit/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/tools/rostest/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/tools/topic_tools/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/tools/rosbag/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/tools/rosbagmigration/manifest.xml;/opt/ros/diamondback/stacks/common_msgs/geometry_msgs/manifest.xml;/opt/ros/diamondback/stacks/common_msgs/sensor_msgs/manifest.xml;/opt/ros/diamondback/stacks/geometry/bullet/manifest.xml;/opt/ros/diamondback/stacks/geometry/angles/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/tools/rosnode/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/tools/rosmsg/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/tools/rostopic/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/tools/rosservice/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/utilities/roswtf/manifest.xml;/opt/ros/diamondback/stacks/ros_comm/utilities/message_filters/manifest.xml;/opt/ros/diamondback/stacks/geometry/tf/manifest.xml;/opt/ros/diamondback/stacks/geometry/eigen/manifest.xml;/opt/ros/diamondback/stacks/perception_pcl/cminpack/manifest.xml;/opt/ros/diamondback/stacks/perception_pcl/flann/manifest.xml;/opt/ros/diamondback/stacks/perception_pcl/pcl/manifest.xml;/opt/ros/diamondback/stacks/common/tinyxml/manifest.xml;/opt/ros/diamondback/stacks/common/pluginlib/manifest.xml;/opt/ros/diamondback/stacks/common/bond/manifest.xml;/opt/ros/diamondback/stacks/common/smclib/manifest.xml;/opt/ros/diamondback/stacks/common/bondcpp/manifest.xml;/opt/ros/diamondback/stacks/common/nodelet/manifest.xml;/opt/ros/diamondback/stacks/common/nodelet_topic_tools/manifest.xml;/opt/ros/diamondback/stacks/driver_common/dynamic_reconfigure/manifest.xml;/opt/ros/diamondback/stacks/perception_pcl/pcl_ros/manifest.xml;/opt/ros/diamondback/stacks/vision_opencv/opencv2/manifest.xml;/opt/ros/diamondback/stacks/vision_opencv/cv_bridge/manifest.xml;/opt/ros/diamondback/stacks/image_common/image_transport/manifest.xml;/opt/ros/diamondback/stacks/common_msgs/stereo_msgs/manifest.xml;/opt/ros/diamondback/stacks/openni_kinect/openni/manifest.xml;/opt/ros/diamondback/stacks/openni_kinect/openni_camera/manifest.xml;/opt/ros/diamondback/stacks/vision_opencv/image_geometry/manifest.xml;/opt/ros/diamondback/stacks/hogman_minimal/manifest.xml;/opt/ros/diamondback/stacks/common_msgs/visualization_msgs/manifest.xml;/opt/ros/diamondback/stacks/common_msgs/nav_msgs/manifest.xml
 _rospack_msgsrv_gen_invoke_result:INTERNAL=/opt/ros/diamondback/stacks/ros_comm/messages/std_msgs/msg_gen/generated;/opt/ros/diamondback/stacks/ros_comm/messages/rosgraph_msgs/msg_gen/generated;/opt/ros/diamondback/stacks/ros_comm/clients/cpp/roscpp/msg_gen/generated;/opt/ros/diamondback/stacks/ros_comm/clients/cpp/roscpp/srv_gen/generated;/opt/ros/diamondback/stacks/ros_comm/tools/topic_tools/srv_gen/generated;/opt/ros/diamondback/stacks/common_msgs/geometry_msgs/msg_gen/generated;/opt/ros/diamondback/stacks/common_msgs/sensor_msgs/msg_gen/generated;/opt/ros/diamondback/stacks/common_msgs/sensor_msgs/srv_gen/generated;/opt/ros/diamondback/stacks/geometry/tf/msg_gen/generated;/opt/ros/diamondback/stacks/geometry/tf/srv_gen/generated;/opt/ros/diamondback/stacks/perception_pcl/pcl/msg_gen/generated;/opt/ros/diamondback/stacks/common/bond/msg_gen/generated;/opt/ros/diamondback/stacks/common/nodelet/srv_gen/generated;/opt/ros/diamondback/stacks/driver_common/dynamic_reconfigure/msg_gen/generated;/opt/ros/diamondback/stacks/driver_common/dynamic_reconfigure/srv_gen/generated;/opt/ros/diamondback/stacks/common_msgs/stereo_msgs/msg_gen/generated;/opt/ros/diamondback/stacks/common_msgs/visualization_msgs/msg_gen/generated;/opt/ros/diamondback/stacks/common_msgs/nav_msgs/msg_gen/generated;/opt/ros/diamondback/stacks/common_msgs/nav_msgs/srv_gen/generated

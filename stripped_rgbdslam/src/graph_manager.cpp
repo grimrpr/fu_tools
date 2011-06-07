@@ -40,11 +40,12 @@
 #include "geometry_msgs/PoseStamped.h"
 
 ros::Publisher pose_pub;
+std::string pose_pub_topic;
 
 void publishCurrentPose(const tf::Transform t){
   geometry_msgs::PoseStamped currentPose;
 
-  currentPose.header.frame_id = "/stripped_rgbdslam_1/currentPose";
+  currentPose.header.frame_id = pose_pub_topic;
   currentPose.header.stamp = ros::Time::now();
   currentPose.pose.position.x = t.getOrigin().x();
   currentPose.pose.position.y = t.getOrigin().z(); // switching axes seems necessary here
@@ -104,7 +105,7 @@ void printTransform(const char* name, const tf::Transform t) {
 					<< t.getOrigin().y() << " " << t.getOrigin().z());
 	ROS_DEBUG_STREAM(
 			name << ": Rotation " << t.getRotation().getX() << " "
-					<< t.getRotation().getY() << " " << t.getRotation().getZ()
+		      << t.getRotation().getY() << " " << t.getRotation().getZ()
 					<< " " << t.getRotation().getW());
 }
 
@@ -119,7 +120,10 @@ GraphManager::GraphManager(ros::NodeHandle nh, GLViewer* glviewer) :
 			batch_processing_runs_(false) {
 	std::clock_t starttime = std::clock();
 
-  pose_pub = nh.advertise<geometry_msgs::PoseStamped>("/stripped_rgbdslam_1/currentPose", 100);
+  pose_pub_topic = "/stripped_rgbdslam_";
+  pose_pub_topic += kinect_device_number;
+  pose_pub_topic += "/currentPose";
+  pose_pub = nh.advertise<geometry_msgs::PoseStamped>(pose_pub_topic, 100);
 
 	int numLevels = 3;
 	int nodeDistance = 2;

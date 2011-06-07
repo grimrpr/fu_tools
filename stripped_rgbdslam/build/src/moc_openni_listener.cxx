@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'openni_listener.h'
 **
-** Created: Tue Jun 7 16:19:11 2011
+** Created: Tue Jun 7 16:50:14 2011
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.0)
 **
 ** WARNING! All changes made in this file will be lost!
