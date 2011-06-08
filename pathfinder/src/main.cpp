@@ -18,14 +18,8 @@ std::map<std::string, ros::Publisher> pubMap;
 
 void poseCallback(const geometry_msgs::PoseStamped::ConstPtr& msg){
 
-  ROS_ERROR("poseCallback: publishing path...");
-
-  ROS_ERROR("%f",msg->pose.position.x);
-
   paths[msg->header.frame_id].poses.push_back(*msg);
-
   paths[msg->header.frame_id].header.stamp = ros::Time::now();
-
   pubMap[msg->header.frame_id].publish(paths[msg->header.frame_id]);
 
 }

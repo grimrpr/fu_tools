@@ -40,23 +40,57 @@
 #include "geometry_msgs/Pose.h"
 #include "geometry_msgs/PoseStamped.h"
 
-ros::Publisher pose_pub;
-std::string pose_pub_topic;
+//QList<QMatrix4x4>* getAllPosesAsMatrixList();
 
-void publishCurrentPose(const tf::Transform t){
-  geometry_msgs::PoseStamped currentPose;
+void GraphManager::publishCurrentPose(const tf::Transform t){
+	// Publish the last known pose (given by param t)
 
-  currentPose.header.frame_id = pose_pub_topic;
-  currentPose.header.stamp = ros::Time::now();
-  currentPose.pose.position.x = t.getOrigin().x();
-  currentPose.pose.position.y = t.getOrigin().y(); 
-  currentPose.pose.position.z = t.getOrigin().z(); 
-  currentPose.pose.orientation.x = t.getRotation().getX();
-  currentPose.pose.orientation.y = t.getRotation().getY();
-  currentPose.pose.orientation.z = t.getRotation().getZ();
-  currentPose.pose.orientation.w = t.getRotation().getW();
+	geometry_msgs::PoseStamped currentPose;
 
-  pose_pub.publish(currentPose);
+	currentPose.header.frame_id = pose_pub_topic;
+	currentPose.header.stamp = ros::Time::now();
+	currentPose.pose.position.x = t.getOrigin().x();
+	currentPose.pose.position.z = (-1) * t.getOrigin().y(); // switching axes seems necessary here
+	currentPose.pose.position.y = t.getOrigin().z(); // switching axes seems necessary here
+	currentPose.pose.orientation.x = t.getRotation().getX();
+	currentPose.pose.orientation.y = t.getRotation().getY();
+	currentPose.pose.orientation.z = t.getRotation().getZ();
+	currentPose.pose.orientation.w = t.getRotation().getW();
+
+	pose_pub.publish(currentPose);
+}
+
+void GraphManager::publishCurrentPath(){
+	// Publish the current path
+
+	nav_msgs::Path p;
+	std::vector<geometry_msgs::PoseStamped> poseVec;
+
+	p.header.stamp = ros::Time::now();
+	p.header.frame_id = path_pub_topic;
+
+	QList<QMatrix4x4> * matrix_list = getAllPosesAsMatrixList();
+
+	while(matrix_list->empty() == false) {	
+		geometry_msgs::PoseStamped ps;
+
+		ps.header.stamp = ros::Time::now();
+		ps.pose.position.x = matrix_list->front()(0,3);
+		ps.pose.position.z = (-1) *  matrix_list->front()(1,3);
+		ps.pose.position.y = matrix_list->front()(2,3);
+		ps.pose.orientation.x = 0;
+		ps.pose.orientation.y = 0;
+		ps.pose.orientation.z = 0;
+		ps.pose.orientation.w = 0;
+
+		matrix_list->pop_front();
+		poseVec.push_back(ps);
+	}
+
+	p.poses = poseVec;
+
+	path_pub.publish(p);
+
 }
 
 QMatrix4x4 hogman2QMatrix(const Transformation3 hogman_trans) {
@@ -123,7 +157,10 @@ GraphManager::GraphManager(ros::NodeHandle nh, GLViewer* glviewer) :
 
 	pose_pub_topic = ros::this_node::getName().c_str();
 	pose_pub_topic += "/currentPose";
-	pose_pub = nh.advertise<geometry_msgs::PoseStamped>(pose_pub_topic, 100);
+	pose_pub = nh.advertise<geometry_msgs::PoseStamped>(pose_pub_topic, 10);
+	path_pub_topic = ros::this_node::getName().c_str();
+	path_pub_topic += "/currentPath";
+	path_pub = nh.advertise<nav_msgs::Path>(path_pub_topic, 10);
 
 	int numLevels = 3;
 	int nodeDistance = 2;
@@ -332,7 +369,8 @@ bool GraphManager::addNode(Node* new_node) {
 		ROS_DEBUG("GraphManager is thread %d, New Node is at (%p, %p)",
 				(unsigned int) QThread::currentThreadId(), new_node, graph_[0]);
 
-    publishCurrentPose(kinect_transform_);
+		publishCurrentPose(kinect_transform_);
+		publishCurrentPath();
 
 		return true;
 	}
@@ -438,43 +476,8 @@ bool GraphManager::addNode(Node* new_node) {
 			__FUNCTION__ << " runtime: " << (std::clock() - starttime)
 					/ (double) CLOCKS_PER_SEC << "sec");
 
-	// simon
-
-  /*
-	// Send Path info
-	nav_msgs::Path p;
-    	std::vector<geometry_msgs::PoseStamped> v;
-
-    	p.header.stamp = ros::Time::now();
-    	p.header.frame_id="/rgbdslam/path";
-
-	QList<QMatrix4x4> * matrix_list = getAllPosesAsMatrixList();
-
-	while(matrix_list->empty() == false) {	
-   		geometry_msgs::PoseStamped p1;
-
-   		p1.header.frame_id = "/rgbdslam/path";
-		  p1.header.stamp = ros::Time::now();
-	  	p1.pose.position.x = matrix_list->front()(0,3);
-   		p1.pose.position.z = 0; //(-1) *  matrix_list->front()(1,3);
-   		p1.pose.position.y = matrix_list->front()(2,3);
-   		p1.pose.orientation.x = 0;
-   		p1.pose.orientation.y = 0;
-   		p1.pose.orientation.z = 0;
-   		p1.pose.orientation.w = 0;
-
-		matrix_list->pop_front();
-		v.push_back(p1);
-	}
-
-	p.poses=v;
-
-	path_pub.publish(p);
-  */
-
-  publishCurrentPose(kinect_transform_);
-
-	// !simon
+	publishCurrentPose(kinect_transform_);
+	publishCurrentPath();
 
 	return (optimizer_->edges().size() > num_edges_before);
 }

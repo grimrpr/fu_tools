@@ -194,6 +194,15 @@ protected:
     int last_matching_node_;
     bool batch_processing_runs_;
 
+
+    // FU BERLIN
+    ros::Publisher pose_pub;
+    ros::Publisher path_pub;
+    std::string pose_pub_topic;
+    std::string path_pub_topic;
+    void publishCurrentPose(tf::Transform t);
+    void publishCurrentPath();
+
 };
 
 geometry_msgs::Point pointInWorldFrame(const Eigen::Vector4f& point3d, Transformation3 transf);
