@@ -10,11 +10,11 @@
 #include "nav_msgs/Path.h"
 #include "geometry_msgs/Pose.h"
 #include "geometry_msgs/PoseStamped.h"
+#include <stdio.h>
 
-nav_msgs::Path path;
-std::vector<geometry_msgs::PoseStamped> vecPoses;
-ros::Publisher path_pub;
-ros::Subscriber pose_sub;
+std::map<std::string, nav_msgs::Path> paths;
+std::vector<ros::Subscriber> subVec;
+std::map<std::string, ros::Publisher> pubMap;
 
 void poseCallback(const geometry_msgs::PoseStamped::ConstPtr& msg){
 
@@ -22,12 +22,11 @@ void poseCallback(const geometry_msgs::PoseStamped::ConstPtr& msg){
 
   ROS_ERROR("%f",msg->pose.position.x);
 
+  paths[msg->header.frame_id].poses.push_back(*msg);
 
-  path.header.stamp = ros::Time::now();
+  paths[msg->header.frame_id].header.stamp = ros::Time::now();
 
-  path.poses.push_back(*msg);
-
-  path_pub.publish(path);
+  pubMap[msg->header.frame_id].publish(paths[msg->header.frame_id]);
 
 }
 
@@ -37,12 +36,32 @@ int main(int argc, char **argv)
 
   ros::NodeHandle n;
 
-  pose_sub = n.subscribe<geometry_msgs::PoseStamped>("/stripped_rgbdslam0/currentPose",100,poseCallback);
-  path_pub = n.advertise<nav_msgs::Path>("/pathfinder/path", 1000);
+  int i = atoi(argv[1]);
+  char intstr[3];
+  while(i-- > 0){
+    // int as string
+    snprintf(intstr,sizeof(intstr),"%i",i);
 
-  // Initialize path object
-  path.header.frame_id="/pathfinder/path";
-  path.poses=vecPoses;
+    // subscriben
+    std::string subscribeTo("/stripped_rgbdslam");
+    subscribeTo += intstr;
+    subscribeTo += "/currentPose";
+    subVec.push_back(n.subscribe<geometry_msgs::PoseStamped>(subscribeTo.c_str(),100,poseCallback));
+
+    // advertisen
+    std::string publishTo("/pathfinder/path");
+    publishTo += intstr;
+    pubMap[subscribeTo] = n.advertise<nav_msgs::Path>(publishTo.c_str(), 1000);
+
+    // entsprechendes path object aufbauen
+    nav_msgs::Path path;
+    path.header.frame_id=publishTo.c_str();
+    std::vector<geometry_msgs::PoseStamped> vecPoses;
+    path.poses=vecPoses;
+
+    // in die map an stelle subscribeTo legen
+    paths[subscribeTo] = path;
+  }
 
   /*
   ros::Publisher map_pub = n.advertise<nav_msgs::OccupancyGrid>("talker/map",10);

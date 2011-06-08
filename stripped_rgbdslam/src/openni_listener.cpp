@@ -123,8 +123,10 @@ void OpenNIListener::cameraCallback (const sensor_msgs::ImageConstPtr& visual_im
       ROS_INFO("Depth image time: %d - %d", d_time.sec,   d_time.nsec);
       ROS_INFO("RGB   image time: %d - %d", rgb_time.sec, rgb_time.nsec);
       ROS_INFO("Point cloud time: %d - %d", pc_time.sec,  pc_time.nsec);
-      getOneFrame_ = true; //more luck next time?
-      if(global_drop_async_frames)return;
+      if(global_drop_async_frames){
+        getOneFrame_ = true; //more luck next time?
+        return;
+      }
   } else {
       ROS_DEBUG("Depth image time: %d - %d", d_time.sec,   d_time.nsec);
       ROS_DEBUG("RGB   image time: %d - %d", rgb_time.sec, rgb_time.nsec);

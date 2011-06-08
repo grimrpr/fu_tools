@@ -1,5 +1,8 @@
 <launch>
 
+  <node pkg="tf" type="static_transform_publisher" name="worldbroadcaster0" args="0 0 0 0 0 0 world pathfinder/path0 100" />
+  <node pkg="tf" type="static_transform_publisher" name="worldbroadcaster1" args="0 0 0 0 0 0 world pathfinder/path1 100" />
+
   <arg name="debug" default="false"/>
   <arg if="$(arg debug)" name="launch_prefix" value="xterm -rv -e gdb -ex run -args"/>
   <arg unless="$(arg debug)" name="launch_prefix" value=""/>
@@ -50,7 +53,7 @@
 
   <node pkg="stripped_rgbdslam" type="stripped_rgbdslam" name="stripped_rgbdslam0" cwd="node" required="true" output="log" args="0"> </node>
   <node pkg="stripped_rgbdslam" type="stripped_rgbdslam" name="stripped_rgbdslam1" cwd="node" required="true" output="log" args="1"> </node>
-  <node pkg="pathfinder" type="pathfinder" name="pathfinder" cwd="node" required="true" output="log" > </node>
+  <node pkg="pathfinder" type="pathfinder" name="pathfinder" cwd="node" required="true" output="log" args="2"> </node>
   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find pathfinder)/launch/rvizconf.vcg" required="true" output="log" > </node>
 
   <!-- node pkg="rxtools" type="rxconsole" name="rxconsole" output="log" > </node-->

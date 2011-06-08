@@ -1,7 +1,7 @@
 Background\ ColorR=0
 Background\ ColorG=0
 Background\ ColorB=0
-Fixed\ Frame=/pathfinder/path
+Fixed\ Frame=/world
 Target\ Frame=<Fixed Frame>
 Grid.Alpha=0,5
 Grid.Cell\ Size=1
@@ -23,17 +23,27 @@ Path.ColorR=1
 Path.ColorG=0
 Path.ColorB=0,0196078
 Path.Enabled=1
-Path.Topic=/pathfinder/path
+Path.Topic=/pathfinder/path0
+Path2.Alpha=1
+Path2.ColorR=0,1
+Path2.ColorG=1
+Path2.ColorB=0
+Path2.Enabled=1
+Path2.Topic=/pathfinder/path1
 Tool\ 2D\ Nav\ GoalTopic=goal
 Tool\ 2D\ Pose\ EstimateTopic=initialpose
 Camera\ Type=rviz::OrbitViewController
-Camera\ Config=1.26862 2.30176 10.2221 0 0 0
-Property\ Grid\ State=selection=;expanded=.Global Options,Path.Enabled;scrollpos=0,0;splitterpos=284,569;ispageselected=1
+Camera\ Config=1.26862 2.30176 3.62328 0 0 0
+Property\ Grid\ State=selection=Path2.Enabled.Path2.Topic;expanded=.Global Options,Path.Enabled,Path.Enabled.Path.StatusTopStatus,Path2.Enabled;scrollpos=0,0;splitterpos=284,569;ispageselected=1
 [Display0]
 Name=Grid
 Package=rviz
 ClassName=rviz::GridDisplay
 [Display1]
 Name=Path
+Package=rviz
+ClassName=rviz::PathDisplay
+[Display2]
+Name=Path2
 Package=rviz
 ClassName=rviz::PathDisplay

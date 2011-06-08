@@ -49,8 +49,8 @@ void publishCurrentPose(const tf::Transform t){
   currentPose.header.frame_id = pose_pub_topic;
   currentPose.header.stamp = ros::Time::now();
   currentPose.pose.position.x = t.getOrigin().x();
-  currentPose.pose.position.y = t.getOrigin().z(); // switching axes seems necessary here
-  currentPose.pose.position.z = t.getOrigin().y(); // switching axes seems necessary here
+  currentPose.pose.position.y = t.getOrigin().y(); 
+  currentPose.pose.position.z = t.getOrigin().z(); 
   currentPose.pose.orientation.x = t.getRotation().getX();
   currentPose.pose.orientation.y = t.getRotation().getY();
   currentPose.pose.orientation.z = t.getRotation().getZ();
