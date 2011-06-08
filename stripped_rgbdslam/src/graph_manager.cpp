@@ -144,9 +144,8 @@ void printTransform(const char* name, const tf::Transform t) {
 					<< " " << t.getRotation().getW());
 }
 
-GraphManager::GraphManager(ros::NodeHandle nh, GLViewer* glviewer) :
+GraphManager::GraphManager(ros::NodeHandle nh) :
 			freshlyOptimized_(true), //the empty graph is "optimized" i.e., sendable
-			glviewer_(glviewer),
 			time_of_last_transform_(ros::Time()),
 			optimizer_(0),
 			latest_transform_(), //constructs identity

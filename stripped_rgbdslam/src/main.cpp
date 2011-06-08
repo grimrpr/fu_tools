@@ -29,28 +29,12 @@
 #include <Eigen/Core>
 #include "globaldefinitions.h"
 
-//TODO:
-//try ASIFT
-//File dialog for Saving
-//even better potential-edge-selection through flann
-//subpixel accuracy for feature matches?
-//Performance optimization
-//Get all Parameters from Param server or command line
-//Better separation of function, communication, parameters and gui
-
-
 int main(int argc, char** argv)
 {
 
-  QApplication application(argc,argv);
-  QtROS qtRos(argc, argv,global_rosnode_name); //Thread object, to run the ros event processing loop in parallel to the qt loop
-  //If one thread receives a exit signal from the user, signal the other thread to quit too
-  QObject::connect(&application, SIGNAL(aboutToQuit()), &qtRos, SLOT(quitNow()));
-  QObject::connect(&qtRos, SIGNAL(rosQuits()), &application, SLOT(quit()));
+  QtROS qtRos(argc, argv); //Thread object, to run the ros event processing loop in parallel to the qt loop
 
-  UserInterface window;
-  window.show();
-  GraphManager graph_mgr(qtRos.getNodeHandle(), window.getGLViewer());
+  GraphManager graph_mgr(qtRos.getNodeHandle()); 
   
   //add kinect device number to global topics if more than one kinect shall run
   char* device_number;
@@ -75,46 +59,21 @@ int main(int argc, char** argv)
                                  global_feature_extractor_type, //FAST is really fast but the Keypoints are not robust
                                  global_feature_detector_type);
 
-  //COMMUNICATION BETWEEN COMPONENTS
-  //Route every processed image to the GUI
-  QObject::connect(&kinect_listener, SIGNAL(newVisualImage(QImage)), &window, SLOT(setVisualImage(QImage)));
-  QObject::connect(&kinect_listener, SIGNAL(newFeatureFlowImage(QImage)), &window, SLOT(setFeatureFlowImage(QImage)));
-  QObject::connect(&kinect_listener, SIGNAL(newDepthImage(QImage)), &window, SLOT(setDepthImage(QImage)));
-  QObject::connect(&graph_mgr, SIGNAL(newTransformationMatrix(QString)), &window, SLOT(setTransformation(QString)));
-  QObject::connect(&window, SIGNAL(reset()), &graph_mgr, SLOT(reset()));
-  QObject::connect(&window, SIGNAL(togglePause()), &kinect_listener, SLOT(togglePause()));
-  QObject::connect(&window, SIGNAL(getOneFrame()), &kinect_listener, SLOT(getOneFrame()));
-  QObject::connect(&window, SIGNAL(deleteLastFrame()), &graph_mgr, SLOT(deleteLastFrame()));
-  QObject::connect(&window, SIGNAL(sendAllClouds()), &graph_mgr, SLOT(sendAllClouds()));
-  QObject::connect(&window, SIGNAL(saveAllClouds(QString)), &graph_mgr, SLOT(saveAllClouds(QString)));
-  QObject::connect(&window, SIGNAL(saveIndividualClouds(QString)), &graph_mgr, SLOT(saveIndividualClouds(QString)));
-  QObject::connect(&graph_mgr, SIGNAL(sendFinished()), &window, SLOT(sendFinished()));
-  QObject::connect(&graph_mgr, SIGNAL(setGUIInfo(QString)), &window, SLOT(setInfo(QString)));
-  QObject::connect(&graph_mgr, SIGNAL(setGUIStatus(QString)), &window, SLOT(setStatus(QString)));
-  if(global_use_glwidget){
-    QObject::connect(&graph_mgr, SIGNAL(setPointCloud(pointcloud_type const *, QMatrix4x4)), &window, SLOT(addPointCloud(pointcloud_type const *, QMatrix4x4)));//, Qt::DirectConnection);
-    QObject::connect(&graph_mgr, SIGNAL(updateTransforms(QList<QMatrix4x4>*)), &window, SLOT(updateTransforms(QList<QMatrix4x4>*)));
-    QObject::connect(&graph_mgr, SIGNAL(setGraphEdges(QList<QPair<int, int> >*)), &window, SLOT(setGraphEdges(QList<QPair<int, int> >*)));
-  }
-  QObject::connect(&kinect_listener, SIGNAL(setGUIInfo(QString)), &window, SLOT(setInfo(QString)));
-  QObject::connect(&kinect_listener, SIGNAL(setGUIStatus(QString)), &window, SLOT(setStatus(QString)));
-  QObject::connect(&graph_mgr, SIGNAL(setGUIInfo2(QString)), &window, SLOT(setInfo2(QString)));
-  QObject::connect(&window, SIGNAL(setMaxDepth(float)), &graph_mgr, SLOT(setMaxDepth(float)));
-  QObject::connect(&graph_mgr, SIGNAL(deleteLastNode()), &window, SLOT(deleteLastNode()));
-
   // Run main loop.
   qtRos.start();
+
 #ifdef USE_ICP_BIN
   ROS_INFO("ICP activated via external binary");
 #endif
 #ifdef USE_ICP_CODE
   ROS_INFO("ICP activated via linked library");
 #endif
-  application.exec();
-  if(ros::ok()) {
-    ros::shutdown();//If not yet done through the qt connection
+
+  ros::Rate r(0.5);
+  while(ros::ok()){
+    kinect_listener.getOneFrame();
+    r.sleep();
   }
-  ros::waitForShutdown(); //not sure if necessary.
+
+  ros::waitForShutdown();
 }
-
-

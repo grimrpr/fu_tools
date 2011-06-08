@@ -35,18 +35,11 @@ class QtROS : public QThread {
     ///Note: The constructor will block until connected with roscore
     ///Instead of ros::spin(), start this thread with the start() method
     ///to run the event loop of ros
-    QtROS(int argc, char *argv[], const char* node_name);
+    QtROS(int argc, char *argv[]);
     ros::NodeHandle getNodeHandle(){ return *n; }
     /// This method contains the ROS event loop. Feel free to modify 
     void run();
-  public Q_SLOTS:
-    ///Connect to aboutToQuit signals, to stop the thread
-    void quitNow();
-  Q_SIGNALS:
-    ///Triggered if ros::ok() != true
-    void rosQuits();
   private:
-    bool quitfromgui;
     ros::NodeHandle* n;
 };
 #endif

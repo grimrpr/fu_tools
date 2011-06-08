@@ -45,7 +45,6 @@
 #include <string>
 #include <ctime>
 #include <memory> //for auto_ptr
-#include "glviewer.h"
 #include "globaldefinitions.h"
 
 //#define ROSCONSOLE_SEVERITY_INFO
@@ -84,7 +83,7 @@ class GraphManager : public QObject {
     void setMaxDepth(float max_depth);
 
     public:
-    GraphManager(ros::NodeHandle, GLViewer* glviewer);
+    GraphManager(ros::NodeHandle);
     ~GraphManager();
 
     /// Add new node to the graph.
@@ -103,7 +102,6 @@ class GraphManager : public QObject {
     ///Flag to indicate that the graph is globally corrected after the addNode call.
     ///However, currently optimization is done in every call anyhow
     bool freshlyOptimized_;
-    GLViewer glviewer_;
     ros::Time time_of_last_transform_;
     tf::Transform  world2cam_;
     std::map<int, Node* > graph_;

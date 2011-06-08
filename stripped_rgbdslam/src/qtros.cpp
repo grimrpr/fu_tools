@@ -17,24 +17,17 @@
 
 #include "qtros.h"
 #include "globaldefinitions.h"
-QtROS::QtROS(int argc, char *argv[], const char* node_name) {
+QtROS::QtROS(int argc, char *argv[]) {
   std::cout << "Initializing Node...\n";
-  ros::init(argc, argv, node_name);
-  n = new ros::NodeHandle(global_ros_namespace);
+  ros::init(argc, argv, global_rosnode_name);
+  n = new ros::NodeHandle();
   ROS_INFO("Connected to roscore");
-  quitfromgui = false; }
-
-void QtROS::quitNow(){ 
-  quitfromgui = true; }
+}
 
 void QtROS::run(){ 
   ros::Rate r(30); // 30 hz. Kinect has 30hz and we are far from processing every frame anyhow.
-  while(ros::ok() && !quitfromgui) {
+  while(ros::ok()) {
     ros::spinOnce(); 
-    r.sleep();}
-  if (!quitfromgui) {
-    Q_EMIT rosQuits();
-    ROS_INFO("ROS-Node Terminated\n"); 
-    ros::shutdown();//Not sure if necessary
+    r.sleep();
   }
 }
