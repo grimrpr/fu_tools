@@ -1,0 +1,15 @@
+<package>
+  <description brief="fu_robot_2dnav">
+
+     fu_robot_2dnav
+
+  </description>
+  <author>Simon Schmitt</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/fu_robot_2dnav</url>
+  <depend package="move_base"/>
+
+</package>
+
+
