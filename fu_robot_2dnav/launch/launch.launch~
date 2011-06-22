@@ -1,5 +1,0 @@
-<launch>
-  <include file="$(find fu_robot_2dnav)/launch/fu_robot_configuration.launch"/>
-  <include file="$(find fu_robot_2dnav)/launch/move_base.launch"/>
-  <node pkg="rviz" type="rviz" name="rviz" required="true"/>
-</launch>

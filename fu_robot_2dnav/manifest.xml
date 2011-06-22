@@ -9,6 +9,8 @@
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/fu_robot_2dnav</url>
   <depend package="move_base"/>
+  <depend package="tf"/>
+  <depend package="nav_msgs"/>
 
 </package>
 

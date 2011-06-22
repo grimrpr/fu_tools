@@ -1,3 +1,4 @@
 # Ignoring any build and bin folder in all sub directories
 build/
 bin/
+*~

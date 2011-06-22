@@ -11,4 +11,4 @@ observation_sources: point_cloud_sensor
 #
 point_cloud_sensor: {sensor_frame: base_link, data_type: PointCloud2, topic: /camera/rgb/points, marking: true, clearing: true}
 
-static_map: false
+#static_map: false

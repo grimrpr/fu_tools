@@ -29,8 +29,8 @@ Point\ Cloud2.Style=1
 Point\ Cloud2.Topic=/camera/rgb/points
 Point\ Cloud2..AxisAutocompute\ Value\ Bounds=1
 Point\ Cloud2..AxisAxis=2
-Point\ Cloud2..AxisMax\ Value=1,947
-Point\ Cloud2..AxisMin\ Value=0,915
+Point\ Cloud2..AxisMax\ Value=4,706
+Point\ Cloud2..AxisMin\ Value=0,808
 Point\ Cloud2..AxisUse\ Fixed\ Frame=0
 Point\ Cloud2..Flat\ ColorColorR=1
 Point\ Cloud2..Flat\ ColorColorG=1
@@ -68,6 +68,8 @@ inflated\ obstacles.ColorG=0,337255
 inflated\ obstacles.ColorB=1
 inflated\ obstacles.Enabled=1
 inflated\ obstacles.Topic=/move_base/local_costmap/inflated_obstacles
+local\ costmap.Enabled=1
+local\ costmap.Marker\ Topic=visualization_marker
 local\ plan.Alpha=1
 local\ plan.ColorR=0,1
 local\ plan.ColorG=1
@@ -89,8 +91,8 @@ robot.Topic=/move_base/local_costmap/robot_footprint
 Tool\ 2D\ Nav\ GoalTopic=/move_base_simple/goal
 Tool\ 2D\ Pose\ EstimateTopic=initialpose
 Camera\ Type=rviz::OrbitViewController
-Camera\ Config=0.916 1.99675 3.60963 0 0 0
-Property\ Grid\ State=selection=Point Cloud2.Enabled;expanded=.Global Options,TF.Enabled.TF.StatusTopStatus,TF.Enabled.TF.Tree;scrollpos=0,0;splitterpos=184,369;ispageselected=1
+Camera\ Config=1.231 1.61675 3.60963 0 0 0
+Property\ Grid\ State=selection=Point Cloud2.Enabled;expanded=.Global Options,TF.Enabled.TF.StatusTopStatus,TF.Enabled.TF.Tree,local costmap.Enabled.local costmap.Namespaces;scrollpos=0,0;splitterpos=184,369;ispageselected=1
 [Display0]
 Name=Grid
 Package=rviz
@@ -123,3 +125,11 @@ ClassName=rviz::GridCellsDisplay
 Name=local plan
 Package=rviz
 ClassName=rviz::PathDisplay
+[Display8]
+Name=local costmap
+Package=rviz
+ClassName=rviz::MarkerDisplay
+[local\ costmap.]
+[local\ costmap./move_base]
+[local\ costmap./move_base/local_costmap]
+voxel_grid=1
