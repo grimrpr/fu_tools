@@ -30,8 +30,16 @@
 \newcommand{\logoright}[1]{\def\@logoright{#1}}
 \def\@logoright{./graphics/FULogo.pdf}
 
-\newcommand{\matrikelno}[1]{\def\@matrikelno{#1}}
-\def\@matrikelno{123456}
+\newcommand{\matrikelno}[2]{\def\@matrikelnoeins{#1}\def\@matrikelnozwei{#2}}
+\def\@matrikelnoeins{123456}
+\def\@matrikelnozwei{123456}
+
+\newcommand{\authors}[2]{
+	\def\@authoreins{#1}
+	\def\@authorzwei{#2}
+	\author{\@authoreins \and \@authorzwei}}
+\def\@authoreins{Hans Wurst}
+\def\@authorzwei{Heinz Becker}
 
 \newcommand{\thesis}[1]{\def\@thesis{#1}}
 \def\@thesis{Diplomarbeit}
@@ -73,7 +81,9 @@
     \vspace{1.5cm}
     {\huge \@title \par}%
     \vspace{2cm}%
-    {\@author \par \smallskip Matr. \@matrikelno \par}%
+    {\@authoreins \par \smallskip Matr. \@matrikelnoeins \par}%
+    \vspace{1cm}%
+    {\@authorzwei \par \smallskip Matr. \@matrikelnozwei \par}%
     \vfill%
     {\mbox{%
         \begin{tabular}{rl}%
