@@ -5,4 +5,39 @@
 	description={Ein Framework für Roboter das Hardwareabstraktion, eine Paketverwaltung, ein Nachrichtensystem und die Möglichkeit zum Betreiben auf mehreren Computern liefert}
 }
 
+\newglossaryentry{glos:Node}{
+	name=Node,
+	description={Ein Softwaremodul oder Prozess, der zur Laufzeit mit anderen Nodes über \glspl{glos:Message} innerhalb des \protect\glspl{ROS} kommuniziert \cite[S. 3]{Quigley:2009kx}}
+}
+
+\newglossaryentry{glos:Message}{
+	name=Message,
+	description={Eine strikt getypte Datenstruktur, die primitive Datentypen, geschachtelte Messages und Arrays dieser beiden erlaubt \cite[S. 3]{Quigley:2009kx}}
+}
+
+\newglossaryentry{glos:Topic}{
+	name=Topic,
+	description={Eine asynchrone Informationsquelle oder -senke welche durch einen String repräsentiert wird, über die \glspl{glos:Node} \glspl{glos:Message} senden oder abonnieren können \cite[S. 3]{Quigley:2009kx}}
+}
+
+\newglossaryentry{glos:Service}{
+	name=Service,
+	description={Ein synchrone Informationsquelle eines \protect\glspl{glos:Node}, repräsentiert durch einen Namen, einer \protect\gls{glos:Message} als Übergabeparameter, und einer \protect\gls{glos:Message} als Rückgabewert \cite[S. 3]{Quigley:2009kx}}
+}
+
+\newglossaryentry{glos:Package}{
+	name=Package,
+	description={Eine Ordnerstruktur, die ein oder mehrere \protect\glspl{glos:Node} einschließt und ein \protect\gls{glos:Manifest} besitzt \cite[S. 4]{Quigley:2009kx}}
+}
+
+\newglossaryentry{glos:Stack}{
+	name=Stack,
+	description={Eine Ordnerstruktur, die üblicherweise mehrere \protect\glspl{glos:Package} einschließt und ein \protect\gls{glos:Manifest} besitzt \cite[S. 5]{Quigley:2009kx}}
+}
+
+\newglossaryentry{glos:Manifest}{
+	name=Manifest,
+	description={Eine XML-Datei, die ein \protect\gls{glos:Package} oder \protect\gls{glos:Stack} beschreibt und Abhängigkeiten offenlegt}
+}
+
 \newacronym{ROS}{ROS}{\protect\gls{glos:ROS}}
