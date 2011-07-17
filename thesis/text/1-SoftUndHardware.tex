@@ -5,25 +5,51 @@
 Im Folgenden werden die wichtigsten Konzepte näher erläutert.
 
 \subsection{Microsoft Kinect}
-{\color{red}lorem ipsum!}
-{\color{red}Auflösung, Reichweite, Genauigkeit in Abhängigkeit zur Entfernung, generelle Funktionsweise}
+{\color{red}Auflösung, Reichweite, Genauigkeit in Abhängigkeit zur Entfernung, generelle Funktionsweise} {\color{red}Überleitung zu ROS, wir brauchen ROS!}
 
 \subsection{Robot Operating System}
-{\color{red}lorem ipsum!}
 
-{\color{red}Nodes, Topics, Msgs}
+\gls{ROS} ist ein Open-Source Betriebssystem, welches viele Probleme und Aspekte verteilter, komplexer Software bezüglich der Anwendungsentwicklung für Roboter kapselt. Falls nicht anders gekennzeichnet, dient \cite{Quigley:2009kx} in diesem Abschnitt als Quelle.
 
-Dies ist ein text \cite[S. 12ff]{Quigley:2009kx}.
+Im eigentlichen Sinne ist \gls{ROS} kein Betriebssystem. Vielmehr handelt es sich um ein leichtgewichtiges Framework, das in einem bestehenden Betriebssystem ausgeführt wird. Dabei verwendet es eine Peer-to-peer Kommunikationsarchitekur, mit Hilfe derer einzelne Programme in verschiedenen Programmiersprachen unabhängig voneinander kommunizieren können. \gls{ROS} legt zudem großen Wert auf eine Tool-basierte Funktionsweise. Das heißt, dass alles strikt in Module gegliedert ist, wodurch das Framework beziehungsweise die einzelnen Module besonders gut getestet werden können.
 
-Dies ist ein text \cite[S. 12ff]{Quigley:2009kx}.
+\subsubsection{Architektur}
 
-Dies ist ein text \cite{Will:2011vn}.
+Einzelne Module beziehungsweise Programme in einer \gls{ROS} Umgebung werden \glspl{glos:Node} bezeichnet. Diese können beliebg oft unter Angabe eines Namensraumes gestartet werden. Das heißt ein \gls{glos:Node} kann generisch Aufgaben lösen, ohne zu wissen, ob er beispielsweise gerade den rechten oder linken Arm eines Roboters repräsentiert.
 
-\gls{ROS}
+Damit ein \gls{glos:Node} unter \gls{ROS} übersetzt beziehungsweise ausgeführt werden kann, muss er einem \gls{glos:Package} zugeordnet sein. Ein \gls{glos:Package} kann mehrere \glspl{glos:Node} beinhalten. Es definiert durch eine \gls{glos:Manifest} Datei, welche Abhängigkeiten es zu anderen \glspl{glos:Package} besitzt. Mehrere \glspl{glos:Package} können zu einem \gls{glos:Stack} zusammengeschlossen sein, beispielsweise wenn sie eine gemeinsame Aufgabe erfüllen, indem sie diese in Teilaspekte zerlegt haben. Ein solcher \gls{glos:Stack} besitzt dann ebenfalls eine \gls{glos:Manifest} Datei.
+
+Innerhalb der \glspl{glos:Package} oder \glspl{glos:Stack} können \glspl{glos:LaunchFile} angelegt werden, die das Starten eines ganzen Systems mit mehreren \glspl{glos:Node} erleichtern. Dabei kann in einer solchen Datei auch definiert sein, dass bestimmte \glspl{glos:Node} nicht lokal, sondern entfernt auf einem anderen Computer gestartet werden. Außerdem können hier Parameter an die \glspl{glos:Node} übergeben werden, die sich üblicherweise nur selten ändern. \glspl{glos:LaunchFile} können zudem andere \glspl{glos:LaunchFile} rekursiv inkludieren und dabei auch Parameter überschreiben. Verzichtet man auf eine \gls{glos:LaunchFile}, dann müssen die \glspl{glos:Node} einzeln gestartet und auch wieder beendet werden. Durch die \gls{glos:LaunchFile} können alle gestarteten \glspl{glos:Node} über STRG+C zusammen beendet werden.
+
+\glspl{glos:Node} kommunizieren über das \gls{ROS} interne Kommunikationsnetzwerk miteinander. Das heißt, wenn ein \gls{glos:Node} Informationen anderen \glspl{glos:Node} zur Verfügung stellt, veröffentlicht er diese über ein bestimmtes \gls{glos:Topic}. Andere \glspl{glos:Node} können dieses \gls{glos:Topic} abonnieren. Dabei haben \glspl{glos:Topic} immer einen bestimmten Namen, der sowohl durch \glspl{glos:Node}, die Informationen veröffentlichen, als auch von \glspl{glos:Node} die Informationen abonnieren, die sie benötigen um ihre Funktionalität zu erfüllen, festgelegt sein kann. Um zwei solche \glspl{glos:Node} miteinander kompatibel zu starten, muss in einem konkreten System in der \gls{glos:LaunchFile} eine Abbildung zwischen \gls{glos:Topic} Benennungen stattfinden.
+
+Informationen werden in \glspl{glos:Message} zu einem \gls{glos:Topic} veröffentlicht. Diese werden zunächst in einer platformunabhängigen Sprache definiert, einer \gls{IDL}. Diese Abstraktion erlaubt es, in wenigen Zeilen eine \gls{glos:Message} zu definieren. Entsprechende Code Generatoren in verschiedenen Sprachen erzeugen automatisch aus dieser Definition Klassen, welche durchaus hunderte Zeilen Code umfassen können. Dadurch fällt es dem Programmierer sehr viel einfacher, in \gls{ROS} sprachenunabhängig neue zuvor nicht bekannte \glspl{glos:Message} zu definieren. Viele oft benötigte \glspl{glos:Message} werden beispielsweise bereits durch den common\_msgs \gls{glos:Stack} zur Verfügung gestellt.
+
+{\color{red}
+- service
+- master
+- strikt in module (global clock, logger)
+- printf to rosout (single console)
+}
+
+\subsubsection{Tools}
+{\color{red}
+- rosmake (rekursiv)
+- playbag
+- logger
+- roslaunch (hosts)
+- rxgraph
+- rviz
+}
+
+\subsubsection{Generelle Funktionalität}
+{\color{red}
+- tf
+}
 
 \subsection{OpenNI Stack}
-{\color{red}lorem ipsum!}
-Pointclouds
+{\color{red}Pointclouds}
+
 
 \subsection{Turtle Bot}
 {\color{red}lorem ipsum!}
