@@ -7,7 +7,7 @@
 
 \newglossaryentry{glos:Node}{
 	name=Node,
-	description={Ein Softwaremodul oder Prozess, der zur Laufzeit mit anderen Nodes über \glspl{glos:Message} innerhalb des \protect\glspl{ROS} kommuniziert \cite[S. 3]{Quigley:2009kx}}
+	description={Ein Softwaremodul oder Prozess, der zur Laufzeit mit anderen Nodes über \glspl{glos:Message} innerhalb des \glspl{glos:ROS} kommuniziert \cite[S. 3]{Quigley:2009kx}}
 }
 
 \newglossaryentry{glos:Message}{
@@ -22,22 +22,22 @@
 
 \newglossaryentry{glos:Service}{
 	name=Service,
-	description={Ein synchrone Informationsquelle eines \protect\glspl{glos:Node}, repräsentiert durch einen Namen, einer \protect\gls{glos:Message} als Übergabeparameter, und einer \protect\gls{glos:Message} als Rückgabewert \cite[S. 3]{Quigley:2009kx}}
+	description={Ein synchrone Informationsquelle eines \glspl{glos:Node}, repräsentiert durch einen Namen, einer \gls{glos:Message} als Übergabeparameter, und einer \gls{glos:Message} als Rückgabewert \cite[S. 3]{Quigley:2009kx}}
 }
 
 \newglossaryentry{glos:Package}{
 	name=Package,
-	description={Eine Ordnerstruktur, die ein oder mehrere \protect\glspl{glos:Node} einschließt und ein \protect\gls{glos:Manifest} besitzt \cite[S. 4]{Quigley:2009kx}}
+	description={Eine Ordnerstruktur, die ein oder mehrere \glspl{glos:Node} einschließt und ein \gls{glos:Manifest} besitzt \cite[S. 4]{Quigley:2009kx}}
 }
 
 \newglossaryentry{glos:Stack}{
 	name=Stack,
-	description={Eine Ordnerstruktur, die üblicherweise mehrere \protect\glspl{glos:Package} einschließt und ein \protect\gls{glos:Manifest} besitzt \cite[S. 5]{Quigley:2009kx}}
+	description={Eine Ordnerstruktur, die üblicherweise mehrere \glspl{glos:Package} einschließt und ein \gls{glos:Manifest} besitzt \cite[S. 5]{Quigley:2009kx}}
 }
 
 \newglossaryentry{glos:Manifest}{
 	name=Manifest,
-	description={Eine XML-Datei, die ein \protect\gls{glos:Package} oder \protect\gls{glos:Stack} beschreibt und Abhängigkeiten offenlegt}
+	description={Eine XML-Datei, die ein \gls{glos:Package} oder \gls{glos:Stack} beschreibt und Abhängigkeiten offenlegt}
 }
 
 \newglossaryentry{glos:LaunchFile}{
@@ -51,6 +51,28 @@
 	description={Eine Sprache, die für den Austausch von Informationen zwischen zwei Programmen sorgt, wobei beide Programme diese Sprache beherrschen müssen}
 }
 
+\newglossaryentry{glos:CFrame}{
+	name=Coordinate Frame,
+	description={Ein Bezugssystem, repräsentiert durch einen String}
+}
+
+\newglossaryentry{glos:TFrame}{
+	name=Target Frame,
+	description={Ein \gls{glos:CFrame}, welcher in \gls{glos:rviz} als Kameraperspektive eingestellt wird}
+}
+
+\newglossaryentry{glos:FFrame}{
+	name=Fixed Frame,
+	description={Ein \gls{glos:CFrame}, welcher in \gls{glos:rviz} als globales Bezugssystem gewählt wird}
+}
+
+\newglossaryentry{glos:rviz}{
+	name=rviz,
+	description={Ein \gls{glos:Node}, der \glspl{glos:Message} visualisieren kann}
+}
+
 \newacronym{ROS}{ROS}{\protect\gls{glos:ROS}}
 
 \newacronym{IDL}{IDL}{\protect\gls{glos:IDL}}
+
+\newacronym{Frame}{Frame}{\protect\gls{glos:CFrame}}
