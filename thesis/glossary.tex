@@ -1,19 +1,86 @@
-%!TEX root = main-text.tex
-%==============================================================================
+%  Defining Glossary Entries http://theoval.cmp.uea.ac.uk/~nlct/latex/thesis/node26.html
 
-\newglossaryentry{pdflatex}{
-	name=pdflatex,
-	text=pdflatex,
-	description=An extension to the TeX typesetting program that produces an PDF as output,
-	plural=pdflatex has no plural
+\newglossaryentry{glos:ROS}{
+	name=Robot Operating System,
+	description={Ein Framework für Roboter das Hardwareabstraktion, eine Paketverwaltung, ein Nachrichtensystem und die Möglichkeit zum Betreiben auf mehreren Computern liefert}
 }
 
-\newglossaryentry{OS}{
-	name=Operating System,
-	text=Operating System,
-	description=Infrastructure software component of a computer system,
-	plural=operating systems
+\newglossaryentry{glos:Node}{
+	name=Node,
+	description={Ein Softwaremodul oder Prozess, der zur Laufzeit mit anderen Nodes über \glspl{glos:Message} innerhalb des \glspl{glos:ROS} kommuniziert \cite[S. 3]{Quigley:2009kx}}
 }
 
-\newacronym{CST}{CST}{Computer Systems and Telematics}
-\newacronym{DES}{DES}{Distributed, Embedded Systems}
+\newglossaryentry{glos:Message}{
+	name=Message,
+	description={Eine strikt getypte Datenstruktur, die primitive Datentypen, geschachtelte Messages und Arrays dieser beiden erlaubt \cite[S. 3]{Quigley:2009kx}}
+}
+
+\newglossaryentry{glos:Topic}{
+	name=Topic,
+	description={Eine asynchrone Informationsquelle und -senke welche durch einen String repräsentiert wird, über die \glspl{glos:Node} \glspl{glos:Message} senden oder abonnieren können \cite[S. 3]{Quigley:2009kx}}
+}
+
+\newglossaryentry{glos:Service}{
+	name=Service,
+	description={Ein synchrone Informationsquelle eines \glspl{glos:Node}, repräsentiert durch einen Namen, einer \gls{glos:Message} als Übergabeparameter, und einer \gls{glos:Message} als Rückgabewert \cite[S. 3]{Quigley:2009kx}}
+}
+
+\newglossaryentry{glos:Package}{
+	name=Package,
+	description={Eine Ordnerstruktur, die ein oder mehrere \glspl{glos:Node} einschließt und ein \gls{glos:Manifest} besitzt \cite[S. 4]{Quigley:2009kx}}
+}
+
+\newglossaryentry{glos:Stack}{
+	name=Stack,
+	description={Eine Ordnerstruktur, die üblicherweise mehrere \glspl{glos:Package} einschließt und ein \gls{glos:Manifest} besitzt \cite[S. 5]{Quigley:2009kx}}
+}
+
+\newglossaryentry{glos:Manifest}{
+	name=Manifest,
+	description={Eine XML-Datei, die ein \gls{glos:Package} oder \gls{glos:Stack} beschreibt und Abhängigkeiten offenlegt}
+}
+
+\newglossaryentry{glos:LaunchFile}{
+	name=Launch Datei,
+	plural=Launch Dateien,
+	description={Eine XML-Datei in der festgelegt wird, welche Launch Dateien (rekursiv), \glspl{glos:Stack} oder \glspl{glos:Package} mit einer konkreten Konfiguration gestartet werden sollen}
+}
+
+\newglossaryentry{glos:IDL}{
+	name=Interface Definition Language,
+	description={Eine Sprache, die für den Austausch von Informationen zwischen zwei Programmen sorgt, wobei beide Programme diese Sprache beherrschen müssen}
+}
+
+\newglossaryentry{glos:CFrame}{
+	name=Coordinate Frame,
+	description={Ein Bezugssystem, repräsentiert durch einen String}
+}
+
+\newglossaryentry{glos:TFrame}{
+	name=Target Frame,
+	description={Ein \gls{glos:CFrame}, welcher in \gls{glos:rviz} als Kameraperspektive eingestellt wird}
+}
+
+\newglossaryentry{glos:FFrame}{
+	name=Fixed Frame,
+	description={Ein \gls{glos:CFrame}, welcher in \gls{glos:rviz} als globales Bezugssystem gewählt wird}
+}
+
+\newglossaryentry{glos:rviz}{
+	name=rviz,
+	description={Ein \gls{glos:Node}, der \glspl{glos:Message} visualisieren kann}
+}
+
+\newglossaryentry{glos:Odometrie}{
+	name=Odometrie,
+	plural=Odometriedaten,
+	description={Daten, die aufgrund der Aktivierung von Antriebssystemen mit einer bestimmten Wahrscheinlichkeit die Bewegungsrichtung und -strecke wiederspiegeln}
+}
+
+\newacronym{ROS}{ROS}{\protect\gls{glos:ROS}}
+
+\newacronym{IDL}{IDL}{\protect\gls{glos:IDL}}
+
+\newacronym{Frame}{Frame}{\protect\gls{glos:CFrame}}
+
+\newacronym{GPS}{GPS}{Global Positioning System}
