@@ -7,16 +7,9 @@ Im Folgenden werden die wichtigsten Konzepte näher erläutert.
 \subsection{Microsoft Kinect}
 \label{subsec:kinect}
 
-
+Microsoft hat im {\color{red} wann genau?} die \gls{glos:Kinect} auf den Markt gebracht. Die Designgrundlage stammt von einer Firma namens PrimeSense\footnote{siehe \url{http://www.primesense.com/}}, die schon seit geraumer Zeit derartige Geräte entwickelt. Eigentlich wurde das Gerät für Microsofts \gls{glos:XBOX} konzipiert, jedoch wuchs das Interesse daran stetig als Open Source Projekte entstanden, die das Protokoll über die USB-Schnittstelle zur \gls{glos:Kinect} per \gls{glos:RevEng} offenlegten. Heute wird sie in unzähligen Hobby- aber auch professionellen zu einem großen Teil universitären Projekten wie diesem eingesetzt. Dabei inspirierten die Entwickler zunächst vor allem Anwendungen bezüglich Gestensteuerung oder Skeleton Tracking wie sie auch in den Konsolenspielen eingesetzt werden. Jedoch wurde schnell ersichtlich, das das Gerät aufgrund seiner Daten in bestimmten Anwendungsfällen auch Laserscanner ersetzen und damit für eine Vielzahl an Anwendungsszenarien bedienen kann.
 
 {\color{red}
-
-einleitung:\\
-- wer: microsoft/primesense\\
-- was: kinect\\
-- wann: ???\\
-- warum: für spielekonsole xbox360\\
-
 fakten:\\
 - aufbau (kamera, ir, ir-kamera)\\
 - generelle Funktionsweise (dreieck-laufzeit), \\
@@ -25,12 +18,16 @@ fakten:\\
 - Auflösung\\
 - Genauigkeit in Abhängigkeit zur Entfernung (kurvenbild: kinect/optimal-linien)\\
 - vergleich mit laser (kinect ca. 80 EUR, laser ca. 1500 EUR)\\
+}
 
+{\color{red}
 benutzungsmöglichkeiten für uns:\\
 - libfreenect, (inoffizielle api)\\
 - openni (offizielle api)\\
 - openni\_kinect stack erwähnen/referenzieren! (benutzt offizielle api)\\
+}
 
+{\color{red}
 Überleitung\\
 - libfreenect/openni funktioniert, aber nur kinect wäre abgedeckt, datenhandling/bearbeitung (in unsere richtung) würde fehlen\\
 - openni\_kinect: ROS, wir brauchen ROS!\\
