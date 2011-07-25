@@ -7,7 +7,7 @@ Im Folgenden werden die wichtigsten Konzepte näher erläutert.
 \subsection{Microsoft Kinect}
 \label{subsec:kinect}
 
-Microsoft hat im {\color{red} wann genau?} die \gls{glos:Kinect} auf den Markt gebracht. Die Designgrundlage stammt von einer Firma namens PrimeSense\footnote{siehe \url{http://www.primesense.com/}}, die schon seit geraumer Zeit derartige Geräte entwickelt. Eigentlich wurde das Gerät für Microsofts \gls{glos:XBOX} konzipiert, jedoch wuchs das Interesse daran stetig als Open Source Projekte entstanden, die das Protokoll über die USB-Schnittstelle zur \gls{glos:Kinect} per \gls{glos:RevEng} offenlegten. Heute wird sie in unzähligen Hobby- aber auch professionellen zu einem großen Teil universitären Projekten wie diesem eingesetzt. Dabei inspirierten die Entwickler zunächst vor allem Anwendungen bezüglich Gestensteuerung oder Skeleton Tracking wie sie auch in den Konsolenspielen eingesetzt werden. Jedoch wurde schnell ersichtlich, das das Gerät aufgrund seiner Daten in bestimmten Anwendungsfällen auch Laserscanner ersetzen und damit für eine Vielzahl an Anwendungsszenarien bedienen kann.
+Microsoft hat im {\color{red} wann genau?} die \gls{glos:Kinect} auf den Markt gebracht. Die Designgrundlage stammt von einer Firma namens PrimeSense\footnote{siehe \url{http://www.primesense.com/}}, die schon seit geraumer Zeit derartige Geräte entwickelt. Eigentlich wurde das Gerät für Microsofts \gls{glos:XBOX} konzipiert, jedoch wuchs das Interesse daran stetig, als Open Source Projekte entstanden die das Protokoll über die USB-Schnittstelle zur \gls{glos:Kinect} per \gls{glos:RevEng} offenlegten. Heute wird sie in unzähligen Hobby- aber auch professionellen zu einem großen Teil universitären Projekten wie diesem eingesetzt. Dabei inspirierten die Entwickler zunächst vor allem Anwendungen bezüglich Gestensteuerung oder Skeleton Tracking wie sie auch in den Konsolenspielen eingesetzt werden. Jedoch wurde schnell ersichtlich, das das Gerät aufgrund seiner Daten in bestimmten Anwendungsfällen auch Laserscanner ersetzen und damit für eine Vielzahl an Anwendungsszenarien bedienen kann.
 
 {\color{red}
 fakten:\\
@@ -27,13 +27,11 @@ benutzungsmöglichkeiten für uns:\\
 - openni\_kinect stack erwähnen/referenzieren! (benutzt offizielle api)\\
 }
 
-{\color{red}
-Überleitung\\
-- libfreenect/openni funktioniert, aber nur kinect wäre abgedeckt, datenhandling/bearbeitung (in unsere richtung) würde fehlen\\
-- openni\_kinect: ROS, wir brauchen ROS!\\
-}
+Die beiden erwähnten Bibliotheken funktionieren zwar gut, jedoch ist ein großer Aufwand von Nöten um diese Daten in verwendbare Strukturen zu bringen. Es wurde bereits von verschiedenen Universitäten und Forschungseinrichtungen {\color{red}Forschung} betrieben, die sich mit derartigen Daten und deren sinnvoller und effizienter Verwendung auseinandergesetzt hat. Daher liegt es nahe, daraus resultierende quelloffene Software zu benutzen. Im Laufe der Vorbereitung dieser Arbeit wurden zwei solche Software Frameworks evaluiert, die beide Treiber für die Kinect beinhalten: Das \gls{MRPT} beschrieben in \cite{online:mrpt} und \gls{ROS}. \gls{MRPT}, hauptsächlich von der Universidad de Málaga (Spanien) seit 2005\footnote{siehe \cite{online:mrptentwickler}} entwickelt, liefert einige \gls{SLAM} Algorithmen, kann aber nicht mit \gls{ROS} bezüglich der Ortsabstraktion durch die Kommunikationsinfrastruktur konkurrieren. Auch existiert bei \gls{ROS} eine sehr viel größere Entwicklergemeinde. \gls{MRPT} legt vor allem einen großen Wert auf Kapselung verschiedener Algorithmen, während \gls{ROS} auf die Kapselung von Funktionalitäten achtet. Dadurch kann der Anwender eine getestete Funktionalität benutzen, ohne im Detail die verwendeten Algorithmen evaluieren zu müssen. Auch bietet \gls{ROS} bereits Möglichkeiten Roboter zu steuern, und diese Steuerung mit den Funktionalitäten direkt zu verknüpfen und arbeiten zu lassen, da die Schnittstellen zwischen diesen per Design gegeben sind. Zudem existiert in \gls{ROS} ein Tool namens \emph{rviz}, welches im nächsten Kapitel näher erläutert wird. Dieses sorgt dafür, dass Informationen, die innerhalb des Frameworks ausgetauscht werden, visualisiert werden können. Da \gls{MRPT} und auch andere dies im Moment noch nicht bieten können, wurde \gls{ROS} als Grundlage für das Referenzsystem gewählt. Im nächsten Abschnitt wird \gls{ROS} vorgestellt und die wichtigsten Konzepte näher erläutert.
 
 \subsection{Robot Operating System}
+
+{\color{red}Willow Garage erwähnen (seit wann entwickelt?)}
 
 \gls{ROS} ist ein Open-Source Betriebssystem, welches viele Probleme und Aspekte verteilter, komplexer Software bezüglich der Anwendungsentwicklung für Roboter kapselt. Falls nicht anders gekennzeichnet, dient \cite{Quigley:2009kx} in diesem Abschnitt als Quelle.
 
