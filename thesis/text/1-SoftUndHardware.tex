@@ -6,9 +6,35 @@ Im Folgenden werden die wichtigsten Konzepte näher erläutert.
 
 \subsection{Microsoft Kinect}
 \label{subsec:kinect}
-{\color{red}Auflösung, Reichweite, Genauigkeit in Abhängigkeit zur Entfernung, generelle Funktionsweise, schatten nicht vermeidbar(aussage wird referenziert)}
-{\color{red}openni\_kinect stack erwähnen/referenzieren!}
-{\color{red}Überleitung zu ROS, wir brauchen ROS!}
+
+
+
+{\color{red}
+
+einleitung:\\
+- wer: microsoft/primesense\\
+- was: kinect\\
+- wann: ???\\
+- warum: für spielekonsole xbox360\\
+
+fakten:\\
+- aufbau (kamera, ir, ir-kamera)\\
+- generelle Funktionsweise (dreieck-laufzeit), \\
+- schatten nicht vermeidbar(aussage wird referenziert)\\
+- Reichweite\\
+- Auflösung\\
+- Genauigkeit in Abhängigkeit zur Entfernung (kurvenbild: kinect/optimal-linien)\\
+- vergleich mit laser (kinect ca. 80 EUR, laser ca. 1500 EUR)\\
+
+benutzungsmöglichkeiten für uns:\\
+- libfreenect, (inoffizielle api)\\
+- openni (offizielle api)\\
+- openni\_kinect stack erwähnen/referenzieren! (benutzt offizielle api)\\
+
+Überleitung\\
+- libfreenect/openni funktioniert, aber nur kinect wäre abgedeckt, datenhandling/bearbeitung (in unsere richtung) würde fehlen\\
+- openni\_kinect: ROS, wir brauchen ROS!\\
+}
 
 \subsection{Robot Operating System}
 
@@ -75,7 +101,7 @@ Der OpenNI\_Kinect Stack integriert unter Anderem die in \ref{subsec:kinect} bes
 \end{table}
 Über jeweils einen \gls{glos:Service} \emph{set\_camera\_info} erlaubt das \gls{glos:Package} zusätzlich eine Konfiguration und Kalibrierung der Infrarot und RGB Kamera.
 
-Eine \gls{glos:Message} des Typs \emph{PointCloud2} wird hierbei dazu verwendet, 3D Informationen zu veröffentlichen\footnote{siehe \ref{table:opennicameramsgs}}. Diese \gls{glos:Message} besitzt wie in \cite{online:pointcloud2} näher beschrieben u.a. folgende Komponenten:
+Eine \gls{glos:Message} des Typs \emph{PointCloud2} wird hier dazu verwendet, 3D Informationen, wie in \cite{online:pointcloud2} näher beschrieben, u.a. durch folgende Komponenten zu veröffentlichen:
 
 \begin{description}
 	\item[Header]		Sequenznummer, Zeitstempel und Informationen über den \gls{glos:CFrame}
@@ -84,9 +110,7 @@ Eine \gls{glos:Message} des Typs \emph{PointCloud2} wird hierbei dazu verwendet,
 	\item[Data]		Liste aller Punkte
 \end{description}
 
-In Abbildung \ref{fig:kinectViews} sind zwei solche \glspl{glos:Pointcloud} aus zwei verschiedenen Winkeln dargestellt. Auf der linken Seite ist nahezu die Sicht der \gls{glos:Kinect} zu sehen, während auf der rechten Seite der Sichtwinkel auf die Wolke stark geändert wurde. Beide Bilder wurden zu unterschiedlichen Zeiten aufgenommen, ohne die Position der \gls{glos:Kinect} zu verändern. Dadurch ist ein unterschiedliches Rauschen an den Rändern der Farbbereiche gut zu erkennen.
-
-{\color{red}Farbbereiche-Entfernungen erklären}
+In Abbildung \ref{fig:kinectViews} sind zwei solche \glspl{glos:Pointcloud} aus zwei verschiedenen Winkeln dargestellt. Auf der linken Seite ist nahezu die Sicht der \gls{glos:Kinect} zu sehen, während auf der rechten Seite der Sichtwinkel auf die Wolke stark geändert wurde. Beide Bilder wurden zu unterschiedlichen Zeiten aufgenommen, ohne die Position der \gls{glos:Kinect} zu verändern. Dadurch ist ein unterschiedliches Rauschen an den Rändern der Farbbereiche gut zu erkennen. Die Farben wurden entsprechend der Tiefeninformation aus Sicht der \gls{glos:Kinect} gewählt. Dabei wurden nahe Gegenstände mit einer warmen, und entferntere mit kälter werdenden Farben belegt.
 
 \begin{figure}[t]
 	\centering
