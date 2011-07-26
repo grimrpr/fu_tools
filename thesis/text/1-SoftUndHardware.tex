@@ -7,18 +7,32 @@ Im Folgenden werden die wichtigsten Konzepte näher erläutert.
 \subsection{Microsoft Kinect}
 \label{subsec:kinect}
 
-Microsoft hat im {\color{red} wann genau?} die \gls{glos:Kinect} auf den Markt gebracht. Die Designgrundlage stammt von einer Firma namens PrimeSense\footnote{siehe \url{http://www.primesense.com/}}, die schon seit geraumer Zeit derartige Geräte entwickelt. Eigentlich wurde das Gerät für Microsofts \gls{glos:XBOX} konzipiert, jedoch wuchs das Interesse daran stetig, als Open Source Projekte entstanden die das Protokoll über die USB-Schnittstelle zur \gls{glos:Kinect} per \gls{glos:RevEng} offenlegten. Heute wird sie in unzähligen Hobby- aber auch professionellen zu einem großen Teil universitären Projekten wie diesem eingesetzt. Dabei inspirierten die Entwickler zunächst vor allem Anwendungen bezüglich Gestensteuerung oder Skeleton Tracking wie sie auch in den Konsolenspielen eingesetzt werden. Jedoch wurde schnell ersichtlich, das das Gerät aufgrund seiner Daten in bestimmten Anwendungsfällen auch Laserscanner ersetzen und damit für eine Vielzahl an Anwendungsszenarien bedienen kann.
+Microsoft bietet seit November 2010 {\color{red}Quelle} ein Produkt an, das es in dieser günstigen Form zuvor nicht auf dem Markt gab: die \gls{glos:Kinect}. Die Designgrundlage stammt von einer Firma namens PrimeSense\footnote{siehe \url{http://www.primesense.com/}}, die schon seit geraumer Zeit derartige Geräte entwickelt. Eigentlich wurde das Gerät für Microsofts \gls{glos:XBOX} konzipiert, jedoch wuchs das Interesse daran stetig, als Open Source Projekte entstanden die das Protokoll über die USB-Schnittstelle zur \gls{glos:Kinect} per \gls{glos:RevEng} offenlegten. Heute wird sie in unzähligen Hobby- aber auch professionellen zu einem großen Teil universitären Projekten wie diesem eingesetzt. Dabei inspirierten die Entwickler zunächst vor allem Anwendungen bezüglich Gestensteuerung oder Skeleton Tracking wie sie auch in den Konsolenspielen eingesetzt werden. Jedoch wurde schnell ersichtlich, das das Gerät aufgrund seiner Daten in bestimmten Anwendungsfällen auch Laserscanner ersetzen und damit viele Anwendungsszenarien bedienen kann.
 
-{\color{red}
-fakten:\\
-- aufbau (kamera, ir, ir-kamera)\\
-- generelle Funktionsweise (dreieck-laufzeit), \\
-- schatten nicht vermeidbar(aussage wird referenziert)\\
-- Reichweite\\
-- Auflösung\\
-- Genauigkeit in Abhängigkeit zur Entfernung (kurvenbild: kinect/optimal-linien)\\
-- vergleich mit laser (kinect ca. 80 EUR, laser ca. 1500 EUR)\\
-}
+{\color{red}fakten:}\\
+
+{\color{red}- aufbau (kamera, ir, ir-kamera)}\\
+{\color{red}- Auflösung}\\
+
+Die \gls{glos:Kinect} sendet über den {\color{red}AUSFÜLLEN} ein Muster aus Infrarotpunkten aus. Wie in Abbildung \ref{fig:kinectIlluminator} zu sehen, werden diese von Objekten die im Sichtfeld des Gerätes stehen reflektiert. Gut zu erkennen ist auch, dass sich in der Szene eine flache Grundfläche und zwei senkrecht aneinander stehende leicht konvexe Flächen befinden. Aufgrund dieses Szenenaufbaus, entsteht eine ungleichmäßige Infrarotausleuchtung. Eine spezielle Software kann nun anhand der Verzerrung des Musters, dem Abstand und Größe der Infrarotlichtpunkte errechnen, in welcher Entfernung die Objekte zur Kamera stehen.
+\begin{figure}[t]
+	\centering
+	\fbox{\includegraphics[height=10cm]{./graphics/kinectIlluminator_sharp2}}
+	\caption[Kinect Infrarot Feld]{Eine Aufnahme des Infrarot Ausleuchtungsfelds der \gls{glos:Kinect}.}
+	\label{fig:kinectIlluminator}
+\end{figure}
+
+Aufgrund des Aufbaus der \gls{glos:Kinect} entstehen dabei zwangsläufig tote Winkel, über die sie keine Aussagen treffen kann. Abbildung \ref{fig:toterWinkel} zeigt diesen Umstand. Das Infrarotlicht kann nicht auf die ganze hintere Wand projiziert werden, da diese von einem davor stehenden Objekt verdeckt wird. Der {\color{red}rote} Bereich liegt jedoch im Sichtfeld der Infrarotkamera. Die Abbildung \ref{fig:kinectViews} in Kapitel \ref{subsec:opennistack} zeigt diesen Effekt ebenfalls. Jedoch ist dort der Winkel des linken 3D-Bildes leicht verschoben, sodass tote Winkel scheinbar links und rechts von Objekten auftreten können. Dies ist aber wie in Abbildung \ref{fig:toterWinkel} gezeigt aufgrund des Aufbaus der \gls{glos:Kinect} nicht der Fall.
+\begin{figure}[t]
+	\centering
+	\fbox{\includegraphics[height=6cm]{./graphics/toterWinkel}}
+	\caption[Toter Winkel der Kinect]{Eine anschauliche Darstellung eines toten Winkels der \gls{glos:Kinect}.}
+	\label{fig:toterWinkel}
+\end{figure}
+
+{\color{red}- Reichweite}\\
+{\color{red}- Genauigkeit in Abhängigkeit zur Entfernung (kurvenbild: kinect/optimal-linien)}\\
+{\color{red}- vergleich mit laser (kinect ca. 80 EUR, laser ca. 1500 EUR)}\\
 
 {\color{red}
 benutzungsmöglichkeiten für uns:\\
@@ -66,6 +80,7 @@ Um einzelne \glspl{glos:Node} oder ein ganzes System zu testen, kann es sinnvoll
 \glspl{glos:Message} transportieren üblicherweise Daten, die visualisiert werden können. \gls{ROS} hält hierfür einen \gls{glos:Node} namens \gls{glos:rviz} bereit. Dieser versteht bereits einige \glspl{glos:Message}, kann aber auch bei Bedarf durch Plug-Ins erweitert werden. In dieser Arbeit wird \gls{glos:rviz} beispielsweise dafür eingesetzt, eine Karte und einen Roboter darin anzuzeigen. Hierbei wird deutlich, dass \gls{glos:rviz} die Transformation zwischen Karte und Roboter kennen muss. Dafür sorgt ein sehr wichtiges \gls{glos:Package} namens \emph{tf}. Jede \gls{glos:Message} ist in einem bestimmten Koordinatensystem entstanden, einem sogenannten \gls{glos:CFrame}, welcher in einer \gls{glos:Message} durch einen String repräsentiert wird. Der \emph{tf}-\gls{glos:Node} abonniert nun alle \emph{tf-\glspl{glos:Message}}, die zu einem \gls{glos:Topic} namens \emph{/tf} beispielsweise von Sensoren veröffentlicht werden. Andere \glspl{glos:Node}, die die Transformation zwischen zwei \glspl{Frame} benötigen, wie beispielsweise \gls{glos:rviz} zum Visualisieren der \glspl{glos:Message}, können nun anhand der gesammelten Daten des \emph{tf-\glspl{glos:Node}} diese direkt ablesen. Diese Transformationen werden in einer Baumstruktur vorgehalten. Es muss also zwischen zwei \glspl{Frame} immer genau eine Hierarchie geben. In \gls{glos:rviz} selbst, kann der Anwender einen globalen \gls{glos:FFrame} wählen, in den alle sonstigen \glspl{Frame} unter Beachtung ihrer Transformation zu diesem gezeichnet werden, typischerweise also die Wurzel des \emph{tf}-Baumes. Zusätzlich lässt sich ein \gls{glos:TFrame} auswählen, den der Benutzer verfolgen möchte. Wird also eine Karte als \gls{glos:TFrame} gewählt, bewegt sich der Roboter. Wird der Roboter selbst ausgewählt, bewegt sich die Karte während der Roboter immer in der Mitte bleibt.
 
 \subsection{OpenNI\_Kinect Stack}
+\label{subsec:opennistack}
 
 Der OpenNI\_Kinect Stack integriert unter Anderem die in \ref{subsec:kinect} beschriebene Kinect in \gls{ROS}. Er erlaubt neben Skeleton Tracking und Gesture Recognition auch die direkte Verwendung der Rohdaten der \gls{glos:Kinect} durch das \gls{glos:Package} \emph{openni\_camera}. Wie in \cite{online:rosopenni_camera} beschrieben, werden durch das Starten des \emph{openni\_camera} \glspl{glos:Node} u. a. die in der Tabelle \ref{tab:opennicameramsgs} {\color{red} (steht hier immer noch ein doppeltes fragezeichen?)} beschriebenen \glspl{glos:Message} zu den jeweiligen \glspl{glos:Topic} veröffentlicht.
 \begin{table}
