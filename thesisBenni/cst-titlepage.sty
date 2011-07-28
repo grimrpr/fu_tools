@@ -1,0 +1,93 @@
+%%
+%% This is file `cst-titlepage.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% cst-titlepage.dtx  (with options: `package')
+%% This is a generated file.
+%% Copyright (C) 2008 by Bastian Blywis
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.2 of this license or (at your option) any later
+%% version. The latest version of this license is in:
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of
+%% LaTeX version 1999/12/01 or later.
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{cst-titlepage}
+    [2008/10/17 v1.0 CST style for titlepages]
+
+\ProcessOptions\relax
+
+\RequirePackage{ifthen}
+\RequirePackage{graphicx}
+\RequirePackage{hyperref}
+\RequirePackage{color}
+
+\newcommand{\logoleft}[1]{\def\@logoleft{#1}}
+\def\@logoleft{./graphics/CSTLogo.pdf}
+\newcommand{\logoright}[1]{\def\@logoright{#1}}
+\def\@logoright{./graphics/FULogo.pdf}
+
+\newcommand{\matrikelno}[1]{\def\@matrikelno{#1}}
+\def\@matrikelno{123456}
+
+\newcommand{\thesis}[1]{\def\@thesis{#1}}
+\def\@thesis{Diplomarbeit}
+
+\newcommand{\profName}[1]{\def\@profName{#1}}
+\def\@profName{Prof. Dr. rer. nat. Mesut G\"une\c{s}}
+
+\newcommand{\assistentName}[1]{\def\@assistentName{#1}}
+\def\@assistentName{Name of Assistent}
+
+\renewcommand*{\maketitle}{%
+\begin{titlepage}%
+    \def\@foot@er{}%
+    \iflanguage{ngerman}{%
+        \def\@trans@supervisor{Betreuer}
+        \def\@trans@assistent{Betreuender Assistent}
+        \def\@foot@er{Institut f\"ur Informatik, Freie Universit\"at Berlin, Deutschland}
+    }
+    {%
+        \def\@trans@supervisor{Supervisor}
+        \def\@trans@assistent{Assisting Supervisor}
+        \def\@foot@er{Institute of Computer Science, Freie Universit\"at Berlin, Germany}
+    }
+    \thispagestyle{empty}%
+    \enlargethispage{3cm}%
+    \vspace*{-1.5cm}%
+    \setlength\oddsidemargin{7mm}%
+    \begin{center}%
+    {%
+        \includegraphics[height=2cm]{\@logoleft}%
+        \hfill%
+        \includegraphics[height=2cm]{\@logoright}%
+    } \par%
+    \hrulefill \par%
+    \bigskip%
+    {\large Computer Systems and Telematics~\textemdash~Distributed, Embedded Systems \par}%
+    \vspace{3cm}%
+    {\Large \@thesis~\par}%
+    \vspace{1.5cm}
+    {\huge \@title \par}%
+    \vspace{2cm}%
+    {\@author \par \smallskip Matr. \@matrikelno \par}%
+    \vfill%
+    {\mbox{%
+        \begin{tabular}{rl}%
+            \@trans@supervisor: & \@profName \\
+            \@trans@assistent: & \@assistentName
+        \end{tabular}}%
+    }\par
+    \vspace{.6em}
+    \hrulefill\par%
+    \vspace{.6em}
+    {\small \@foot@er \par \smallskip \@date}%
+    \end{center}
+\end{titlepage}}
+
+\endinput
+%%
+%% End of file `cst-titlepage.sty'.

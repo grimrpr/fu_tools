@@ -1,0 +1,73 @@
+\chapter{The CST Template}
+
+\section{How to use this Template}
+\label{secHowTo}
+%==============================================================================
+The \gls{CST} thesis template has to be used for all theses of the \gls{DES} sub-research group.
+You have to follow some simple rules:
+\begin{enumerate}
+    \item Use \gls{pdflatex} to compile the \LaTeX\ source code
+	\item Do not add files to the repository that are dynamically created by the compiler, e.g., \texttt{*.aux} or the ouput PDF file
+	\item Use the \texttt{global-ignores} feature in your \textit{Subversion} configuration file to avoid unintentional uploads, e.g., \\ \texttt{global-ignores = *.aux}
+	\item Your report has to be compilable at all times; do not forget to add and upload new files
+	\item When removing, moving, or adding files use a \textit{Subversion} client; never use your \gls{OS}'s commands
+	\item Do not use bitmap-based graphics; only vector-based ones (\texttt{svg}, \texttt{pdf}, etc) are allowed; use programs like \href{http://www.inkscape.org/}{Inkscape} to create figures
+	\item Do not change the style of the thesis template without consent of your supervisor
+	\item Add your read publications to the \texttt{bibliography.bib} file; use \href{http://jabref.sourceforge.net/}{JabRef} as an editor
+	\item Floating elements (tables, figures, etc) shall be aligned to the top of the page
+	\item Always provide a caption for floating elements; these shall contain a short and a longer description
+	\item Source code (C, Java, Python, etc) should be stored in an external file and included into the document; small fragments may be inline
+	\item Reduce the amount of source code to a minimum; this shall be no API documentation but a thesis
+\end{enumerate}
+
+\section{\LaTeX Examples}
+
+The following examples are included in this template:
+\begin{itemize}
+    \item Itemize-Environment, what you are reading right now
+	\item Description-Environment, on page \pageref{example:description}
+	\item Enumeration-Environment, on page \pageref{example:enumeration} or this section
+	\item Table, on page \pageref{tab:table}
+	\item Source code, on page \pageref{lst:useless}
+	\item Mathematical formula, on page \pageref{eqn:formula}
+	\item Bibliography reference, on page \pageref{example:reference}
+	\item Acronyms, this section; functionality inlcuded in the \texttt{glossaries} package
+	\item Glossaries, this section and file \texttt{glossary.tex}
+	\item Bytefield-Environment, on page \pageref{fig:bytefield} inside a figure
+	\item References to other section, figures, listings, and tables, all over this template
+	\item Figure, on page \pageref{fig:smiley}
+	\item Mathematical mode for short formulas, example $\exists x \in \{1,\frac{3}{2},2,\ldots,9\}$
+\end{itemize}
+
+To make use the glossary you have to utilize the \texttt{makeindex} command as follow:
+\begin{verbatim}
+makeindex -s $(TARGET).ist -t $(TARGET).glg -o $(TARGET).gls $(TARGET).glo
+\end{verbatim}
+The token \texttt{\$(TARGET)} represents your main file's name, e.g., \texttt{main-text.}
+Most \LaTeX\ editors can execute additional commands when you run \gls{pdflatex}; configure your editor accordingly.
+An acronym list is build accordingly with:
+\begin{verbatim}
+makeindex -s $(TARGET).ist -t $(TARGET).alg -o $(TARGET).acr $(TARGET).acn
+\end{verbatim}
+A makefile is provided for your convenience.
+
+\newpage
+\section{Additional Documentation}
+
+Extensive \LaTeX\ documentation is available on the web.
+Have a look in our \href{http://cst.mi.fu-berlin.de/links/technical-writing.html}{link section}.
+Packages and their documentation can usually be found in the \href{http://www.ctan.org/}{Comprehensive TeX Archive Network}.
+
+For you convenience we provide is list of links to the most important packages:
+\begin{itemize}
+	\item \href{http://tug.ctan.org/cgi-bin/ctanPackageInformation.py?id=bytefield}{bytefield - Create illustrations for network protocol specifications}
+	\item \href{http://tug.ctan.org/cgi-bin/ctanPackageInformation.py?id=colortbl}{colortbl - Add colour to LaTeX tables}
+	\item \href{http://tug.ctan.org/cgi-bin/ctanPackageInformation.py?id=eqnarray}{eqnarray - More generalised equation arrays with numbering}
+	\item \href{http://tug.ctan.org/cgi-bin/ctanPackageInformation.py?id=glossaries}{glossaries - Create glossaries and lists of acronyms}
+	\item \href{http://tug.ctan.org/cgi-bin/ctanPackageInformation.py?id=graphicx}{graphicx - Enhanced support for graphics}
+	\item \href{http://tug.ctan.org/cgi-bin/ctanPackageInformation.py?id=listings}{listings - Typeset source code listings using LaTeX}
+	\item \href{http://tug.ctan.org/cgi-bin/ctanPackageInformation.py?id=pdflscape}{pdflscape - Make landscape pages display as landscape}
+	\item \href{http://tug.ctan.org/cgi-bin/ctanPackageInformation.py?id=supertabular}{supertabular - A multi-page tables package}
+	\item \href{http://tug.ctan.org/cgi-bin/ctanPackageInformation.py?id=xcolor}{xcolor - Driver-independent color extensions for LaTeX and pdfLaTeX}
+\end{itemize}
+

@@ -1,0 +1,59 @@
+%%% optionally include ngerman in the document class options list
+\documentclass[ngerman, paper=a4, 11pt, cleardoubleempty, twoside, openright, BCOR=7mm, DIV12, idxtotoc, liststotoc, bibtotoc, headinclude=false]{scrreprt}
+\usepackage[utf8]{inputenc}
+
+%%% uncomment only one of the following two lines %%%
+\usepackage[ngerman]{babel}
+% \usepackage[english]{babel}
+
+\usepackage[T1]{fontenc}
+\usepackage{format}
+
+\title{Implementation of a LaTeX Style for Diploma, Bachelor, and Master Theses}
+\author{Bastian Blywis}
+\matrikelno{3601450}
+\thesis{Sisyphusarbeit}
+\assistentName{Dipl.-Inf. Bastian Blywis}
+
+\automark[section]{chapter}
+\begin{document}
+	%===================================
+	% Titlepage
+	%===================================
+	\pagenumbering{roman}
+	\maketitle
+	\cleardoublepage
+	
+	%===================================
+	% Official parts
+	%===================================
+	\affirmation
+	\input{text/abstract}
+	\cleardoublepage
+	
+	\tableofcontents
+	\listoffigures
+	\listoftables
+	\lstlistoflistings
+	\printglossaries
+    \cleardoublepage
+    \pagenumbering{arabic}
+    
+	%===================================
+	% Main part of the text
+	%===================================	
+    \input{text/0-Template} %%% read this!!!
+	\input{text/1-motivation}
+    \input{text/2-related-work}
+    \input{text/3-implementation}
+    \input{text/4-experiments}
+    \input{text/5-evaluation}
+    \input{text/6-conclusion}
+	
+	
+	%===================================
+	% Bibliography, insert bia bibtex
+	%===================================
+	\bibliographystyle{unsrt}
+	\bibliography{bibliography}
+\end{document}

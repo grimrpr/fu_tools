@@ -1,0 +1,125 @@
+%=============================================================================
+% Global document preferences and definitons
+%=============================================================================
+\RequirePackage{graphicx}
+\RequirePackage{titlesec}
+\RequirePackage{pdfsync}
+\RequirePackage{hyperref}
+\RequirePackage{cst-titlepage, cst-affirmation}
+\RequirePackage[headsepline]{scrpage2}
+\RequirePackage{listings}
+\lstset{
+    numbers=left,
+    captionpos=b,
+    xleftmargin=.6cm,
+    frame=lines,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    breaklines=true,
+    escapeinside={(*@}{@*)}
+}
+\RequirePackage[acronym, toc]{glossaries}
+\RequirePackage{booktabs}
+\RequirePackage{bytefield}
+\RequirePackage[small]{caption}
+
+\input{glossary}
+% \input{hyphenation}
+
+\makeglossary
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\parindent 0pt
+\parskip 1ex
+
+\iflanguage{ngerman}{
+\def\@trans@lstlistlistingname{Quellcodeverzeichnis}
+\def\@trans@lstlistingname{Quellcode}
+\let\lstlistlistingname\@trans@lstlistlistingname
+\let\lstlistingname\@trans@lstlistingname
+}{}
+
+%=============================================================================
+% Kopfzeile und Fusszeile definieren
+%=============================================================================
+\pagestyle{scrheadings} % the fancy headers of koma script
+\rehead{\leftmark} % chapter number and name on the inner edge of all left pages
+\lohead{\rightmark} % section number and name on the inner edge of all right pages
+\ohead[\pagemark]{\pagemark} % page number at the outer edge
+\automark[section]{chapter}
+% 
+% empty footer
+\ifoot{}
+\cfoot[]{}
+\ofoot{}
+
+\renewcommand*{\chapterpagestyle}{empty}
+
+%=============================================================================
+% Makro definitions
+%=============================================================================
+\newcommand{\rem}[1]{}
+\renewcommand{\subsectionautorefname}{Abschnitt}
+\renewcommand{\sectionautorefname}{Abschnitt}
+\renewcommand{\subsubsectionautorefname}{Abschnitt}
+
+\titleformat{\chapter}[display]
+  {\normalfont\Large\filcenter\sffamily}
+  {\titlerule[2pt]%
+   \vspace{2pt}%
+   \titlerule
+   \vspace{1pc}%
+   \LARGE\MakeUppercase{\chaptertitlename} \thechapter}
+  {1pc}
+  {\titlerule
+   \vspace{1pc}%
+   \Huge}
+
+\titleformat{\section}%
+  {\normalfont\Large\sffamily}%
+  {\thesection}%
+  {1em}%
+  {}%
+
+\titleformat{\subsubsection}%
+  {\normalfont\sffamily}%
+  {\thesubsubsection}%
+  {1em}%
+  {}%
+
+\titleformat{\subsection}%
+  {\normalfont\large\sffamily}%
+  {\thesubsection}%
+  {1em}%
+  {}%
+
+\titleformat{\paragraph}[runin]%
+  {\normalfont\itshape}%
+  {\emph{\theparagraph}}%
+  {}%
+  {}%
+
+%=============================================================================
+% fix for listings package
+%=============================================================================
+\makeatletter
+\@ifundefined{float@listhead}{}{%
+    \renewcommand*{\lstlistoflistings}{%
+        \begingroup
+            \if@twocolumn
+                \@restonecoltrue\onecolumn
+            \else
+                \@restonecolfalse
+            \fi
+            \float@listhead{\lstlistlistingname}%
+            \setlength{\parskip}{\z@}%
+            \setlength{\parindent}{\z@}%
+            \setlength{\parfillskip}{\z@ \@plus 1fil}%
+            \@starttoc{lol}%
+            \if@restonecol\twocolumn\fi
+        \endgroup
+    }%
+}
+\makeatother
+
