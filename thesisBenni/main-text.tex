@@ -1,0 +1,85 @@
+%%% optionally include ngerman in the document class options list
+\documentclass[ngerman, paper=a4, 11pt, cleardoubleempty, twoside, openright, BCOR=7mm, DIV12, idxtotoc, liststotoc, bibtotoc, headinclude=false]{scrreprt}
+\usepackage[utf8]{inputenc}
+
+%%% uncomment only one of the following two lines %%%
+\usepackage[ngerman]{babel}
+% \usepackage[english]{babel}
+
+\usepackage[T1]{fontenc}
+\usepackage{format}
+
+\title{Design und Implementierung eines Referenzsystems zur indoor Lokalisierung auf Basis RGB-D Featuretrackings}
+\author{Benjamin Aschenbrenner}
+\matrikelno{4292264}
+\thesis{Bachelorarbeit}
+\assistentName{Dipl.-Inf. Heiko Will}
+
+\automark[section]{chapter}
+\begin{document}
+	%===================================
+	% Titlepage
+	%===================================
+	\pagenumbering{roman}
+	\maketitle
+	\cleardoublepage
+	
+	%===================================
+	% Official parts
+	%===================================
+	\affirmation
+	\input{text/abstract}
+	\cleardoublepage
+	
+	\tableofcontents
+	\listoffigures
+	\listoftables
+	\lstlistoflistings
+	\printglossaries
+  \cleardoublepage
+  \pagenumbering{arabic}
+    
+	%===================================
+	% Main part of the text
+	%===================================	
+	\chapter{Einleitung} 
+	\label{cha:einleitung}
+	\input{text/0-Motivation}
+	\input{text/0-Loesungsansaetze}
+	\input{text/0-Aufgabenstellung}
+
+	\chapter{Umsetzung} 
+	\label{cha:umsetzung}
+	\input{text/1-Konzept}
+	\input{text/1-SoftUndHardware}
+	\input{text/1-Pathfinder}
+
+	\chapter{Analyse} 
+	\label{cha:analyse}
+	\input{text/2-Testlauf}
+	\input{text/2-Genauigkeit}
+	\input{text/2-Fazit}
+
+	\chapter{Ausblick} 
+	\label{cha:ausblick}
+	\input{text/3-Ausblick}
+
+	\chapter{Anhang}
+	\label{cha:anhang}
+	\input{text/4-Anhang}
+
+ %   \input{text/0-Template} %%% read this!!!
+ % \input{text/1-motivation}
+ %   \input{text/2-related-work}
+ %   \input{text/3-implementation}
+ %   \input{text/4-experiments}
+ %   \input{text/5-evaluation}
+ %   \input{text/6-conclusion}
+	
+	
+	%===================================
+	% Bibliography, insert bia bibtex
+	%===================================
+	\bibliographystyle{unsrt}
+	\bibliography{bibliography}
+\end{document}

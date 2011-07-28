@@ -1,0 +1,58 @@
+%%
+%% This is file `cst-affirmation.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% cst-affirmation.dtx  (with options: `package')
+%% This is a generated file.
+%% Copyright (C) 2008 by Bastian Blywis
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.2 of this license or (at your option) any later
+%% version. The latest version of this license is in:
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of
+%% LaTeX version 1999/12/01 or later.
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{cst-affirmation}
+   [2008/10/14 v1.1 CST thesis affirmation]
+   
+\newcommand{\affirmation}{%
+    {%
+    \vspace*{\fill}%
+    \noindent%
+    \iflanguage{ngerman}{%
+        Ich versichere, dass ich die vorliegende Arbeit selbst\"andig verfasst
+        und keine anderen als die angegebenen Quellen und Hilfsmittel benutzt habe.
+        Alle Stellen, die w\"ortlich oder sinngem\"a\ss{} aus ver\"offentlichten
+        Schriften entnommen wurden, sind als solche gekennzeichnet.
+        Die Zeichnungen oder Abbildungen sind von mir selbst erstellt worden oder
+        mit entsprechenden Quellennachweisen versehen.
+        Diese Arbeit ist in gleicher oder \"ahnlicher Form noch bei keiner
+        Pr\"ufungsbeh\"orde eingereicht worden.
+        \\[10ex]
+        Berlin, den \today%
+        \hfill%
+        \parbox[t]{13em}{\hrulefill \\[0.5ex] \centering\smash{(\@author)}}%
+    }%
+    {%
+        I hereby declare to have written this thesis on my own.
+        I have used no other literature and resources than the ones referenced.
+        All text passages that are literal or logical copies from other
+        publications have been marked accordingly.
+        All figures and pictures have been created by me or their sources are
+        referenced accordingly.
+        This thesis has not been submitted in the same or a similar version to
+        any other examination board.
+        \\[10ex]
+        Berlin, \today%
+        \hfill%
+        \parbox[t]{13em}{\hrulefill \\[0.5ex] \centering\smash{(\@author)}}%
+    }%
+    \vspace*{\fill}}%
+}
+
+\endinput
+%%
+%% End of file `cst-affirmation.sty'.
