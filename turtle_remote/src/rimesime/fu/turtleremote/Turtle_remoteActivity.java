@@ -1,26 +1,20 @@
 package rimesime.fu.turtleremote;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.util.Properties;
-import java.util.concurrent.LinkedBlockingQueue;
-
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Display;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.Surface;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
@@ -30,439 +24,265 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.jcraft.jsch.Channel;
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.Session;
+public class Turtle_RemoteActivity extends Activity {
 
-public class Turtle_remoteActivity extends Activity implements
-SensorEventListener {
+	// access to all (makes it easier)
+	public static Turtle_RemoteActivity trObj;
 
-	static String LOG_TAG = "TurtleRemote";
+	// main content sensors
+	private static SensorManager sensorManager;
+	private static Sensor accelerometer;
+	private static WindowManager windowManager;
+	static Display display;
 
-	static float INITIAL_ACCURACY = 1.0f;
-	static int INITIAL_SPEED = 1;
-	static boolean INITIAL_AUTOCONNECT = false;
-
-	static char KEYCODE_R = 0x43;
-	static char KEYCODE_L = 0x44;
-	static char KEYCODE_U = 0x41;
-	static char KEYCODE_D = 0x42;
-
-	private SharedPreferences prefs;
-	static private Properties config = new Properties();
-	static {
-		config.put("StrictHostKeyChecking", "no");
-	}
-
-	private EditText host;
-	private EditText password;
-	private ScrollView logScroll;
-	private LinkedBlockingQueue<String> logQueue = new LinkedBlockingQueue<String>();
-	private TextView log;
-	private TextView status;
-	private Button connectButton;
-	private EditText accuracy;
-	private EditText speed;
-	private ToggleButton autoConnect;
-	private Button driveButton;
-
-	private boolean driving = false;
-
-	private SensorManager mSensorManager;
-	private Sensor mAccelerometer;
-	private WindowManager mWindowManager;
-	private Display mDisplay;
-
-	private JSch ssh = new JSch();
-	private Session session;
-	private Channel channel;
+	// Handler
+	private Handler handler = new Handler();
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.main);
+
+		trObj = this;
+		State.init(handler);
 
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-		mAccelerometer = mSensorManager
-		.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-		mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-		mDisplay = mWindowManager.getDefaultDisplay();
+		State.load(getPreferences(MODE_PRIVATE));
 
-		host = (EditText) findViewById(R.id.host);
-		password = (EditText) findViewById(R.id.password);
-		logScroll = (ScrollView) findViewById(R.id.logScroll);
-		log = (TextView) findViewById(R.id.log);
-		status = (TextView) findViewById(R.id.status);
-		connectButton = (Button) findViewById(R.id.connect);
-		accuracy = (EditText) findViewById(R.id.accuracy);
-		speed = (EditText) findViewById(R.id.speed);
-		autoConnect = (ToggleButton) findViewById(R.id.autoConnect);
-		driveButton = (Button) findViewById(R.id.drive);
+		if (!State.connection.loggedIn)
+			switchContentView(R.layout.login);
+		else
+			switchContentView(R.layout.main);
 
-		host.setOnKeyListener(new OnKeyListener() {
-			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				doInputStateChange();
-				return false;
-			}
-		});
+		if (!State.connection.loggedIn && State.varAutoconnect)
+			State.connection.connect(State.varHost, State.varPassword);
 
-		autoConnect.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-				SharedPreferences.Editor editor = prefs.edit();
-				editor.putBoolean("autoConnect", isChecked);
-				editor.commit();
-			}
-		});
-
-		speed.setOnKeyListener(new OnKeyListener() {
-			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				int i = -1;
-
-				try {
-					i = Integer.parseInt(speed.getText().toString());
-					speed.setBackgroundColor(Color.WHITE);
-				} catch (NumberFormatException e) {
-					speed.setBackgroundColor(Color.RED);
-					Toast.makeText(v.getContext(), "Must be Integer", 3000);
-				}
-
-				SharedPreferences.Editor editor = prefs.edit();
-				editor.putInt("speed", i);
-				editor.commit();
-				return false;
-			}
-		});
-
-		accuracy.setOnKeyListener(new OnKeyListener() {
-			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				float i = -1f;
-
-				try {
-					i = Float.parseFloat(accuracy.getText().toString());
-					accuracy.setBackgroundColor(Color.WHITE);
-				} catch (NumberFormatException e) {
-					accuracy.setBackgroundColor(Color.RED);
-					Toast.makeText(v.getContext(), "Must be Float", 3000);
-				}
-
-				SharedPreferences.Editor editor = prefs.edit();
-				editor.putFloat("accuracy", i);
-				editor.commit();
-				return false;
-			}
-		});
-
-		connectButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				connect();
-			}
-		});
-
-		driveButton.setOnTouchListener(new OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-
-				driveState(event);
-
-				// false: event "not handled", true: button would
-				// not look like it got pressed
-				return false;
-
-			}
-		});
-
-		prefs = getPreferences(MODE_PRIVATE);
-		host.setText(prefs.getString("host", ""));
-		password.setText(prefs.getString("password", ""));
-		speed.setText(new Integer(prefs.getInt("speed", INITIAL_SPEED))
-		.toString());
-		accuracy.setText(new Float(prefs.getFloat("accuracy", INITIAL_ACCURACY))
-		.toString());
-		autoConnect.setChecked(prefs.getBoolean("autoConnect",
-				INITIAL_AUTOCONNECT));
-		doInputStateChange();
-
-		if (autoConnect.isChecked())
-			connect();
+		// sensors
+		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+		accelerometer = sensorManager
+				.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+		windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+		display = windowManager.getDefaultDisplay();
 
 	}
 
-	private void connect() {
-		setInputEnabled(false);
-		log("Connecting...");
+	void switchContentView(int id) {
 
-		SharedPreferences.Editor editor = prefs.edit();
-		editor.putString("host", host.getText().toString());
-		editor.putString("password", password.getText().toString());
-		editor.commit();
+		if (id == R.layout.login) {
 
-		ssh = new JSch();
-		String strHost = host.getText().toString();
-		String user = strHost.substring(0, strHost.indexOf('@'));
-		strHost = strHost.substring(strHost.indexOf('@') + 1);
+			Log.l("Switching to login view.");
 
-		try {
-			session = ssh.getSession(user, strHost, 22);
-			session.setConfig(config);
-			session.setPassword(password.getText().toString());
-			session.connect();
-			channel = session.openChannel("shell");
-			channel.setInputStream(null);
-			channel.connect(5000);
+			this.setContentView(id);
 
-			log("Connected! Start driving!");
-			setDrivingEnabled(true);
+			// login content view
+			final EditText txtHost = (EditText) findViewById(R.id.host);
+			final EditText txtPassword = (EditText) findViewById(R.id.password);
+			final Button btnConnect = (Button) findViewById(R.id.connect);
+			final ToggleButton tbtnAutoConnect = (ToggleButton) findViewById(R.id.autoConnect);
 
-			final InputStream is = channel.getInputStream();
-			// final LinkedBlockingQueue<String> waitLock1 = new
-			// LinkedBlockingQueue<String>();
-			// final LinkedBlockingQueue<String> waitLock2 = new
-			// LinkedBlockingQueue<String>();
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						BufferedReader br = new BufferedReader(
-								new InputStreamReader(is));
+			tbtnAutoConnect.setChecked(State.varAutoconnect);
 
-						String line;
-						while ((line = br.readLine()) != null)
-							logQueue.add(line);
-						//							waitLock2.add("");
-						//							if (line.substring(line.length() - 2).equals("$ ")) {
-						//								waitLock2.clear();
-						//								waitLock1.add("$");
-						//							}
-					} catch (Exception e) {
-						logQueue.add(e.getMessage());
-					}
+			txtHost.addTextChangedListener(new TextWatcher() {
+				public void onTextChanged(CharSequence s, int start,
+						int before, int count) {
+					boolean doEnable = s.toString().contains("@");
+
+					btnConnect.setEnabled(doEnable);
+					txtPassword.setEnabled(doEnable);
+
+					Log.l(doEnable ? "Input valid." : "Input non valid.");
 				}
-			}).start();
 
-			// waitLock1.take(); // $ sign was sent
+				public void beforeTextChanged(CharSequence s, int start,
+						int count, int after) {
+				}
 
-			PrintWriter out = new PrintWriter(channel.getOutputStream());
-			out.println("roslaunch turtlebot_teleop keyboard_teleop.launch");
-			out.flush();
+				public void afterTextChanged(Editable s) {
+				}
+			});
 
-			// waitLock2.take(); // messages after sent command are received
-			Thread.sleep(1000);
-			logQueue();
+			txtHost.setText(State.varHost);
+			txtPassword.setText(State.varPassword);
 
-			// channel.disconnect();
-			// session.disconnect();
-			// log("Disconnected.");
-			// setDrivingEnabled(false);
-			// setInputEnabled(true);
+			tbtnAutoConnect
+					.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+						public void onCheckedChanged(CompoundButton buttonView,
+								boolean isChecked) {
+							State.varAutoconnect = isChecked;
+						}
+					});
 
-		} catch (JSchException e) {
-			log(e.getMessage());
-			setDrivingEnabled(false);
-			setInputEnabled(true);
-		} catch (Exception e) {
-			log(e.getMessage());
-			setDrivingEnabled(false);
-			setInputEnabled(true);
+			btnConnect.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					State.connection.connect(txtHost.getText().toString(),
+							txtPassword.getText().toString());
+				}
+			});
+		} else if (id == R.layout.main) {
+
+			Log.l("Switching to driving view.");
+
+			this.setContentView(id);
+
+			// main content view
+			// final ScrollView scrollLog = (ScrollView)
+			// findViewById(R.id.logScroll);
+			// final TextView lblLog = (TextView) findViewById(R.id.log);
+			// final TextView lblStatus = (TextView) findViewById(R.id.status);
+			final EditText txtAccuracyMultiplyer = (EditText) findViewById(R.id.accuracy);
+			final EditText txtCommandmultiplyer = (EditText) findViewById(R.id.speed);
+			final Button btnDrive = (Button) findViewById(R.id.drive);
+
+			txtCommandmultiplyer
+					.setText(new Integer(State.varCommandMultiplyer).toString());
+			txtAccuracyMultiplyer.setText(Float
+					.toString(State.varAccuracyMultiplyer));
+
+			txtCommandmultiplyer.setOnKeyListener(new OnKeyListener() {
+				public boolean onKey(View v, int keyCode, KeyEvent event) {
+					int i = -1;
+
+					try {
+						i = Integer.parseInt(txtCommandmultiplyer.getText()
+								.toString());
+						txtCommandmultiplyer.setBackgroundColor(Color.WHITE);
+						State.varCommandMultiplyer = i;
+					} catch (NumberFormatException e) {
+						txtCommandmultiplyer.setBackgroundColor(Color.RED);
+					}
+
+					return false;
+				}
+			});
+
+			txtAccuracyMultiplyer.setOnKeyListener(new OnKeyListener() {
+				public boolean onKey(View v, int keyCode, KeyEvent event) {
+					float i = -1f;
+
+					try {
+						i = Float.parseFloat(txtAccuracyMultiplyer.getText()
+								.toString());
+						txtAccuracyMultiplyer.setBackgroundColor(Color.WHITE);
+						State.varAccuracyMultiplyer = i;
+					} catch (NumberFormatException e) {
+						txtAccuracyMultiplyer.setBackgroundColor(Color.RED);
+					}
+
+					return false;
+				}
+			});
+
+			btnDrive.setOnTouchListener(new OnTouchListener() {
+				public boolean onTouch(View v, MotionEvent event) {
+
+					driveState(event);
+
+					return false;
+
+				}
+			});
+
 		}
+
 	}
 
 	@Override
 	public void onBackPressed() {
-		super.onBackPressed();
 
-		if ((session != null) && session.isConnected())
-			session.disconnect();
+		if (State.connection.loggedIn) {
+			State.connection.disconnect();
+			sensorManager.unregisterListener(State.drive);
+			State.drive.isDriving = false;
 
-		log("Finish");
-
-		finish();
+			switchContentView(R.layout.login);
+			return;
+		} else {
+			Log.l("Finish");
+			super.onBackPressed();
+			finish();
+		}
+		
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
 
-		if (driving)
-			mSensorManager.unregisterListener(this);
-	}
+		if (State.drive.isDriving) {
+			sensorManager.unregisterListener(State.drive);
+			State.drive.isDriving = false;
+		}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
+		State.persist(getPreferences(MODE_PRIVATE));
 
-		if (driving)
-			mSensorManager.registerListener(this, mAccelerometer,
-					SensorManager.SENSOR_DELAY_UI);
-
-		log("Resume");
+		Log.l("Pause");
 	}
 
 	private void driveState(MotionEvent event) {
 
-		boolean newDrivingState = (event.getAction() == MotionEvent.ACTION_DOWN)
-		|| (event.getAction() == MotionEvent.ACTION_MOVE);
-
-		if (driving == newDrivingState)
+		if (!State.connection.loggedIn)
 			return;
 
-		driving = newDrivingState;
+		boolean newIsDriving = (event.getAction() == MotionEvent.ACTION_DOWN)
+				|| (event.getAction() == MotionEvent.ACTION_MOVE);
 
-		if (driving)
-			mSensorManager.registerListener(this, mAccelerometer,
+		if (State.drive.isDriving == newIsDriving)
+			return;
+
+		State.drive.isDriving = newIsDriving;
+
+		if (State.drive.isDriving)
+			sensorManager.registerListener(State.drive, accelerometer,
 					SensorManager.SENSOR_DELAY_NORMAL);
 		else
-			mSensorManager.unregisterListener(this);
+			sensorManager.unregisterListener(State.drive);
 
-		log(driving ? "Driving started." : "Driving stopped.");
-		status("");
+		Log.l(State.drive.isDriving ? "Driving started." : "Driving stopped.");
 
-	}
+		Log.s("");
 
-	private void doInputStateChange() {
-		boolean doEnable = host.getText().toString().contains("@");
-
-		connectButton.setEnabled(doEnable);
-		password.setEnabled(doEnable);
-
-		log(doEnable ? "Input valid." : "Input non valid.");
-	}
-
-	private void setInputEnabled(boolean enabled) {
-		host.setEnabled(enabled);
-		password.setEnabled(enabled);
-		connectButton.setEnabled(enabled);
-
-		log(enabled ? "Input enabled." : "Input disabled.");
-	}
-
-	private void setDrivingEnabled(boolean enabled) {
-		driveButton.setEnabled(enabled);
-
-		log(enabled ? "Driving enabled." : "Driving disabled.");
 	}
 
 	@Override
-	public void onSensorChanged(SensorEvent event) {
-		if (event.sensor.getType() != Sensor.TYPE_ACCELEROMETER)
-			return;
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu, menu);
+		return true;
+	}
 
-		float floatX = 0;
-		float floatY = 0;
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		ToggleButton tbtnAutoConnect;
 
-		switch (mDisplay.getRotation()) {
-		case Surface.ROTATION_0:
-			floatX = event.values[0];
-			floatY = event.values[1];
-			break;
-		case Surface.ROTATION_90:
-			floatX = -event.values[1];
-			floatY = event.values[0];
-			break;
-		case Surface.ROTATION_180:
-			floatX = -event.values[0];
-			floatY = -event.values[1];
-			break;
-		case Surface.ROTATION_270:
-			floatX = event.values[1];
-			floatY = -event.values[0];
-			break;
-		}
-
-		float tmpAccuracy;
-		try {
-			tmpAccuracy = Float.parseFloat(accuracy.getText().toString());
-		} catch (NumberFormatException e) {
-			tmpAccuracy = INITIAL_ACCURACY;
-		}
-
-		int intX = Math.round(floatX * tmpAccuracy);
-		int intY = Math.round(floatY * tmpAccuracy);
-
-		status("Driving... (" + intX + ", " + intY + ")");
-
-		if ((intX == 0) && (intY == 0))
-			return;
-
-		try {
-
-			PrintWriter out = new PrintWriter(channel.getOutputStream());
-
-			while ((intX != 0) && (intY != 0)) {
-				if (intX > 0) {
-					intX--;
-					for (int i = 0; i < new Integer(speed.getText().toString()); ++i) {
-						out.print(KEYCODE_L);
-						out.flush();
-					}
-				}
-				if (intX < 0) {
-					intX++;
-					for (int i = 0; i < new Integer(speed.getText().toString()); ++i) {
-						out.print(KEYCODE_R);
-						out.flush();
-					}
-				}
-				if (intY > 0) {
-					intY--;
-					for (int i = 0; i < new Integer(speed.getText().toString()); ++i) {
-						out.print(KEYCODE_D);
-						out.flush();
-					}
-				}
-				if (intY < 0) {
-					intY++;
-					for (int i = 0; i < new Integer(speed.getText().toString()); ++i) {
-						out.print(KEYCODE_U);
-						out.flush();
-					}
-				}
+		switch (item.getItemId()) {
+		case R.id.ac_on:
+			if (item.isChecked())
+				item.setChecked(false);
+			else
+				item.setChecked(true);
+			State.varAutoconnect = item.isChecked();
+			tbtnAutoConnect = (ToggleButton) findViewById(R.id.autoConnect);
+			if (tbtnAutoConnect != null) {
+				tbtnAutoConnect.setChecked(State.varAutoconnect);
 			}
-
-		} catch (Exception e) {
-			log(e.getMessage());
+			return true;
+		case R.id.ac_off:
+			if (item.isChecked())
+				item.setChecked(false);
+			else
+				item.setChecked(true);
+			State.varAutoconnect = !item.isChecked();
+			tbtnAutoConnect = (ToggleButton) findViewById(R.id.autoConnect);
+			if (tbtnAutoConnect != null) {
+				tbtnAutoConnect.setChecked(State.varAutoconnect);
+			}
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
-
 	}
 
-	private void status(String s) {
-		status.setText(s);
-		logQueue();
-	}
-
-	private void logQueue() {
-
-		while (!logQueue.isEmpty()) {
-			Log.i(LOG_TAG, logQueue.peek());
-			log.append(logQueue.poll() + "\n");
-			logScroll.fling(500);
-		}
-
-	}
-
-	private void log(String logMsg) {
-
-		logQueue.add(logMsg);
-
-		logQueue();
-
-	}
-
-	@Override
-	public void onAccuracyChanged(Sensor sensor, int accuracy) {
-	}
 }

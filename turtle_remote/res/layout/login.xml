@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:weightSum="1">
+	<TextView android:id="@+id/textView1" android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:text="Enter: user@host" android:layout_width="wrap_content"></TextView>
+	<EditText android:layout_width="match_parent" android:id="@+id/host"
+		android:layout_height="wrap_content">
+		<requestFocus></requestFocus>
+	</EditText>
+	<TextView android:id="@+id/textView2" android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:text="Enter: password" android:layout_width="wrap_content"></TextView>
+	<EditText android:layout_width="match_parent" android:id="@+id/password"
+		android:inputType="textPassword" android:layout_height="wrap_content"></EditText>
+	<ToggleButton android:textOn="Auto connect on" android:textOff="Auto connect off" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/autoConnect"></ToggleButton>
+	<Button android:layout_height="match_parent" android:text="Connect to host"
+		android:id="@+id/connect" android:enabled="false"
+		android:layout_weight="1" android:layout_width="match_parent"></Button>
+</LinearLayout>
