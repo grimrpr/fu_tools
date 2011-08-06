@@ -14,6 +14,7 @@
 
 
 
+#include "waypoint/Track.h"
 
 namespace waypoint
 {
@@ -46,7 +47,7 @@ public:
   ROS_DEPRECATED const std::string __getMD5Sum() const { return __s_getMD5Sum_(); }
 
 private:
-  static const char* __s_getServerMD5Sum_() { return "c1f3d28f1b044c871e6eff2e9fc3c667"; }
+  static const char* __s_getServerMD5Sum_() { return "2495adb8775bc7b61be81a65755a1d7e"; }
 public:
   ROS_DEPRECATED static const std::string __s_getServerMD5Sum() { return __s_getServerMD5Sum_(); }
 
@@ -93,19 +94,23 @@ struct GetTracksResponse_ : public ros::Message
   typedef GetTracksResponse_<ContainerAllocator> Type;
 
   GetTracksResponse_()
-  : name()
+  : tracks()
   {
   }
 
   GetTracksResponse_(const ContainerAllocator& _alloc)
-  : name(_alloc)
+  : tracks(_alloc)
   {
   }
 
-  typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _name_type;
-  std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  name;
+  typedef std::vector< ::waypoint::Track_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::waypoint::Track_<ContainerAllocator> >::other >  _tracks_type;
+  std::vector< ::waypoint::Track_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::waypoint::Track_<ContainerAllocator> >::other >  tracks;
 
 
+  ROS_DEPRECATED uint32_t get_tracks_size() const { return (uint32_t)tracks.size(); }
+  ROS_DEPRECATED void set_tracks_size(uint32_t size) { tracks.resize((size_t)size); }
+  ROS_DEPRECATED void get_tracks_vec(std::vector< ::waypoint::Track_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::waypoint::Track_<ContainerAllocator> >::other > & vec) const { vec = this->tracks; }
+  ROS_DEPRECATED void set_tracks_vec(const std::vector< ::waypoint::Track_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::waypoint::Track_<ContainerAllocator> >::other > & vec) { this->tracks = vec; }
 private:
   static const char* __s_getDataType_() { return "waypoint/GetTracksResponse"; }
 public:
@@ -114,22 +119,27 @@ public:
   ROS_DEPRECATED const std::string __getDataType() const { return __s_getDataType_(); }
 
 private:
-  static const char* __s_getMD5Sum_() { return "c1f3d28f1b044c871e6eff2e9fc3c667"; }
+  static const char* __s_getMD5Sum_() { return "2495adb8775bc7b61be81a65755a1d7e"; }
 public:
   ROS_DEPRECATED static const std::string __s_getMD5Sum() { return __s_getMD5Sum_(); }
 
   ROS_DEPRECATED const std::string __getMD5Sum() const { return __s_getMD5Sum_(); }
 
 private:
-  static const char* __s_getServerMD5Sum_() { return "c1f3d28f1b044c871e6eff2e9fc3c667"; }
+  static const char* __s_getServerMD5Sum_() { return "2495adb8775bc7b61be81a65755a1d7e"; }
 public:
   ROS_DEPRECATED static const std::string __s_getServerMD5Sum() { return __s_getServerMD5Sum_(); }
 
   ROS_DEPRECATED const std::string __getServerMD5Sum() const { return __s_getServerMD5Sum_(); }
 
 private:
-  static const char* __s_getMessageDefinition_() { return "string name\n\
+  static const char* __s_getMessageDefinition_() { return "Track[] tracks\n\
 \n\
+\n\
+================================================================================\n\
+MSG: waypoint/Track\n\
+string name\n\
+int64 routeCount\n\
 \n\
 "; }
 public:
@@ -140,21 +150,21 @@ public:
   ROS_DEPRECATED virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
   {
     ros::serialization::OStream stream(write_ptr, 1000000000);
-    ros::serialization::serialize(stream, name);
+    ros::serialization::serialize(stream, tracks);
     return stream.getData();
   }
 
   ROS_DEPRECATED virtual uint8_t *deserialize(uint8_t *read_ptr)
   {
     ros::serialization::IStream stream(read_ptr, 1000000000);
-    ros::serialization::deserialize(stream, name);
+    ros::serialization::deserialize(stream, tracks);
     return stream.getData();
   }
 
   ROS_DEPRECATED virtual uint32_t serializationLength() const
   {
     uint32_t size = 0;
-    size += ros::serialization::serializationLength(name);
+    size += ros::serialization::serializationLength(tracks);
     return size;
   }
 
@@ -229,12 +239,12 @@ template<class ContainerAllocator>
 struct MD5Sum< ::waypoint::GetTracksResponse_<ContainerAllocator> > {
   static const char* value() 
   {
-    return "c1f3d28f1b044c871e6eff2e9fc3c667";
+    return "2495adb8775bc7b61be81a65755a1d7e";
   }
 
   static const char* value(const  ::waypoint::GetTracksResponse_<ContainerAllocator> &) { return value(); } 
-  static const uint64_t static_value1 = 0xc1f3d28f1b044c87ULL;
-  static const uint64_t static_value2 = 0x1e6eff2e9fc3c667ULL;
+  static const uint64_t static_value1 = 0x2495adb8775bc7b6ULL;
+  static const uint64_t static_value2 = 0x1be81a65755a1d7eULL;
 };
 
 template<class ContainerAllocator>
@@ -251,8 +261,13 @@ template<class ContainerAllocator>
 struct Definition< ::waypoint::GetTracksResponse_<ContainerAllocator> > {
   static const char* value() 
   {
-    return "string name\n\
+    return "Track[] tracks\n\
 \n\
+\n\
+================================================================================\n\
+MSG: waypoint/Track\n\
+string name\n\
+int64 routeCount\n\
 \n\
 ";
   }
@@ -289,7 +304,7 @@ template<class ContainerAllocator> struct Serializer< ::waypoint::GetTracksRespo
 {
   template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
   {
-    stream.next(m.name);
+    stream.next(m.tracks);
   }
 
   ROS_DECLARE_ALLINONE_SERIALIZER;
@@ -305,7 +320,7 @@ template<>
 struct MD5Sum<waypoint::GetTracks> {
   static const char* value() 
   {
-    return "c1f3d28f1b044c871e6eff2e9fc3c667";
+    return "2495adb8775bc7b61be81a65755a1d7e";
   }
 
   static const char* value(const waypoint::GetTracks&) { return value(); } 
@@ -325,7 +340,7 @@ template<class ContainerAllocator>
 struct MD5Sum<waypoint::GetTracksRequest_<ContainerAllocator> > {
   static const char* value() 
   {
-    return "c1f3d28f1b044c871e6eff2e9fc3c667";
+    return "2495adb8775bc7b61be81a65755a1d7e";
   }
 
   static const char* value(const waypoint::GetTracksRequest_<ContainerAllocator> &) { return value(); } 
@@ -345,7 +360,7 @@ template<class ContainerAllocator>
 struct MD5Sum<waypoint::GetTracksResponse_<ContainerAllocator> > {
   static const char* value() 
   {
-    return "c1f3d28f1b044c871e6eff2e9fc3c667";
+    return "2495adb8775bc7b61be81a65755a1d7e";
   }
 
   static const char* value(const waypoint::GetTracksResponse_<ContainerAllocator> &) { return value(); } 

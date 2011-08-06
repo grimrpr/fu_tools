@@ -1,4 +1,4 @@
 (cl:in-package waypoint-srv)
-(cl:export '(NAME-VAL
-          NAME
+(cl:export '(TRACKS-VAL
+          TRACKS
 ))
