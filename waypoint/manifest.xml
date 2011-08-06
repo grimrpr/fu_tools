@@ -1,0 +1,17 @@
+<package>
+  <description brief="waypoint">
+
+     waypoint
+
+  </description>
+  <author>Simon Schmitt</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/waypoint</url>
+
+  <depend package="roscpp"/>
+  <depend package="std_msgs"/>
+
+</package>
+
+
