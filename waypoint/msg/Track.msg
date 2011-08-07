@@ -1,2 +1,3 @@
 string name
-int64 routeCount
+time time
+nav_msgs/Path path
