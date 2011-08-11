@@ -93,12 +93,11 @@ import struct
 
 import geometry_msgs.msg
 import nav_msgs.msg
-import roslib.rostime
 import waypoint.msg
 import std_msgs.msg
 
 class GetTracksResponse(roslib.message.Message):
-  _md5sum = "7dacfbf062f7717baf180db62eb08cf0"
+  _md5sum = "79e2480cd0706d4386747f6db61a218c"
   _type = "waypoint/GetTracksResponse"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """Track[] tracks
@@ -107,7 +106,7 @@ class GetTracksResponse(roslib.message.Message):
 ================================================================================
 MSG: waypoint/Track
 string name
-time time
+string time
 nav_msgs/Path path
 
 ================================================================================
@@ -207,35 +206,35 @@ float64 w
         _x = val1.name
         length = len(_x)
         buff.write(struct.pack('<I%ss'%length, length, _x))
-        _v1 = val1.time
-        _x = _v1
-        buff.write(_struct_2I.pack(_x.secs, _x.nsecs))
-        _v2 = val1.path
-        _v3 = _v2.header
-        buff.write(_struct_I.pack(_v3.seq))
-        _v4 = _v3.stamp
-        _x = _v4
-        buff.write(_struct_2I.pack(_x.secs, _x.nsecs))
-        _x = _v3.frame_id
+        _x = val1.time
         length = len(_x)
         buff.write(struct.pack('<I%ss'%length, length, _x))
-        length = len(_v2.poses)
+        _v1 = val1.path
+        _v2 = _v1.header
+        buff.write(_struct_I.pack(_v2.seq))
+        _v3 = _v2.stamp
+        _x = _v3
+        buff.write(_struct_2I.pack(_x.secs, _x.nsecs))
+        _x = _v2.frame_id
+        length = len(_x)
+        buff.write(struct.pack('<I%ss'%length, length, _x))
+        length = len(_v1.poses)
         buff.write(_struct_I.pack(length))
-        for val3 in _v2.poses:
-          _v5 = val3.header
-          buff.write(_struct_I.pack(_v5.seq))
-          _v6 = _v5.stamp
-          _x = _v6
+        for val3 in _v1.poses:
+          _v4 = val3.header
+          buff.write(_struct_I.pack(_v4.seq))
+          _v5 = _v4.stamp
+          _x = _v5
           buff.write(_struct_2I.pack(_x.secs, _x.nsecs))
-          _x = _v5.frame_id
+          _x = _v4.frame_id
           length = len(_x)
           buff.write(struct.pack('<I%ss'%length, length, _x))
-          _v7 = val3.pose
-          _v8 = _v7.position
-          _x = _v8
+          _v6 = val3.pose
+          _v7 = _v6.position
+          _x = _v7
           buff.write(_struct_3d.pack(_x.x, _x.y, _x.z))
-          _v9 = _v7.orientation
-          _x = _v9
+          _v8 = _v6.orientation
+          _x = _v8
           buff.write(_struct_4d.pack(_x.x, _x.y, _x.z, _x.w))
     except struct.error, se: self._check_types(se)
     except TypeError, te: self._check_types(te)
@@ -260,18 +259,19 @@ float64 w
         start = end
         end += length
         val1.name = str[start:end]
-        _v10 = val1.time
-        _x = _v10
-        start = end
-        end += 8
-        (_x.secs, _x.nsecs,) = _struct_2I.unpack(str[start:end])
-        _v11 = val1.path
-        _v12 = _v11.header
         start = end
         end += 4
-        (_v12.seq,) = _struct_I.unpack(str[start:end])
-        _v13 = _v12.stamp
-        _x = _v13
+        (length,) = _struct_I.unpack(str[start:end])
+        start = end
+        end += length
+        val1.time = str[start:end]
+        _v9 = val1.path
+        _v10 = _v9.header
+        start = end
+        end += 4
+        (_v10.seq,) = _struct_I.unpack(str[start:end])
+        _v11 = _v10.stamp
+        _x = _v11
         start = end
         end += 8
         (_x.secs, _x.nsecs,) = _struct_2I.unpack(str[start:end])
@@ -280,19 +280,19 @@ float64 w
         (length,) = _struct_I.unpack(str[start:end])
         start = end
         end += length
-        _v12.frame_id = str[start:end]
+        _v10.frame_id = str[start:end]
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
-        _v11.poses = []
+        _v9.poses = []
         for i in xrange(0, length):
           val3 = geometry_msgs.msg.PoseStamped()
-          _v14 = val3.header
+          _v12 = val3.header
           start = end
           end += 4
-          (_v14.seq,) = _struct_I.unpack(str[start:end])
-          _v15 = _v14.stamp
-          _x = _v15
+          (_v12.seq,) = _struct_I.unpack(str[start:end])
+          _v13 = _v12.stamp
+          _x = _v13
           start = end
           end += 8
           (_x.secs, _x.nsecs,) = _struct_2I.unpack(str[start:end])
@@ -301,19 +301,19 @@ float64 w
           (length,) = _struct_I.unpack(str[start:end])
           start = end
           end += length
-          _v14.frame_id = str[start:end]
-          _v16 = val3.pose
-          _v17 = _v16.position
-          _x = _v17
+          _v12.frame_id = str[start:end]
+          _v14 = val3.pose
+          _v15 = _v14.position
+          _x = _v15
           start = end
           end += 24
           (_x.x, _x.y, _x.z,) = _struct_3d.unpack(str[start:end])
-          _v18 = _v16.orientation
-          _x = _v18
+          _v16 = _v14.orientation
+          _x = _v16
           start = end
           end += 32
           (_x.x, _x.y, _x.z, _x.w,) = _struct_4d.unpack(str[start:end])
-          _v11.poses.append(val3)
+          _v9.poses.append(val3)
         self.tracks.append(val1)
       return self
     except struct.error, e:
@@ -335,35 +335,35 @@ float64 w
         _x = val1.name
         length = len(_x)
         buff.write(struct.pack('<I%ss'%length, length, _x))
-        _v19 = val1.time
-        _x = _v19
-        buff.write(_struct_2I.pack(_x.secs, _x.nsecs))
-        _v20 = val1.path
-        _v21 = _v20.header
-        buff.write(_struct_I.pack(_v21.seq))
-        _v22 = _v21.stamp
-        _x = _v22
-        buff.write(_struct_2I.pack(_x.secs, _x.nsecs))
-        _x = _v21.frame_id
+        _x = val1.time
         length = len(_x)
         buff.write(struct.pack('<I%ss'%length, length, _x))
-        length = len(_v20.poses)
+        _v17 = val1.path
+        _v18 = _v17.header
+        buff.write(_struct_I.pack(_v18.seq))
+        _v19 = _v18.stamp
+        _x = _v19
+        buff.write(_struct_2I.pack(_x.secs, _x.nsecs))
+        _x = _v18.frame_id
+        length = len(_x)
+        buff.write(struct.pack('<I%ss'%length, length, _x))
+        length = len(_v17.poses)
         buff.write(_struct_I.pack(length))
-        for val3 in _v20.poses:
-          _v23 = val3.header
-          buff.write(_struct_I.pack(_v23.seq))
-          _v24 = _v23.stamp
-          _x = _v24
+        for val3 in _v17.poses:
+          _v20 = val3.header
+          buff.write(_struct_I.pack(_v20.seq))
+          _v21 = _v20.stamp
+          _x = _v21
           buff.write(_struct_2I.pack(_x.secs, _x.nsecs))
-          _x = _v23.frame_id
+          _x = _v20.frame_id
           length = len(_x)
           buff.write(struct.pack('<I%ss'%length, length, _x))
-          _v25 = val3.pose
-          _v26 = _v25.position
-          _x = _v26
+          _v22 = val3.pose
+          _v23 = _v22.position
+          _x = _v23
           buff.write(_struct_3d.pack(_x.x, _x.y, _x.z))
-          _v27 = _v25.orientation
-          _x = _v27
+          _v24 = _v22.orientation
+          _x = _v24
           buff.write(_struct_4d.pack(_x.x, _x.y, _x.z, _x.w))
     except struct.error, se: self._check_types(se)
     except TypeError, te: self._check_types(te)
@@ -390,18 +390,19 @@ float64 w
         start = end
         end += length
         val1.name = str[start:end]
-        _v28 = val1.time
-        _x = _v28
-        start = end
-        end += 8
-        (_x.secs, _x.nsecs,) = _struct_2I.unpack(str[start:end])
-        _v29 = val1.path
-        _v30 = _v29.header
         start = end
         end += 4
-        (_v30.seq,) = _struct_I.unpack(str[start:end])
-        _v31 = _v30.stamp
-        _x = _v31
+        (length,) = _struct_I.unpack(str[start:end])
+        start = end
+        end += length
+        val1.time = str[start:end]
+        _v25 = val1.path
+        _v26 = _v25.header
+        start = end
+        end += 4
+        (_v26.seq,) = _struct_I.unpack(str[start:end])
+        _v27 = _v26.stamp
+        _x = _v27
         start = end
         end += 8
         (_x.secs, _x.nsecs,) = _struct_2I.unpack(str[start:end])
@@ -410,19 +411,19 @@ float64 w
         (length,) = _struct_I.unpack(str[start:end])
         start = end
         end += length
-        _v30.frame_id = str[start:end]
+        _v26.frame_id = str[start:end]
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
-        _v29.poses = []
+        _v25.poses = []
         for i in xrange(0, length):
           val3 = geometry_msgs.msg.PoseStamped()
-          _v32 = val3.header
+          _v28 = val3.header
           start = end
           end += 4
-          (_v32.seq,) = _struct_I.unpack(str[start:end])
-          _v33 = _v32.stamp
-          _x = _v33
+          (_v28.seq,) = _struct_I.unpack(str[start:end])
+          _v29 = _v28.stamp
+          _x = _v29
           start = end
           end += 8
           (_x.secs, _x.nsecs,) = _struct_2I.unpack(str[start:end])
@@ -431,19 +432,19 @@ float64 w
           (length,) = _struct_I.unpack(str[start:end])
           start = end
           end += length
-          _v32.frame_id = str[start:end]
-          _v34 = val3.pose
-          _v35 = _v34.position
-          _x = _v35
+          _v28.frame_id = str[start:end]
+          _v30 = val3.pose
+          _v31 = _v30.position
+          _x = _v31
           start = end
           end += 24
           (_x.x, _x.y, _x.z,) = _struct_3d.unpack(str[start:end])
-          _v36 = _v34.orientation
-          _x = _v36
+          _v32 = _v30.orientation
+          _x = _v32
           start = end
           end += 32
           (_x.x, _x.y, _x.z, _x.w,) = _struct_4d.unpack(str[start:end])
-          _v29.poses.append(val3)
+          _v25.poses.append(val3)
         self.tracks.append(val1)
       return self
     except struct.error, e:
@@ -455,6 +456,6 @@ _struct_2I = struct.Struct("<2I")
 _struct_3d = struct.Struct("<3d")
 class GetTracks(roslib.message.ServiceDefinition):
   _type          = 'waypoint/GetTracks'
-  _md5sum = '7dacfbf062f7717baf180db62eb08cf0'
+  _md5sum = '79e2480cd0706d4386747f6db61a218c'
   _request_class  = GetTracksRequest
   _response_class = GetTracksResponse

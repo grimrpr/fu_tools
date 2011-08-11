@@ -93,14 +93,14 @@ import struct
 
 
 class MarkWaypointResponse(roslib.message.Message):
-  _md5sum = "dd11303d10a15c902ee90e582c557c03"
+  _md5sum = "6ccdb752b565be6d250259ff3d0c7ea1"
   _type = "waypoint/MarkWaypointResponse"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """bool successfull
+  _full_text = """bool successful
 
 
 """
-  __slots__ = ['successfull']
+  __slots__ = ['successful']
   _slot_types = ['bool']
 
   def __init__(self, *args, **kwds):
@@ -111,7 +111,7 @@ class MarkWaypointResponse(roslib.message.Message):
     changes.  You cannot mix in-order arguments and keyword arguments.
     
     The available fields are:
-       successfull
+       successful
     
     @param args: complete set of field values, in .msg order
     @param kwds: use keyword arguments corresponding to message field names
@@ -120,10 +120,10 @@ class MarkWaypointResponse(roslib.message.Message):
     if args or kwds:
       super(MarkWaypointResponse, self).__init__(*args, **kwds)
       #message fields cannot be None, assign default values for those that are
-      if self.successfull is None:
-        self.successfull = False
+      if self.successful is None:
+        self.successful = False
     else:
-      self.successfull = False
+      self.successful = False
 
   def _get_types(self):
     """
@@ -138,7 +138,7 @@ class MarkWaypointResponse(roslib.message.Message):
     @type  buff: StringIO
     """
     try:
-      buff.write(_struct_B.pack(self.successfull))
+      buff.write(_struct_B.pack(self.successful))
     except struct.error, se: self._check_types(se)
     except TypeError, te: self._check_types(te)
 
@@ -152,8 +152,8 @@ class MarkWaypointResponse(roslib.message.Message):
       end = 0
       start = end
       end += 1
-      (self.successfull,) = _struct_B.unpack(str[start:end])
-      self.successfull = bool(self.successfull)
+      (self.successful,) = _struct_B.unpack(str[start:end])
+      self.successful = bool(self.successful)
       return self
     except struct.error, e:
       raise roslib.message.DeserializationError(e) #most likely buffer underfill
@@ -168,7 +168,7 @@ class MarkWaypointResponse(roslib.message.Message):
     @type  numpy module
     """
     try:
-      buff.write(_struct_B.pack(self.successfull))
+      buff.write(_struct_B.pack(self.successful))
     except struct.error, se: self._check_types(se)
     except TypeError, te: self._check_types(te)
 
@@ -184,8 +184,8 @@ class MarkWaypointResponse(roslib.message.Message):
       end = 0
       start = end
       end += 1
-      (self.successfull,) = _struct_B.unpack(str[start:end])
-      self.successfull = bool(self.successfull)
+      (self.successful,) = _struct_B.unpack(str[start:end])
+      self.successful = bool(self.successful)
       return self
     except struct.error, e:
       raise roslib.message.DeserializationError(e) #most likely buffer underfill
@@ -194,6 +194,6 @@ _struct_I = roslib.message.struct_I
 _struct_B = struct.Struct("<B")
 class MarkWaypoint(roslib.message.ServiceDefinition):
   _type          = 'waypoint/MarkWaypoint'
-  _md5sum = 'dd11303d10a15c902ee90e582c557c03'
+  _md5sum = '6ccdb752b565be6d250259ff3d0c7ea1'
   _request_class  = MarkWaypointRequest
   _response_class = MarkWaypointResponse

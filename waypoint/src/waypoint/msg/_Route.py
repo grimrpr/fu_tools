@@ -7,11 +7,11 @@ import nav_msgs.msg
 import std_msgs.msg
 
 class Route(roslib.message.Message):
-  _md5sum = "75fac5f5dae5434c35ab95642ec177aa"
+  _md5sum = "217b5c457282b71b54bb1ba13ea1b921"
   _type = "waypoint/Route"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """int32 routeId
-string trackName
+  _full_text = """string name
+string time
 nav_msgs/Path path
 
 ================================================================================
@@ -67,8 +67,8 @@ float64 z
 float64 w
 
 """
-  __slots__ = ['routeId','trackName','path']
-  _slot_types = ['int32','string','nav_msgs/Path']
+  __slots__ = ['name','time','path']
+  _slot_types = ['string','string','nav_msgs/Path']
 
   def __init__(self, *args, **kwds):
     """
@@ -78,7 +78,7 @@ float64 w
     changes.  You cannot mix in-order arguments and keyword arguments.
     
     The available fields are:
-       routeId,trackName,path
+       name,time,path
     
     @param args: complete set of field values, in .msg order
     @param kwds: use keyword arguments corresponding to message field names
@@ -87,15 +87,15 @@ float64 w
     if args or kwds:
       super(Route, self).__init__(*args, **kwds)
       #message fields cannot be None, assign default values for those that are
-      if self.routeId is None:
-        self.routeId = 0
-      if self.trackName is None:
-        self.trackName = ''
+      if self.name is None:
+        self.name = ''
+      if self.time is None:
+        self.time = ''
       if self.path is None:
         self.path = nav_msgs.msg.Path()
     else:
-      self.routeId = 0
-      self.trackName = ''
+      self.name = ''
+      self.time = ''
       self.path = nav_msgs.msg.Path()
 
   def _get_types(self):
@@ -111,8 +111,10 @@ float64 w
     @type  buff: StringIO
     """
     try:
-      buff.write(_struct_i.pack(self.routeId))
-      _x = self.trackName
+      _x = self.name
+      length = len(_x)
+      buff.write(struct.pack('<I%ss'%length, length, _x))
+      _x = self.time
       length = len(_x)
       buff.write(struct.pack('<I%ss'%length, length, _x))
       _x = self
@@ -153,13 +155,16 @@ float64 w
       end = 0
       start = end
       end += 4
-      (self.routeId,) = _struct_i.unpack(str[start:end])
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      self.name = str[start:end]
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
       start = end
       end += length
-      self.trackName = str[start:end]
+      self.time = str[start:end]
       _x = self
       start = end
       end += 12
@@ -217,8 +222,10 @@ float64 w
     @type  numpy module
     """
     try:
-      buff.write(_struct_i.pack(self.routeId))
-      _x = self.trackName
+      _x = self.name
+      length = len(_x)
+      buff.write(struct.pack('<I%ss'%length, length, _x))
+      _x = self.time
       length = len(_x)
       buff.write(struct.pack('<I%ss'%length, length, _x))
       _x = self
@@ -261,13 +268,16 @@ float64 w
       end = 0
       start = end
       end += 4
-      (self.routeId,) = _struct_i.unpack(str[start:end])
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      self.name = str[start:end]
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
       start = end
       end += length
-      self.trackName = str[start:end]
+      self.time = str[start:end]
       _x = self
       start = end
       end += 12
@@ -316,8 +326,7 @@ float64 w
       raise roslib.message.DeserializationError(e) #most likely buffer underfill
 
 _struct_I = roslib.message.struct_I
-_struct_i = struct.Struct("<i")
-_struct_3I = struct.Struct("<3I")
 _struct_4d = struct.Struct("<4d")
+_struct_3I = struct.Struct("<3I")
 _struct_2I = struct.Struct("<2I")
 _struct_3d = struct.Struct("<3d")

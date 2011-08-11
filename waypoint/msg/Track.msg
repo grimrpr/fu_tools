@@ -1,3 +1,3 @@
 string name
-time time
+string time
 nav_msgs/Path path

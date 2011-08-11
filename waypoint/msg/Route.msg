@@ -1,3 +1,3 @@
-int32 routeId
-string trackName
+string name
+string time
 nav_msgs/Path path
