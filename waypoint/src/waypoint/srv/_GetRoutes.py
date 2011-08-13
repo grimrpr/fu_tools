@@ -2,13 +2,10 @@
 import roslib.message
 import struct
 
-import geometry_msgs.msg
-import nav_msgs.msg
 import waypoint.msg
-import std_msgs.msg
 
 class GetRoutesRequest(roslib.message.Message):
-  _md5sum = "ad975203ca82e8bdcc9be50e241c3487"
+  _md5sum = "5132a5582d024afa052584f017080e49"
   _type = "waypoint/GetRoutesRequest"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """Track track
@@ -17,59 +14,6 @@ class GetRoutesRequest(roslib.message.Message):
 MSG: waypoint/Track
 string name
 string time
-nav_msgs/Path path
-
-================================================================================
-MSG: nav_msgs/Path
-#An array of poses that represents a Path for a robot to follow
-Header header
-geometry_msgs/PoseStamped[] poses
-
-================================================================================
-MSG: std_msgs/Header
-# Standard metadata for higher-level stamped data types.
-# This is generally used to communicate timestamped data 
-# in a particular coordinate frame.
-# 
-# sequence ID: consecutively increasing ID 
-uint32 seq
-#Two-integer timestamp that is expressed as:
-# * stamp.secs: seconds (stamp_secs) since epoch
-# * stamp.nsecs: nanoseconds since stamp_secs
-# time-handling sugar is provided by the client library
-time stamp
-#Frame this data is associated with
-# 0: no frame
-# 1: global frame
-string frame_id
-
-================================================================================
-MSG: geometry_msgs/PoseStamped
-# A Pose with reference coordinate frame and timestamp
-Header header
-Pose pose
-
-================================================================================
-MSG: geometry_msgs/Pose
-# A representation of pose in free space, composed of postion and orientation. 
-Point position
-Quaternion orientation
-
-================================================================================
-MSG: geometry_msgs/Point
-# This contains the position of a point in free space
-float64 x
-float64 y
-float64 z
-
-================================================================================
-MSG: geometry_msgs/Quaternion
-# This represents an orientation in free space in quaternion form.
-
-float64 x
-float64 y
-float64 z
-float64 w
 
 """
   __slots__ = ['track']
@@ -116,29 +60,6 @@ float64 w
       _x = self.track.time
       length = len(_x)
       buff.write(struct.pack('<I%ss'%length, length, _x))
-      _x = self
-      buff.write(_struct_3I.pack(_x.track.path.header.seq, _x.track.path.header.stamp.secs, _x.track.path.header.stamp.nsecs))
-      _x = self.track.path.header.frame_id
-      length = len(_x)
-      buff.write(struct.pack('<I%ss'%length, length, _x))
-      length = len(self.track.path.poses)
-      buff.write(_struct_I.pack(length))
-      for val1 in self.track.path.poses:
-        _v1 = val1.header
-        buff.write(_struct_I.pack(_v1.seq))
-        _v2 = _v1.stamp
-        _x = _v2
-        buff.write(_struct_2I.pack(_x.secs, _x.nsecs))
-        _x = _v1.frame_id
-        length = len(_x)
-        buff.write(struct.pack('<I%ss'%length, length, _x))
-        _v3 = val1.pose
-        _v4 = _v3.position
-        _x = _v4
-        buff.write(_struct_3d.pack(_x.x, _x.y, _x.z))
-        _v5 = _v3.orientation
-        _x = _v5
-        buff.write(_struct_4d.pack(_x.x, _x.y, _x.z, _x.w))
     except struct.error, se: self._check_types(se)
     except TypeError, te: self._check_types(te)
 
@@ -164,49 +85,6 @@ float64 w
       start = end
       end += length
       self.track.time = str[start:end]
-      _x = self
-      start = end
-      end += 12
-      (_x.track.path.header.seq, _x.track.path.header.stamp.secs, _x.track.path.header.stamp.nsecs,) = _struct_3I.unpack(str[start:end])
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      start = end
-      end += length
-      self.track.path.header.frame_id = str[start:end]
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      self.track.path.poses = []
-      for i in xrange(0, length):
-        val1 = geometry_msgs.msg.PoseStamped()
-        _v6 = val1.header
-        start = end
-        end += 4
-        (_v6.seq,) = _struct_I.unpack(str[start:end])
-        _v7 = _v6.stamp
-        _x = _v7
-        start = end
-        end += 8
-        (_x.secs, _x.nsecs,) = _struct_2I.unpack(str[start:end])
-        start = end
-        end += 4
-        (length,) = _struct_I.unpack(str[start:end])
-        start = end
-        end += length
-        _v6.frame_id = str[start:end]
-        _v8 = val1.pose
-        _v9 = _v8.position
-        _x = _v9
-        start = end
-        end += 24
-        (_x.x, _x.y, _x.z,) = _struct_3d.unpack(str[start:end])
-        _v10 = _v8.orientation
-        _x = _v10
-        start = end
-        end += 32
-        (_x.x, _x.y, _x.z, _x.w,) = _struct_4d.unpack(str[start:end])
-        self.track.path.poses.append(val1)
       return self
     except struct.error, e:
       raise roslib.message.DeserializationError(e) #most likely buffer underfill
@@ -227,29 +105,6 @@ float64 w
       _x = self.track.time
       length = len(_x)
       buff.write(struct.pack('<I%ss'%length, length, _x))
-      _x = self
-      buff.write(_struct_3I.pack(_x.track.path.header.seq, _x.track.path.header.stamp.secs, _x.track.path.header.stamp.nsecs))
-      _x = self.track.path.header.frame_id
-      length = len(_x)
-      buff.write(struct.pack('<I%ss'%length, length, _x))
-      length = len(self.track.path.poses)
-      buff.write(_struct_I.pack(length))
-      for val1 in self.track.path.poses:
-        _v11 = val1.header
-        buff.write(_struct_I.pack(_v11.seq))
-        _v12 = _v11.stamp
-        _x = _v12
-        buff.write(_struct_2I.pack(_x.secs, _x.nsecs))
-        _x = _v11.frame_id
-        length = len(_x)
-        buff.write(struct.pack('<I%ss'%length, length, _x))
-        _v13 = val1.pose
-        _v14 = _v13.position
-        _x = _v14
-        buff.write(_struct_3d.pack(_x.x, _x.y, _x.z))
-        _v15 = _v13.orientation
-        _x = _v15
-        buff.write(_struct_4d.pack(_x.x, _x.y, _x.z, _x.w))
     except struct.error, se: self._check_types(se)
     except TypeError, te: self._check_types(te)
 
@@ -277,69 +132,19 @@ float64 w
       start = end
       end += length
       self.track.time = str[start:end]
-      _x = self
-      start = end
-      end += 12
-      (_x.track.path.header.seq, _x.track.path.header.stamp.secs, _x.track.path.header.stamp.nsecs,) = _struct_3I.unpack(str[start:end])
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      start = end
-      end += length
-      self.track.path.header.frame_id = str[start:end]
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      self.track.path.poses = []
-      for i in xrange(0, length):
-        val1 = geometry_msgs.msg.PoseStamped()
-        _v16 = val1.header
-        start = end
-        end += 4
-        (_v16.seq,) = _struct_I.unpack(str[start:end])
-        _v17 = _v16.stamp
-        _x = _v17
-        start = end
-        end += 8
-        (_x.secs, _x.nsecs,) = _struct_2I.unpack(str[start:end])
-        start = end
-        end += 4
-        (length,) = _struct_I.unpack(str[start:end])
-        start = end
-        end += length
-        _v16.frame_id = str[start:end]
-        _v18 = val1.pose
-        _v19 = _v18.position
-        _x = _v19
-        start = end
-        end += 24
-        (_x.x, _x.y, _x.z,) = _struct_3d.unpack(str[start:end])
-        _v20 = _v18.orientation
-        _x = _v20
-        start = end
-        end += 32
-        (_x.x, _x.y, _x.z, _x.w,) = _struct_4d.unpack(str[start:end])
-        self.track.path.poses.append(val1)
       return self
     except struct.error, e:
       raise roslib.message.DeserializationError(e) #most likely buffer underfill
 
 _struct_I = roslib.message.struct_I
-_struct_4d = struct.Struct("<4d")
-_struct_3I = struct.Struct("<3I")
-_struct_2I = struct.Struct("<2I")
-_struct_3d = struct.Struct("<3d")
 """autogenerated by genmsg_py from GetRoutesResponse.msg. Do not edit."""
 import roslib.message
 import struct
 
-import geometry_msgs.msg
-import nav_msgs.msg
 import waypoint.msg
-import std_msgs.msg
 
 class GetRoutesResponse(roslib.message.Message):
-  _md5sum = "becfedd2f6ef1b02b278f95a69377a0f"
+  _md5sum = "53489218a3222cbee60cc221b1a8466a"
   _type = "waypoint/GetRoutesResponse"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """Route[] routes
@@ -349,59 +154,6 @@ class GetRoutesResponse(roslib.message.Message):
 MSG: waypoint/Route
 string name
 string time
-nav_msgs/Path path
-
-================================================================================
-MSG: nav_msgs/Path
-#An array of poses that represents a Path for a robot to follow
-Header header
-geometry_msgs/PoseStamped[] poses
-
-================================================================================
-MSG: std_msgs/Header
-# Standard metadata for higher-level stamped data types.
-# This is generally used to communicate timestamped data 
-# in a particular coordinate frame.
-# 
-# sequence ID: consecutively increasing ID 
-uint32 seq
-#Two-integer timestamp that is expressed as:
-# * stamp.secs: seconds (stamp_secs) since epoch
-# * stamp.nsecs: nanoseconds since stamp_secs
-# time-handling sugar is provided by the client library
-time stamp
-#Frame this data is associated with
-# 0: no frame
-# 1: global frame
-string frame_id
-
-================================================================================
-MSG: geometry_msgs/PoseStamped
-# A Pose with reference coordinate frame and timestamp
-Header header
-Pose pose
-
-================================================================================
-MSG: geometry_msgs/Pose
-# A representation of pose in free space, composed of postion and orientation. 
-Point position
-Quaternion orientation
-
-================================================================================
-MSG: geometry_msgs/Point
-# This contains the position of a point in free space
-float64 x
-float64 y
-float64 z
-
-================================================================================
-MSG: geometry_msgs/Quaternion
-# This represents an orientation in free space in quaternion form.
-
-float64 x
-float64 y
-float64 z
-float64 w
 
 """
   __slots__ = ['routes']
@@ -451,33 +203,6 @@ float64 w
         _x = val1.time
         length = len(_x)
         buff.write(struct.pack('<I%ss'%length, length, _x))
-        _v21 = val1.path
-        _v22 = _v21.header
-        buff.write(_struct_I.pack(_v22.seq))
-        _v23 = _v22.stamp
-        _x = _v23
-        buff.write(_struct_2I.pack(_x.secs, _x.nsecs))
-        _x = _v22.frame_id
-        length = len(_x)
-        buff.write(struct.pack('<I%ss'%length, length, _x))
-        length = len(_v21.poses)
-        buff.write(_struct_I.pack(length))
-        for val3 in _v21.poses:
-          _v24 = val3.header
-          buff.write(_struct_I.pack(_v24.seq))
-          _v25 = _v24.stamp
-          _x = _v25
-          buff.write(_struct_2I.pack(_x.secs, _x.nsecs))
-          _x = _v24.frame_id
-          length = len(_x)
-          buff.write(struct.pack('<I%ss'%length, length, _x))
-          _v26 = val3.pose
-          _v27 = _v26.position
-          _x = _v27
-          buff.write(_struct_3d.pack(_x.x, _x.y, _x.z))
-          _v28 = _v26.orientation
-          _x = _v28
-          buff.write(_struct_4d.pack(_x.x, _x.y, _x.z, _x.w))
     except struct.error, se: self._check_types(se)
     except TypeError, te: self._check_types(te)
 
@@ -507,55 +232,6 @@ float64 w
         start = end
         end += length
         val1.time = str[start:end]
-        _v29 = val1.path
-        _v30 = _v29.header
-        start = end
-        end += 4
-        (_v30.seq,) = _struct_I.unpack(str[start:end])
-        _v31 = _v30.stamp
-        _x = _v31
-        start = end
-        end += 8
-        (_x.secs, _x.nsecs,) = _struct_2I.unpack(str[start:end])
-        start = end
-        end += 4
-        (length,) = _struct_I.unpack(str[start:end])
-        start = end
-        end += length
-        _v30.frame_id = str[start:end]
-        start = end
-        end += 4
-        (length,) = _struct_I.unpack(str[start:end])
-        _v29.poses = []
-        for i in xrange(0, length):
-          val3 = geometry_msgs.msg.PoseStamped()
-          _v32 = val3.header
-          start = end
-          end += 4
-          (_v32.seq,) = _struct_I.unpack(str[start:end])
-          _v33 = _v32.stamp
-          _x = _v33
-          start = end
-          end += 8
-          (_x.secs, _x.nsecs,) = _struct_2I.unpack(str[start:end])
-          start = end
-          end += 4
-          (length,) = _struct_I.unpack(str[start:end])
-          start = end
-          end += length
-          _v32.frame_id = str[start:end]
-          _v34 = val3.pose
-          _v35 = _v34.position
-          _x = _v35
-          start = end
-          end += 24
-          (_x.x, _x.y, _x.z,) = _struct_3d.unpack(str[start:end])
-          _v36 = _v34.orientation
-          _x = _v36
-          start = end
-          end += 32
-          (_x.x, _x.y, _x.z, _x.w,) = _struct_4d.unpack(str[start:end])
-          _v29.poses.append(val3)
         self.routes.append(val1)
       return self
     except struct.error, e:
@@ -580,33 +256,6 @@ float64 w
         _x = val1.time
         length = len(_x)
         buff.write(struct.pack('<I%ss'%length, length, _x))
-        _v37 = val1.path
-        _v38 = _v37.header
-        buff.write(_struct_I.pack(_v38.seq))
-        _v39 = _v38.stamp
-        _x = _v39
-        buff.write(_struct_2I.pack(_x.secs, _x.nsecs))
-        _x = _v38.frame_id
-        length = len(_x)
-        buff.write(struct.pack('<I%ss'%length, length, _x))
-        length = len(_v37.poses)
-        buff.write(_struct_I.pack(length))
-        for val3 in _v37.poses:
-          _v40 = val3.header
-          buff.write(_struct_I.pack(_v40.seq))
-          _v41 = _v40.stamp
-          _x = _v41
-          buff.write(_struct_2I.pack(_x.secs, _x.nsecs))
-          _x = _v40.frame_id
-          length = len(_x)
-          buff.write(struct.pack('<I%ss'%length, length, _x))
-          _v42 = val3.pose
-          _v43 = _v42.position
-          _x = _v43
-          buff.write(_struct_3d.pack(_x.x, _x.y, _x.z))
-          _v44 = _v42.orientation
-          _x = _v44
-          buff.write(_struct_4d.pack(_x.x, _x.y, _x.z, _x.w))
     except struct.error, se: self._check_types(se)
     except TypeError, te: self._check_types(te)
 
@@ -638,66 +287,14 @@ float64 w
         start = end
         end += length
         val1.time = str[start:end]
-        _v45 = val1.path
-        _v46 = _v45.header
-        start = end
-        end += 4
-        (_v46.seq,) = _struct_I.unpack(str[start:end])
-        _v47 = _v46.stamp
-        _x = _v47
-        start = end
-        end += 8
-        (_x.secs, _x.nsecs,) = _struct_2I.unpack(str[start:end])
-        start = end
-        end += 4
-        (length,) = _struct_I.unpack(str[start:end])
-        start = end
-        end += length
-        _v46.frame_id = str[start:end]
-        start = end
-        end += 4
-        (length,) = _struct_I.unpack(str[start:end])
-        _v45.poses = []
-        for i in xrange(0, length):
-          val3 = geometry_msgs.msg.PoseStamped()
-          _v48 = val3.header
-          start = end
-          end += 4
-          (_v48.seq,) = _struct_I.unpack(str[start:end])
-          _v49 = _v48.stamp
-          _x = _v49
-          start = end
-          end += 8
-          (_x.secs, _x.nsecs,) = _struct_2I.unpack(str[start:end])
-          start = end
-          end += 4
-          (length,) = _struct_I.unpack(str[start:end])
-          start = end
-          end += length
-          _v48.frame_id = str[start:end]
-          _v50 = val3.pose
-          _v51 = _v50.position
-          _x = _v51
-          start = end
-          end += 24
-          (_x.x, _x.y, _x.z,) = _struct_3d.unpack(str[start:end])
-          _v52 = _v50.orientation
-          _x = _v52
-          start = end
-          end += 32
-          (_x.x, _x.y, _x.z, _x.w,) = _struct_4d.unpack(str[start:end])
-          _v45.poses.append(val3)
         self.routes.append(val1)
       return self
     except struct.error, e:
       raise roslib.message.DeserializationError(e) #most likely buffer underfill
 
 _struct_I = roslib.message.struct_I
-_struct_4d = struct.Struct("<4d")
-_struct_2I = struct.Struct("<2I")
-_struct_3d = struct.Struct("<3d")
 class GetRoutes(roslib.message.ServiceDefinition):
   _type          = 'waypoint/GetRoutes'
-  _md5sum = 'a737a4531e10f792ccbeb87f58586ad7'
+  _md5sum = '627f8c4405febc74f32279c512af4c0c'
   _request_class  = GetRoutesRequest
   _response_class = GetRoutesResponse
