@@ -14,6 +14,9 @@ public class Drive implements SensorEventListener {
 
 	boolean isDriving = false;
 
+	private boolean lockCurrentState = false;
+	private int lockedX = 0, lockedY = 0;
+
 	public void onSensorChanged(SensorEvent event) {
 		if (event.sensor.getType() != Sensor.TYPE_ACCELEROMETER)
 			return;
@@ -43,7 +46,17 @@ public class Drive implements SensorEventListener {
 		int intX = Math.round(floatX * State.varAccuracyMultiplyer);
 		int intY = Math.round(floatY * State.varAccuracyMultiplyer);
 
-		Log.s("Driving... (" + intX + ", " + intY + ")");
+		if (lockCurrentState) {
+			lockCurrentState = false;
+			lockedX = intX;
+			lockedY = intY;
+		}
+
+		intX -= lockedX;
+		intY -= lockedY;
+
+		Log.s("Driving... (" + lockedX + "+" + intX + ", " + lockedY + "+"
+				+ intY + ")");
 
 		if ((intX == 0) && (intY == 0))
 			return;
@@ -78,6 +91,10 @@ public class Drive implements SensorEventListener {
 	}
 
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
+	}
+
+	public void lockCurrentState() {
+		lockCurrentState = true;
 	}
 
 }

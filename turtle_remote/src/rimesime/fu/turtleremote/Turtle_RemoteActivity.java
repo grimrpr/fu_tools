@@ -234,9 +234,11 @@ public class Turtle_RemoteActivity extends Activity {
 
 		State.drive.isDriving = newIsDriving;
 
-		if (State.drive.isDriving)
+		if (State.drive.isDriving){
 			sensorManager.registerListener(State.drive, accelerometer,
 					SensorManager.SENSOR_DELAY_NORMAL);
+			State.drive.lockCurrentState();
+		}
 		else
 			sensorManager.unregisterListener(State.drive);
 
@@ -259,22 +261,14 @@ public class Turtle_RemoteActivity extends Activity {
 
 		switch (item.getItemId()) {
 		case R.id.ac_on:
-			if (item.isChecked())
-				item.setChecked(false);
-			else
-				item.setChecked(true);
-			State.varAutoconnect = item.isChecked();
+			State.varAutoconnect = !item.isChecked();
 			tbtnAutoConnect = (ToggleButton) findViewById(R.id.autoConnect);
 			if (tbtnAutoConnect != null) {
 				tbtnAutoConnect.setChecked(State.varAutoconnect);
 			}
 			return true;
 		case R.id.ac_off:
-			if (item.isChecked())
-				item.setChecked(false);
-			else
-				item.setChecked(true);
-			State.varAutoconnect = !item.isChecked();
+			State.varAutoconnect = item.isChecked();
 			tbtnAutoConnect = (ToggleButton) findViewById(R.id.autoConnect);
 			if (tbtnAutoConnect != null) {
 				tbtnAutoConnect.setChecked(State.varAutoconnect);
