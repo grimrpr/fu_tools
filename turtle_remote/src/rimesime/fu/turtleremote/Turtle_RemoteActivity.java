@@ -66,6 +66,8 @@ public class Turtle_RemoteActivity extends Activity {
 				.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 		display = windowManager.getDefaultDisplay();
+		
+		Log.l("Created");
 
 	}
 
