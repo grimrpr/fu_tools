@@ -55,34 +55,31 @@ public class Drive implements SensorEventListener {
 		intX -= lockedX;
 		intY -= lockedY;
 
+		if (Math.abs(intX) > Math.abs(intY))
+			intY = 0;
+		else
+			intX = 0;
+
 		Log.s("Driving... (" + lockedX + "+" + intX + ", " + lockedY + "+"
 				+ intY + ")");
 
-		if ((intX == 0) && (intY == 0))
-			return;
-
-		while ((intX != 0) && (intY != 0)) {
-			if (intX > 0) {
-				intX--;
-				for (int i = 0; i < State.varCommandMultiplyer; ++i) {
+		for (int i = 0; i < State.varCommandMultiplyer; ++i) {
+			int countDownX = intX, countDownY = intY;
+			while ((countDownX != 0) || (countDownY != 0)) {
+				if (countDownX > 0) {
+					countDownX--;
 					State.connection.print(KEYCODE_L);
 				}
-			}
-			if (intX < 0) {
-				intX++;
-				for (int i = 0; i < State.varCommandMultiplyer; ++i) {
+				if (countDownX < 0) {
+					countDownX++;
 					State.connection.print(KEYCODE_R);
 				}
-			}
-			if (intY > 0) {
-				intY--;
-				for (int i = 0; i < State.varCommandMultiplyer; ++i) {
+				if (countDownY > 0) {
+					countDownY--;
 					State.connection.print(KEYCODE_D);
 				}
-			}
-			if (intY < 0) {
-				intY++;
-				for (int i = 0; i < State.varCommandMultiplyer; ++i) {
+				if (countDownY < 0) {
+					countDownY++;
 					State.connection.print(KEYCODE_U);
 				}
 			}

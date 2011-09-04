@@ -66,7 +66,7 @@ public class Turtle_RemoteActivity extends Activity {
 				.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 		display = windowManager.getDefaultDisplay();
-		
+
 		Log.l("Created");
 
 	}
@@ -82,6 +82,7 @@ public class Turtle_RemoteActivity extends Activity {
 			// login content view
 			final EditText txtHost = (EditText) findViewById(R.id.host);
 			final EditText txtPassword = (EditText) findViewById(R.id.password);
+			final EditText txtRosMasterURI = (EditText) findViewById(R.id.rosmasteruri);
 			final Button btnConnect = (Button) findViewById(R.id.connect);
 			final ToggleButton tbtnAutoConnect = (ToggleButton) findViewById(R.id.autoConnect);
 
@@ -108,6 +109,22 @@ public class Turtle_RemoteActivity extends Activity {
 
 			txtHost.setText(State.varHost);
 			txtPassword.setText(State.varPassword);
+			txtRosMasterURI.setText(State.varRosMasterURI);
+
+			txtRosMasterURI.addTextChangedListener(new TextWatcher() {
+
+				public void onTextChanged(CharSequence s, int start,
+						int before, int count) {
+					State.varRosMasterURI = s.toString();
+				}
+
+				public void beforeTextChanged(CharSequence s, int start,
+						int count, int after) {
+				}
+
+				public void afterTextChanged(Editable s) {
+				}
+			});
 
 			tbtnAutoConnect
 					.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -206,7 +223,7 @@ public class Turtle_RemoteActivity extends Activity {
 			super.onBackPressed();
 			finish();
 		}
-		
+
 	}
 
 	@Override
@@ -236,12 +253,11 @@ public class Turtle_RemoteActivity extends Activity {
 
 		State.drive.isDriving = newIsDriving;
 
-		if (State.drive.isDriving){
+		if (State.drive.isDriving) {
 			sensorManager.registerListener(State.drive, accelerometer,
 					SensorManager.SENSOR_DELAY_NORMAL);
 			State.drive.lockCurrentState();
-		}
-		else
+		} else
 			sensorManager.unregisterListener(State.drive);
 
 		Log.l(State.drive.isDriving ? "Driving started." : "Driving stopped.");

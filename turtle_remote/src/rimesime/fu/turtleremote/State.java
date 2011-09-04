@@ -8,6 +8,7 @@ public class State {
 	// savable states
 	static String varHost = "";
 	static String varPassword = "";
+	static String varRosMasterURI = "http://localhost:11311";
 	static float varAccuracyMultiplyer = 1.0f;
 	static int varCommandMultiplyer = 1;
 	static boolean varAutoconnect = false;
@@ -29,6 +30,7 @@ public class State {
 
 		varHost = prefs.getString("host", varHost);
 		varPassword = prefs.getString("password", varPassword);
+		varRosMasterURI = prefs.getString("rosmasteruri", varRosMasterURI);
 		varAccuracyMultiplyer = prefs.getFloat("accuracymultiplyer",
 				varAccuracyMultiplyer);
 		varCommandMultiplyer = prefs.getInt("commandmultiplyer",
@@ -47,6 +49,7 @@ public class State {
 
 		editor.putString("host", varHost);
 		editor.putString("password", varPassword);
+		editor.putString("rosmasteruri", varRosMasterURI);
 		editor.putFloat("accuracymultiplyer", varAccuracyMultiplyer);
 		editor.putInt("commandmultiplyer", varCommandMultiplyer);
 		editor.putBoolean("autoconnect", varAutoconnect);

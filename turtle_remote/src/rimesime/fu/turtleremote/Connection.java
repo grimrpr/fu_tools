@@ -62,6 +62,12 @@ public class Connection {
 				}
 			}).start();
 
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+			}
+
+			println("export ROS_MASTER_URI=" + State.varRosMasterURI);
 			println("roslaunch turtlebot_teleop keyboard_teleop.launch");
 
 			// Switch to main view
@@ -75,7 +81,7 @@ public class Connection {
 			// Store connection infos for next program startup
 			State.varHost = user + "@" + host;
 			State.varPassword = password;
-			
+
 		} catch (JSchException e) {
 			Log.l(e.getMessage());
 			// setDrivingEnabled(false);
@@ -90,6 +96,8 @@ public class Connection {
 	void disconnect() {
 
 		loggedIn = false;
+		printer.print(3); // CTRL+C
+		printer.flush();
 		channel.disconnect();
 		session.disconnect();
 		Log.l("Disconnected.");
