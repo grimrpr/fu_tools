@@ -13,6 +13,8 @@
   <depend package="std_msgs"/>
   <depend package="geometry_msgs"/>
   <depend package="rosbag"/>
+  <depend package="move_base_msgs"/>
+  <depend package="actionlib"/>
 
 </package>
 
