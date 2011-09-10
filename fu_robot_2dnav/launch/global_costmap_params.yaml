@@ -2,5 +2,7 @@ global_costmap:
   global_frame: /map
   robot_base_frame: base_link
   update_frequency: 3.0 #5.0
-  static_map: false
+  static_map: true #false
+
+# added for rviz
   publish_voxel_map: true

@@ -1,9 +1,12 @@
 <launch>
   <!-- Run the map server -->
-  <!-- node name="map_server" pkg="map_server" type="map_server" args="$(find fu_robot_2dnav)/launch/willow-full-2008-11-26-50mm.pgm 0.05"/ -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find fu_robot_2dnav)/launch/willow-full-2008-11-26-50mm.pgm 0.05"/>
 
   <!--- Run AMCL -->
-  <!-- include file="$(find amcl)/examples/amcl_omni.launch" / -->
+  <param name="odom_frame_id" value="odom"/>
+  <param name="base_frame_id" value="/base_link"/>
+  <param name="global_frame_id" value="/map"/> 
+  <include file="$(find amcl)/examples/amcl_diff.launch" />
 
   <!-- node pkg="fu_robot_2dnav" type="fake_odometry" name="fake_odometry" required="true"/ -->
 
