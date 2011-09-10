@@ -1,0 +1,19 @@
+<launch>
+
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find turtlebot_description)/urdf/turtlebot.urdf.xacro'" />
+  <param name="use_gui" value="True"/>
+  <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher" output="screen">
+    <param name="publish_frequency" type="double" value="30.0" />
+    <!--param name="tf_prefix" type="string" value="" /-->
+  </node>
+
+  <node pkg="roomba_500_series" type="roomba560_node" respawn="false" name="roomba"/>
+
+  <include file="$(find turtlebot_bringup)/kinect.launch"/>
+
+  <node pkg="gmapping" type="slam_gmapping" respawn="false" name="gmapping" output="screen">
+    <!--remap from="scan" to="base_scan" -->
+    <remap from="odom_frame" to="odom" />
+  </node>
+
+</launch>
