@@ -1,0 +1,42 @@
+<launch>
+
+
+  <arg name="camera" default="kinect" />
+
+
+  <!-- Start the kinect -->
+  <include file="$(find openni_launch)/launch/openni.launch">
+    <arg name="camera" value="$(arg camera)" />
+  </include>
+
+
+  <!-- Throttle the output -->
+  <node pkg="nodelet" type="nodelet" name="pointcloud_throttle" args="load pointcloud_to_laserscan/CloudThrottle kinect_nodelet_manager" respawn="true">
+    <param name="max_rate" value="20.0"/>
+    <remap from="cloud_in" to="/kinect/depth/points"/>
+    <remap from="cloud_out" to="cloud_throttled"/>
+  </node>
+
+
+  <!-- Start the fake laser (with data from kinect) -->
+  <node pkg="nodelet" type="nodelet" name="kinect_laser" args="load pointcloud_to_laserscan/CloudToScan kinect_nodelet_manager" respawn="true">
+    <param name="output_frame_id" value="/kinect_depth_frame"/>
+    <!-- heights are in the (optical?) frame of the kinect -->
+    <param name="min_height" value="-0.15"/>
+    <param name="max_height" value="0.15"/>
+    <remap from="cloud" to="/cloud_throttled"/>
+  </node>
+
+
+  <!-- Start another fake laser (narrow scan) -->
+  <node pkg="nodelet" type="nodelet" name="kinect_laser_narrow" args="load pointcloud_to_laserscan/CloudToScan kinect_nodelet_manager" respawn="true">
+    <param name="output_frame_id" value="/kinect_depth_frame"/>
+    <!-- heights are in the (optical?) frame of the kinect -->
+    <param name="min_height" value="-0.025"/>
+    <param name="max_height" value="0.025"/>
+    <remap from="cloud" to="/cloud_throttled"/>
+    <remap from="scan" to="/narrow_scan"/>
+  </node>
+
+
+</launch>

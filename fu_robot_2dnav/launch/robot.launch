@@ -1,0 +1,29 @@
+<launch>
+
+
+  <!-- Start robot (with description) -->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find turtlebot_description)/urdf/turtlebot.urdf.xacro'" />
+  <param name="use_gui" value="True"/>
+  <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher" output="screen">
+    <param name="publish_frequency" type="double" value="30.0" />
+  </node>
+  <node pkg="roomba_500_series" type="roomba560_node" respawn="true" name="roomba"/>
+
+
+  <!-- Start odometry transform publisher -->
+  <node pkg="fu_robot_2dnav" type="odom_tf_pub" respawn="true" name="odom_tf_pub"/>
+  <!--include file="$(find fu_robot_2dnav)/launch/config/ekf.launch"/-->
+
+
+  <!-- Start the kinect (in the navigation stack way) -->
+  <!--include file="$(find fu_robot_2dnav)/launch/config/kinect.launch"/-->
+
+
+  <!-- Start teleoperation by keyboard -->
+  <node pkg="turtlebot_teleop" type="turtlebot_teleop_key" respawn="false" name="teleopkey">
+    <param name="scale_linear" value="0.3"/>
+    <param name="scale_angular" value="0.3"/>
+  </node>
+
+
+</launch>
