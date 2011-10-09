@@ -1,19 +1,24 @@
 #include "ros/ros.h"
 #include <ros/package.h>
-#include "geometry_msgs/PoseStamped.h"
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
 #include "rosbag/bag.h"
 #include "rosbag/view.h"
-#include "waypoint/GetTracks.h"
+
+#include "waypoint/StartRoute.h"
+#include "waypoint/SaveRoute.h"
 #include "waypoint/GetRoutes.h"
-#include "waypoint/StartNewTrack.h"
-#include "waypoint/SaveNewTrack.h"
+
+#include "waypoint/StartTrack.h"
+#include "waypoint/SaveTrack.h"
+#include "waypoint/StartRouteOfTrack.h"
+#include "waypoint/GetTracks.h"
 #include "waypoint/MarkWaypoint.h"
-#include "waypoint/PlayBack.h"
-#include "waypoint/RunTrack.h"
 #include "waypoint/DeleteTrack.h"
+
 #include "waypoint/DeleteRoute.h"
+
 #include <sstream>
 #include <fstream>
 #include <stdio.h>
@@ -26,10 +31,11 @@
 actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> *server;
 std::string storagePath;
 waypoint::Track recordedTrack;
-std::deque<geometry_msgs::PoseStamped> recordedTrackPoses;
-std::deque<geometry_msgs::PoseStamped> recordedRoutePoses;
-geometry_msgs::PoseStamped currentPose;
-bool doRecordNewTrack = false;
+std::deque<geometry_msgs::Pose> recordedTrackPoses;
+std::deque<geometry_msgs::PoseWithCovarianceStamped> recordedRoutePoses;
+geometry_msgs::PoseWithCovarianceStamped currentPoseWCVS;
+bool doRecordRoute = false;
+bool doRecordTrack = false;
 bool doMarkWaypoint = false;
 bool doRunTrack = false;
 bool doSendNextGoal = false;
@@ -72,16 +78,34 @@ std::vector<std::string> getStorageFiles(char type, std::string name)
     {  
       char t;
       char n[1024];
-      sscanf(str.c_str(),"%*[0-9]_%*[0-9]_%c_%[a-z-A-Z-0-9]", &t, n);
-      if(type != NULL && type != t)
+      // Do we search a standard file format (i.e. with track name suffix)?
+      if(!name.empty())
       {
-        continue;
+        // Yes we do... is it a file in track format (i.e. with a track name suffix)?
+        if(sscanf(str.c_str(),"%*[0-9]_%*[0-9]_%c_%[a-z-A-Z-0-9]", &t, n) > 0)
+        {
+	      if(type != NULL && type != t)
+	      {
+		continue;
+	      }
+	      if(!name.empty() && std::string(n) != name)
+	      {
+		continue;
+	      }
+	      entries.push_back(str);
+              continue;
+        }
       }
-      if(!name.empty() && std::string(n) != name)
+      // Maybe we search a simple route file not belonging to any track?
+      if(name.empty() && type == 'R')
       {
-        continue;
+        // Yes we do... is it in simple route file format (i.e. without a track name suffix)?
+        if(sscanf(str.c_str(),"%*[0-9]_%*[0-9]_%c", &t) > 0)
+        {
+          entries.push_back(str);
+          continue;
+        }
       }
-      entries.push_back(str);
     }
   }
 
@@ -92,9 +116,9 @@ std::vector<std::string> getStorageFiles(char type, std::string name)
 
 bool getTracks(waypoint::GetTracks::Request &req, waypoint::GetTracks::Response &res)
 {
-  ROS_INFO("getTracks called");
+  ROS_INFO("Service GetTracks called");
 
-	std::vector<waypoint::Track> tracks;
+  std::vector<waypoint::Track> tracks;
 
   std::vector<std::string> entries = getStorageFiles('T', std::string(""));
 
@@ -109,15 +133,15 @@ bool getTracks(waypoint::GetTracks::Request &req, waypoint::GetTracks::Response 
     track.time = std::string(timeDate) + std::string("_") + std::string(timeClock);    
     tracks.push_back(track);
   }
+  
+  res.tracks=tracks;
 
-	res.tracks=tracks;
-
-	return true;
+  return true;
 }
 
 bool getRoutes(waypoint::GetRoutes::Request &req, waypoint::GetRoutes::Response &res)
 {
-	ROS_INFO("getRoutes called");
+  ROS_INFO("Service GetRoutes called");
 	
   std::vector<waypoint::Route> routes;
 
@@ -171,11 +195,11 @@ std::string getCurrentTimeString()
   return currentTime.str();
 }
 
-bool startNewTrack(waypoint::StartNewTrack::Request &req, waypoint::StartNewTrack::Response &res)
+bool startTrack(waypoint::StartTrack::Request &req, waypoint::StartTrack::Response &res)
 {
-	ROS_INFO("startNewTrack called");
+  ROS_INFO("Service StartTrack called");
 
-  if(doRecordNewTrack)
+  if(doRecordTrack)
   {
     ROS_INFO("Only one track can be recorded at a time");
     return true;
@@ -190,16 +214,16 @@ bool startNewTrack(waypoint::StartNewTrack::Request &req, waypoint::StartNewTrac
   recordedTrack = req.track;
 
   recordedTrack.time = getCurrentTimeString();
-  doRecordNewTrack = true;
+  doRecordTrack = true;
 
   res.track = recordedTrack;
   res.successful = true;
 	return true;
 }
 
-bool saveNewTrack(waypoint::SaveNewTrack::Request &req, waypoint::SaveNewTrack::Response &res)
+bool saveTrack(waypoint::SaveTrack::Request &req, waypoint::SaveTrack::Response &res)
 {
-	ROS_INFO("saveNewTrack called");
+  ROS_INFO("Service SaveTrack called");
 
   if(recordedTrack.name != req.track.name || recordedTrack.time != req.track.time)
   {
@@ -208,7 +232,7 @@ bool saveNewTrack(waypoint::SaveNewTrack::Request &req, waypoint::SaveNewTrack::
   }
 
   // Stop recording
-  doRecordNewTrack = false;
+  doRecordTrack = false;
   doMarkWaypoint = false;
 
   if(recordedTrackPoses.empty())
@@ -223,7 +247,7 @@ bool saveNewTrack(waypoint::SaveNewTrack::Request &req, waypoint::SaveNewTrack::
   bag.open(filename.str().c_str(), rosbag::bagmode::Write);
   for(unsigned int i = 0; i < recordedTrackPoses.size(); ++i)
   {
-    bag.write("track", recordedTrackPoses[i].header.stamp, recordedTrackPoses[i]);
+    bag.write("track", ros::Time::now(), recordedTrackPoses[i]);
   }
   bag.close(); 
 
@@ -236,9 +260,9 @@ bool saveNewTrack(waypoint::SaveNewTrack::Request &req, waypoint::SaveNewTrack::
 
 bool markWaypoint(waypoint::MarkWaypoint::Request &req, waypoint::MarkWaypoint::Response &res)
 {
-	ROS_INFO("markWaypoint called");
+  ROS_INFO("Service MarkWaypoint called");
 
-  if(doRecordNewTrack)
+  if(doRecordTrack)
   {
     doMarkWaypoint = true;
     res.successful = true;
@@ -251,15 +275,9 @@ bool markWaypoint(waypoint::MarkWaypoint::Request &req, waypoint::MarkWaypoint::
 	return true;
 }
 
-bool playBack(waypoint::PlayBack::Request &req, waypoint::PlayBack::Response &res)
-{
-	ROS_INFO("playBackTrack called, BUT NOT IMPLEMENTED!");
-	return true;
-}
-
-bool runTrack(waypoint::RunTrack::Request &req, waypoint::RunTrack::Response &res)
+bool startRouteOfTrack(waypoint::StartRouteOfTrack::Request &req, waypoint::StartRouteOfTrack::Response &res)
 { 
-  ROS_INFO("runTrack called");
+  ROS_INFO("Service StartRouteOfTrack called");
 
   if(doRunTrack)
   {
@@ -274,7 +292,7 @@ bool runTrack(waypoint::RunTrack::Request &req, waypoint::RunTrack::Response &re
   rosbag::View view(bag, rosbag::TopicQuery("track"));
   BOOST_FOREACH(rosbag::MessageInstance const m, view)
   {
-    geometry_msgs::PoseStampedConstPtr pose = m.instantiate<geometry_msgs::PoseStamped>();
+    geometry_msgs::PoseConstPtr pose = m.instantiate<geometry_msgs::Pose>();
     if (pose != NULL)
       recordedTrackPoses.push_back(*pose);
   }
@@ -290,8 +308,7 @@ bool runTrack(waypoint::RunTrack::Request &req, waypoint::RunTrack::Response &re
 
 bool deleteTrack(waypoint::DeleteTrack::Request &req, waypoint::DeleteTrack::Response &res)
 {
-
-	ROS_INFO("deleteTrack called");
+  ROS_INFO("Service DeleteTrack called");
 
   std::stringstream fileName;
   fileName << storagePath << req.track.time << "_T_" << req.track.name << ".bag";
@@ -320,14 +337,14 @@ bool deleteTrack(waypoint::DeleteTrack::Request &req, waypoint::DeleteTrack::Res
 
 bool deleteRoute(waypoint::DeleteRoute::Request &req, waypoint::DeleteRoute::Response &res)
 {
-	ROS_INFO("deleteRoute called");
+  ROS_INFO("Service DeleteRoute called");
 
   std::vector<std::string> entries = getStorageFiles('R', req.route.name);
   for(unsigned int i = 0; i < entries.size(); ++i)
   {
     char timeDate[8];
     char timeClock[6];
-    sscanf(entries[i].c_str(),"%[0-9]_%[0-9]_%*c_%*[a-z-A-Z-0-9]", timeDate, timeClock);
+    sscanf(entries[i].c_str(),"%[0-9]_%[0-9]_", timeDate, timeClock);
     if((std::string(timeDate) + std::string("_") + std::string(timeClock)) == req.route.time)
     {
       std::stringstream fileName;
@@ -337,33 +354,96 @@ bool deleteRoute(waypoint::DeleteRoute::Request &req, waypoint::DeleteRoute::Res
   }
 
   res.successful = true;
-	return true;
+  return true;
+}
+
+bool startRoute(waypoint::StartRoute::Request &req, waypoint::StartRoute::Response &res)
+{
+  ROS_INFO("Service StartRoute called");
+
+  recordedRoutePoses.clear();
+  doRecordRoute = true;
+  
+  res.successful = true;
+  return true;
+}
+
+bool saveRoute(waypoint::SaveRoute::Request &req, waypoint::SaveRoute::Response &res)
+{
+  if(doRecordRoute)
+  {
+    doRecordRoute = false;
+    res.route.time = getCurrentTimeString();
+    
+    if(recordedRoutePoses.empty())
+    {
+      ROS_INFO("No poses where recorded, saving anyway");
+    }
+
+    // Persist route file
+    rosbag::Bag bag;
+    std::stringstream filename;
+    filename << storagePath << res.route.time << "_R.bag";
+    bag.open(filename.str().c_str(), rosbag::bagmode::Write);
+    for(unsigned int i = 0; i < recordedRoutePoses.size(); ++i)
+    {
+      bag.write("route", recordedRoutePoses[i].header.stamp, recordedRoutePoses[i]);
+    }
+    bag.close(); 
+
+    // Clean recorded poses
+    recordedRoutePoses.clear();
+  }
+
+  return true;
 }
 
 void goalFinishedCallback(const actionlib::SimpleClientGoalState& state, const move_base_msgs::MoveBaseResultConstPtr& result)
 {
-  ROS_INFO("Waypoint finished (State %s)", state.toString().c_str());
+  ROS_INFO("Callback called: Waypoint finished (State %s)", state.toString().c_str());
 
   // The next waypoint should be sent
-  doSendNextGoal = true;
+  if(doRunTrack)
+  {
+    doSendNextGoal = true;
+  }
 }
 
 void goalFeedbackCallback(const move_base_msgs::MoveBaseFeedbackConstPtr& feedback)
 {
-  ROS_INFO("Feedback received.");
+  ROS_INFO("Callback called: Feedback received.");
 
   // Just remember the current pose for track recording or track running
-  currentPose = (*feedback).base_position;
+  //currentPose = (*feedback).base_position;
 
   // If a track is currently run, remember the robots pose
-  if(doRunTrack)
-  {
-    recordedRoutePoses.push_back(currentPose);
-  }
+  //if(doRunTrack)
+  //{
+  //  recordedRoutePoses.push_back(currentPose);
+  //}
 }
 
 void goalActiveCallback(){
-  ROS_INFO("Goal went active.");
+  ROS_INFO("Callback called: Goal went active.");
+}
+
+void currentPoseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msg){
+  currentPoseWCVS = (*msg);
+
+  // Handle runs
+  if(doRecordRoute || doRunTrack)
+  {
+    recordedRoutePoses.push_back(currentPoseWCVS);
+  }
+  
+  // Handle DoMarkWaypoint
+  if(doRecordTrack && doMarkWaypoint)
+  {
+    ROS_INFO("Marking waypoint");
+    doMarkWaypoint = false;
+    recordedTrackPoses.push_back(currentPoseWCVS.pose.pose);
+  }
+
 }
 
 int main(int argc, char **argv)
@@ -371,99 +451,83 @@ int main(int argc, char **argv)
 	ros::init(argc, argv, "waypoint_driver");
 	ros::NodeHandle n;
 
-  // Initialize global storage path
-  std::stringstream path;
-  path << ros::package::getPath("waypoint") << "/storage/";
-  storagePath = path.str();
-  mkdir(storagePath.c_str(),0777);
-  
-  // Initialize all services
+	// Initialize global storage path
+	std::stringstream path;
+	path << ros::package::getPath("waypoint") << "/storage/";
+	storagePath = path.str();
+	mkdir(storagePath.c_str(),0777);
+
+	// Initialize pose listening
+	ros::Subscriber sub = n.subscribe("amcl_pose", 1, currentPoseCallback);
+
+	// Initialize all offered services
 	ros::ServiceServer srvGetTracks     	= n.advertiseService("GetTracks", getTracks);
 	ros::ServiceServer srvGetRoutes     	= n.advertiseService("GetRoutes", getRoutes);
-	ros::ServiceServer srvStartNewTrack	  = n.advertiseService("StartNewTrack", startNewTrack);
-	ros::ServiceServer srvSaveNewTrack	  = n.advertiseService("SaveNewTrack", saveNewTrack);
+	ros::ServiceServer srvStartTrack	= n.advertiseService("StartTrack", startTrack);
+	ros::ServiceServer srvSaveTrack		= n.advertiseService("SaveTrack", saveTrack);
 	ros::ServiceServer srvMarkWaypoint  	= n.advertiseService("MarkWaypoint", markWaypoint);
-	ros::ServiceServer srvRunTrack      	= n.advertiseService("RunTrack", runTrack);
-	ros::ServiceServer srvPlayBack  		  = n.advertiseService("PlayBack", playBack);
-	ros::ServiceServer srvDeleteTrack	    = n.advertiseService("DeleteTrack", deleteTrack);
-	ros::ServiceServer srvDeleteRoute	    = n.advertiseService("DeleteRoute", deleteRoute);
+	ros::ServiceServer srvStartRouteOfTrack	= n.advertiseService("StartRouteOfTrack", startRouteOfTrack);
+	ros::ServiceServer srvDeleteTrack	= n.advertiseService("DeleteTrack", deleteTrack);
+	ros::ServiceServer srvDeleteRoute	= n.advertiseService("DeleteRoute", deleteRoute);
+	ros::ServiceServer srvStartRoute	= n.advertiseService("StartRoute", startRoute);
+	ros::ServiceServer srvSaveRoute		= n.advertiseService("SaveRoute", saveRoute);
 	ROS_INFO("Services initialized");
 
-  // Initialize navigation server object
-  actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base", false);
-  server = &ac;
+	// Initialize navigation server object
+	actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base", false);
+	server = &ac;
 
-  // Handle all service requests (blocks!)
-	//ros::spin();
-
+	// Handle all service requests
 	ros::Rate loop(10);
 	while (ros::ok())
 	{
 
-    // Handle all waiting callbacks
+		// Handle all waiting callbacks
 		ros::spinOnce();
 
-    // Handle startNewTrack service command
-    if(doRecordNewTrack)
-    {
+		// Handle StartRouteOfTrack service command
+		if(doRunTrack)
+		{
 
-      // TODO currentPose wird noch nicht gefüllt!!!
+			// Handle event current waypoint reached
+			if(doSendNextGoal)
+			{
 
-      // Handle markWaypoint service command
-      if(doMarkWaypoint)
-      {
-        ROS_INFO("Marking waypoint");
-        recordedTrackPoses.push_back(currentPose);
-        doMarkWaypoint = false;
-      }
+				// Have we reached the last waypoint from that track?
+				if(recordedTrackPoses.empty())
+				{
+					doRunTrack = false;
+					// Save recorded route to bag file
+					rosbag::Bag bag;
+					std::stringstream filename;
+					filename << storagePath << getCurrentTimeString() << "_R_" << recordedTrack.name << ".bag";
+					bag.open(filename.str().c_str(), rosbag::bagmode::Write);
+					for(unsigned int i = 0; i < recordedRoutePoses.size(); ++i)
+					{
+					bag.write("route", recordedRoutePoses[i].header.stamp, recordedRoutePoses[i]);
+					}
+					bag.close(); 
+					recordedRoutePoses.clear();
+					ROS_INFO("Route saved.");
+				}
+				else
+				{
+					// Still waypoints to go, sending next goal to move_base
+					move_base_msgs::MoveBaseGoal goal;
+					goal.target_pose.pose = recordedTrackPoses.front();
+					goal.target_pose.header.stamp = ros::Time::now();
+					server->sendGoal(goal, &goalFinishedCallback, &goalActiveCallback, &goalFeedbackCallback);
+					recordedTrackPoses.pop_front();
+					ROS_INFO("Waypoint sent as goal.");
+				}
 
-    }
+				doSendNextGoal = false;
+			}
 
-    // Handle RunTrack service command
-    if(doRunTrack)
-    {
+		}
 
-      // Handle RunTrack current waypoint reached
-      if(doSendNextGoal)
-      {
-
-        // Have we reached the last waypoint?
-        if(recordedTrackPoses.empty()){
-          doRunTrack = false;
-          // Save recorded route to bag file
-          rosbag::Bag bag;
-          std::stringstream filename;
-          filename << storagePath << getCurrentTimeString() << "_R_" << recordedTrack.name << ".bag";
-          bag.open(filename.str().c_str(), rosbag::bagmode::Write);
-          for(unsigned int i = 0; i < recordedRoutePoses.size(); ++i)
-          {
-            bag.write("route", recordedRoutePoses[i].header.stamp, recordedRoutePoses[i]);
-          }
-          bag.close(); 
-          recordedRoutePoses.clear();
-          ROS_INFO("Routes saved.");
-        }
-        else
-        {
-          // Sending next goal to move_base
-          move_base_msgs::MoveBaseGoal goal;
-          goal.target_pose = recordedTrackPoses.front();
-          goal.target_pose.header.stamp = ros::Time::now();
-          server->sendGoal(goal, &goalFinishedCallback, &goalActiveCallback, &goalFeedbackCallback);
-          recordedTrackPoses.pop_front();
-          ROS_INFO("Waypoint sent as goal.");
-        }
-
-        doSendNextGoal = false;
-      }
-
-    }
-
-    // Handle all waiting callbacks
-    ros::spinOnce();
-
-    // Sleep until loop rate is over
-    loop.sleep();
+		// Sleep until loop rate is over
+		loop.sleep();
 
 	}
 
