@@ -215,6 +215,7 @@ bool startTrack(waypoint::StartTrack::Request &req, waypoint::StartTrack::Respon
 
   recordedTrack.time = getCurrentTimeString();
   doRecordTrack = true;
+  doMarkWaypoint = true;
 
   res.track = recordedTrack;
   res.successful = true;
