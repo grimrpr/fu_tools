@@ -1,0 +1,4 @@
+<launch>
+  <node name="wpd" pkg="waypoint" type="driver" output="screen" required="true" />
+  <node name="wpcli" pkg="waypoint" type="cli" output="screen" required="true" />
+</launch>
