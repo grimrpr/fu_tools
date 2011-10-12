@@ -4,6 +4,7 @@ bin/
 *~
 .DS_Store
 .metadata
+.svn
 srv_gen/
 msg_gen/
 *.swp
