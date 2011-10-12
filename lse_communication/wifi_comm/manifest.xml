@@ -1,0 +1,20 @@
+<package>
+  <description brief="wifi_comm">
+
+     Multi robot communication library and discovery node. Needs foreign_relay and olsrd to work.
+
+  </description>
+  <author>Gonçalo Cabrita and Pedro Sousa</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/wifi_comm</url>
+  <export>
+    <cpp cflags="-I${prefix}/include -I${prefix}/msg/cpp" lflags="-L${prefix}/lib -Wl,-rpath,${prefix}/lib -lwifi_comm"/>
+  </export>
+  <depend package="roscpp"/>
+  <depend package="std_msgs"/>
+  <depend package="foreign_relay"/>
+
+</package>
+
+
