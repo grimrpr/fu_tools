@@ -20,6 +20,7 @@
 #include "waypoint/DeleteRoute.h"
 
 #include <sstream>
+#include <iostream>
 #include <fstream>
 #include <stdio.h>
 #include <dirent.h>
@@ -27,6 +28,8 @@
 #include <sys/types.h>
 #include <time.h>
 #include <boost/foreach.hpp>
+
+using namespace std;
 
 actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> *server;
 std::string storagePath;
@@ -79,10 +82,10 @@ std::vector<std::string> getStorageFiles(char type, std::string name)
       char t;
       char n[1024];
       // Do we search a standard file format (i.e. with track name suffix)?
-      if(!name.empty())
+      if(type == 'T' || !name.empty())
       {
         // Yes we do... is it a file in track format (i.e. with a track name suffix)?
-        if(sscanf(str.c_str(),"%*[0-9]_%*[0-9]_%c_%[a-z-A-Z-0-9]", &t, n) > 0)
+        if(sscanf(str.c_str(),"%*[0-9]_%*[0-9]_%c_%[a-z-A-Z-0-9]", &t, n) == 2)
         {
 	      if(type != NULL && type != t)
 	      {
@@ -100,8 +103,10 @@ std::vector<std::string> getStorageFiles(char type, std::string name)
       if(name.empty() && type == 'R')
       {
         // Yes we do... is it in simple route file format (i.e. without a track name suffix)?
-        if(sscanf(str.c_str(),"%*[0-9]_%*[0-9]_%c", &t) > 0)
+        char dot;
+        if(sscanf(str.c_str(),"%*[0-9]_%*[0-9]_%c%cbag", &t, &dot) == 2)
         {
+          if(dot != '.') {continue;}
           entries.push_back(str);
           continue;
         }
@@ -152,16 +157,19 @@ bool getRoutes(waypoint::GetRoutes::Request &req, waypoint::GetRoutes::Response 
     char timeDate[8];
     char timeClock[6];
     char name[1024];
-    sscanf(entries[i].c_str(),"%[0-9]_%[0-9]_%*c_%[a-z-A-Z-0-9]", timeDate, timeClock, name);
+    int s = sscanf(entries[i].c_str(),"%[0-9]_%[0-9]_%*c_%[a-z-A-Z-0-9]", timeDate, timeClock, name);
     waypoint::Route route;
-    route.name = std::string(name);
-    route.time = std::string(timeDate) + std::string("_") + std::string(timeClock);    
-    routes.push_back(route);
+    if(s == 3) {route.name = std::string(name);}
+    if(s == 2 || s == 3)
+    {
+      route.time = std::string(timeDate) + std::string("_") + std::string(timeClock);    
+      routes.push_back(route);
+    }
   }
 
-	res.routes=routes;
+  res.routes=routes;
 
-	return true;
+  return true;
 }
 
 std::string getCurrentTimeString()

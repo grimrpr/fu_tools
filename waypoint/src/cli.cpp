@@ -1,12 +1,16 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-#include "waypoint/GetTracks.h"
+
+#include "waypoint/StartRoute.h"
+#include "waypoint/SaveRoute.h"
 #include "waypoint/GetRoutes.h"
-#include "waypoint/StartNewTrack.h"
-#include "waypoint/SaveNewTrack.h"
+
+#include "waypoint/StartTrack.h"
 #include "waypoint/MarkWaypoint.h"
-#include "waypoint/RunTrack.h"
-#include "waypoint/PlayBack.h"
+#include "waypoint/SaveTrack.h"
+#include "waypoint/StartRouteOfTrack.h"
+
+#include "waypoint/GetTracks.h"
 #include "waypoint/DeleteTrack.h"
 #include "waypoint/DeleteRoute.h"
 
@@ -15,13 +19,16 @@
 
 using namespace std;
 
-ros::ServiceClient clientGetTracks;
+ros::ServiceClient clientStartRoute;
+ros::ServiceClient clientSaveRoute;
 ros::ServiceClient clientGetRoutes;
-ros::ServiceClient clientStartNewTrack;
-ros::ServiceClient clientSaveNewTrack;
+
+ros::ServiceClient clientStartTrack;
 ros::ServiceClient clientMarkWaypoint;
-ros::ServiceClient clientRunTrack;
-ros::ServiceClient clientPlayBack;
+ros::ServiceClient clientSaveTrack;
+ros::ServiceClient clientStartRouteOfTrack;
+
+ros::ServiceClient clientGetTracks;
 ros::ServiceClient clientDeleteTrack;
 ros::ServiceClient clientDeleteRoute; 
 
@@ -63,6 +70,8 @@ unsigned int enter_number()
     }
   }
 
+  return -1;
+
 }
 
 void show_menu_recording_track(waypoint::Track &track)
@@ -97,9 +106,9 @@ void show_menu_recording_track(waypoint::Track &track)
     }
     if(x == 1)
     {
-      waypoint::SaveNewTrack srv;
+      waypoint::SaveTrack srv;
       srv.request.track = track;
-      if(clientSaveNewTrack.call(srv))
+      if(clientSaveTrack.call(srv))
       {
         if(srv.response.successful)
         {
@@ -127,9 +136,9 @@ void show_menu_new_track()
   cout << "> Enter name without whitespaces to start a new track: "; 
   std::string name = enter_name();
 
-  waypoint::StartNewTrack srv;
+  waypoint::StartTrack srv;
   srv.request.track.name = name;
-  if(clientStartNewTrack.call(srv))
+  if(clientStartTrack.call(srv))
   {
     if(srv.response.successful)
     {
@@ -153,9 +162,9 @@ void show_menu_new_track()
 void show_menu_run_track(waypoint::Track &track)
 {
 
-  waypoint::RunTrack srv;
+  waypoint::StartRouteOfTrack srv;
   srv.request.track = track;
-  if(clientRunTrack.call(srv))
+  if(clientStartRouteOfTrack.call(srv))
   {
     if(srv.response.successful)
     {
@@ -182,10 +191,9 @@ void show_menu_specific_route(waypoint::Route &route)
   while(ros::ok())
   {
     cout << endl;
-    cout << "> Options for route " << route.time << " of track " << route.name << endl;
+    cout << "> Options for route " << route.time << endl;
     cout << "(0) Return to previous menu" << endl;
-    cout << "(1) Play route " << route.time << " of track " << route.name << endl;
-    cout << "(2) Delete route " << route.time << " of track " << route.name << endl;
+    cout << "(1) Delete route " << route.time << endl;
     cout << "> Enter number: ";
     unsigned int x = enter_number();
     if(x == 0)
@@ -193,26 +201,6 @@ void show_menu_specific_route(waypoint::Route &route)
       return;
     }
     if(x == 1)
-    {
-      waypoint::PlayBack srv;
-      srv.request.route = route;
-      if(clientPlayBack.call(srv))
-      {
-        if(srv.response.successful)
-        {
-          cout << "> Route is now playing" << endl;
-        }
-        else
-        {
-          cerr << "> Route could not be played" << endl;
-        }
-      }
-      else
-      {
-        cerr << "> Service is not callable right now" << endl;
-      }
-    }
-    if(x == 2)
     {
       waypoint::DeleteRoute srv;
       srv.request.route = route;
@@ -237,25 +225,25 @@ void show_menu_specific_route(waypoint::Route &route)
 
 }
 
-void show_menu_list_routes(waypoint::Track &track)
+void show_menu_list_routes(waypoint::Track* track)
 {
 
   while(ros::ok())
   {
     cout << endl;
     waypoint::GetRoutes srv;
-    srv.request.track = track;
+    if(track != 0) {srv.request.track = (*track);}
     if(clientGetRoutes.call(srv))
     {
       std::vector<waypoint::Route> routes = srv.response.routes;
       if(routes.size() == 0)
       {
-        cout << "> No routes found in track " << track.name << endl;
+        cout << "> No routes found" << endl;
         return;
       }
       else
       {
-        cout << "> Found " << routes.size() << " route(s) in track " << track.name << endl;
+        cout << "> Found " << routes.size() << " route(s)" << endl;
         cout << "(0) Return to previous menu" << endl;
         for(unsigned int i = 0; i < routes.size(); ++i)
         {
@@ -305,7 +293,7 @@ void show_menu_specific_track(waypoint::Track &track)
     }
     if(x == 2)
     {
-      show_menu_list_routes(track);
+      show_menu_list_routes(&track);
     }
     if(x == 3)
     {
@@ -375,6 +363,50 @@ void show_menu_list_tracks(){
 
 }
 
+void show_menu_new_route_without_track()
+{
+  while(ros::ok())
+  {
+    cout << endl;
+    cout << "> Create new route without track" << endl;
+    cout << "(0) Return to previous menu" << endl;
+    cout << "(1) Start new route" << endl;
+    unsigned int x = enter_number();
+    if(x == 0) {return;}
+    if(x == 1)
+    {
+      waypoint::StartRoute srv;
+      if(clientStartRoute.call(srv))
+      {
+        if(srv.response.successful)
+        {
+          cout << endl;
+          cout << "> Route was successfully started, drive around!" << endl;
+          cout << "(0) Save current route" << endl;
+          unsigned int x = enter_number();
+          waypoint ::SaveRoute srv2;
+          if(clientSaveRoute.call(srv2))
+          {
+            cout << "> Route " << srv2.response.route.time << " was successfully saved" << endl;
+          }
+          else
+          {
+            cerr << "> Service is not callable right now" << endl;
+          }
+        }
+        else
+        {
+          cerr << "> Route could not be started" << endl;
+        }
+      }
+      else
+      {
+        cerr << "> Service is not callable right now" << endl;
+      }
+    }
+  }
+}
+
 void show_main_menu()
 {
 
@@ -382,13 +414,17 @@ void show_main_menu()
   {
     cout << "> Main menu" << endl;
     cout << "(0) Exit Program" << endl;
-    cout << "(1) New track" << endl;
-    cout << "(2) List tracks" << endl;
+    cout << "(1) New route without track" << endl;
+    cout << "(2) List routes without track" << endl;
+    cout << "(3) New track" << endl;
+    cout << "(4) List tracks" << endl;
     cout << "> Enter number: ";
     unsigned int x = enter_number();
     if(x == 0) {return;}
-    if(x == 1) {show_menu_new_track();}
-    if(x == 2) {show_menu_list_tracks();}
+    if(x == 1) {show_menu_new_route_without_track();}
+    if(x == 2) {show_menu_list_routes((waypoint::Track*) 0);}
+    if(x == 3) {show_menu_new_track();}
+    if(x == 4) {show_menu_list_tracks();}
     cout << endl;
   }
 
@@ -397,16 +433,20 @@ void show_main_menu()
 
 int main(int argc, char **argv)
 {
-	ros::init(argc, argv, "waypoint_cli");
-	ros::NodeHandle n;
-  
+
+  ros::init(argc, argv, "waypoint_cli");
+  ros::NodeHandle n;
+
+  clientStartRoute   = n.serviceClient<waypoint::StartRoute>("StartRoute");
+  clientSaveRoute    = n.serviceClient<waypoint::SaveRoute>("SaveRoute");
+  clientGetRoutes    = n.serviceClient<waypoint::GetRoutes>("GetRoutes");
+
+  clientStartTrack   = n.serviceClient<waypoint::StartTrack>("StartTrack");
+  clientMarkWaypoint = n.serviceClient<waypoint::MarkWaypoint>("MarkWaypoint");
+  clientSaveTrack    = n.serviceClient<waypoint::SaveTrack>("SaveTrack");
+  clientStartRouteOfTrack        = n.serviceClient<waypoint::StartRouteOfTrack>("StartRouteOfTrack");
+ 
   clientGetTracks       = n.serviceClient<waypoint::GetTracks>("GetTracks");
-  clientGetRoutes       = n.serviceClient<waypoint::GetRoutes>("GetRoutes");
-  clientStartNewTrack   = n.serviceClient<waypoint::StartNewTrack>("StartNewTrack");
-  clientSaveNewTrack    = n.serviceClient<waypoint::SaveNewTrack>("SaveNewTrack");
-  clientMarkWaypoint    = n.serviceClient<waypoint::MarkWaypoint>("MarkWaypoint");
-  clientRunTrack        = n.serviceClient<waypoint::RunTrack>("RunTrack");
-  clientPlayBack        = n.serviceClient<waypoint::PlayBack>("PlayBack");
   clientDeleteTrack     = n.serviceClient<waypoint::DeleteTrack>("DeleteTrack");
   clientDeleteRoute     = n.serviceClient<waypoint::DeleteRoute>("DeleteRoute");
 
