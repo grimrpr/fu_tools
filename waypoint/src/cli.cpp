@@ -371,6 +371,7 @@ void show_menu_new_route_without_track()
     cout << "> Create new route without track" << endl;
     cout << "(0) Return to previous menu" << endl;
     cout << "(1) Start new route" << endl;
+    cout << "> Enter number: ";
     unsigned int x = enter_number();
     if(x == 0) {return;}
     if(x == 1)
@@ -383,7 +384,7 @@ void show_menu_new_route_without_track()
           cout << endl;
           cout << "> Route was successfully started, drive around!" << endl;
           cout << "(0) Save current route" << endl;
-          unsigned int x = enter_number();
+          cout << "> Enter number: ";
           waypoint ::SaveRoute srv2;
           if(clientSaveRoute.call(srv2))
           {

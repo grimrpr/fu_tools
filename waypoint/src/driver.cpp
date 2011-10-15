@@ -1,6 +1,7 @@
 #include "ros/ros.h"
 #include <ros/package.h>
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
+#include "geometry_msgs/PoseArray.h"
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
 #include "rosbag/bag.h"
@@ -37,6 +38,8 @@ waypoint::Track recordedTrack;
 std::deque<geometry_msgs::Pose> recordedTrackPoses;
 std::deque<geometry_msgs::PoseWithCovarianceStamped> recordedRoutePoses;
 geometry_msgs::PoseWithCovarianceStamped currentPoseWCVS;
+std::vector<ros::Publisher> publishedRoutes;
+bool doAdvertiseRouteTopics = true;
 bool doRecordRoute = false;
 bool doRecordTrack = false;
 bool doMarkWaypoint = false;
@@ -57,7 +60,7 @@ bool fileExists(const std::string &fileName)
   return false;
 }
 
-std::vector<std::string> getStorageFiles(char type, std::string name)
+std::vector<std::string> getStorageFiles(char type, std::string name = std::string("-1WILLneverHAPPEN"))
 {
 
   std::vector<std::string> entries;
@@ -81,25 +84,36 @@ std::vector<std::string> getStorageFiles(char type, std::string name)
     {  
       char t;
       char n[1024];
+      // Do we search all route files no matter if they belong to a track or not?
+      if(name == "-1WILLneverHAPPEN" && type == 'R')
+      {
+        // Yes we do... 
+        if(sscanf(str.c_str(),"%*[0-9]_%*[0-9]_%c", &t) == 1)
+        {
+          if(t == type)
+            entries.push_back(str);
+        }  
+        continue;
+      }
       // Do we search a standard file format (i.e. with track name suffix)?
       if(type == 'T' || !name.empty())
       {
         // Yes we do... is it a file in track format (i.e. with a track name suffix)?
         if(sscanf(str.c_str(),"%*[0-9]_%*[0-9]_%c_%[a-z-A-Z-0-9]", &t, n) == 2)
         {
-	      if(type != NULL && type != t)
-	      {
-		continue;
-	      }
-	      if(!name.empty() && std::string(n) != name)
-	      {
-		continue;
-	      }
-	      entries.push_back(str);
-              continue;
+	  if(type != 0 && type != t)
+	  {
+            continue;
+          }
+          if(!name.empty() && std::string(n) != name)
+          {
+            continue;
+          }
+          entries.push_back(str);
+          continue;
         }
       }
-      // Maybe we search a simple route file not belonging to any track?
+      // Do we search a simple route file not belonging to any track?
       if(name.empty() && type == 'R')
       {
         // Yes we do... is it in simple route file format (i.e. without a track name suffix)?
@@ -293,6 +307,9 @@ bool startRouteOfTrack(waypoint::StartRouteOfTrack::Request &req, waypoint::Star
     return true;
   }
 
+  // Remember track, its name will be used for saving the route
+  recordedTrack = req.track;
+
   // Load track from bag file
   recordedTrackPoses.clear();
   std::stringstream filename;
@@ -307,7 +324,7 @@ bool startRouteOfTrack(waypoint::StartRouteOfTrack::Request &req, waypoint::Star
   }
   bag.close();
 
-  // Start sending loaded waypoints
+  // Start sending waypoints
   doRunTrack = true;
   doSendNextGoal = true;
 
@@ -334,13 +351,16 @@ bool deleteTrack(waypoint::DeleteTrack::Request &req, waypoint::DeleteTrack::Res
       remove(fileName.str().c_str());
     }
 
+    // Make sure to stop advertising and publishing the deleted routes
+    doAdvertiseRouteTopics = true;
+
     res.successful = true;
     return true;
   }
 
-  ROS_INFO("track not found");
+  ROS_INFO("This track coult not found");
   res.successful = false;
-	return true;
+  return true;
 
 }
 
@@ -361,6 +381,9 @@ bool deleteRoute(waypoint::DeleteRoute::Request &req, waypoint::DeleteRoute::Res
       remove(fileName.str().c_str());
     }
   }
+
+  // Make sure to stop advertising and publishing the deleted route
+  doAdvertiseRouteTopics = true;
 
   res.successful = true;
   return true;
@@ -402,6 +425,9 @@ bool saveRoute(waypoint::SaveRoute::Request &req, waypoint::SaveRoute::Response 
 
     // Clean recorded poses
     recordedRoutePoses.clear();
+
+    // Make sure to publish the captured route
+    doAdvertiseRouteTopics = true;
   }
 
   return true;
@@ -421,19 +447,12 @@ void goalFinishedCallback(const actionlib::SimpleClientGoalState& state, const m
 void goalFeedbackCallback(const move_base_msgs::MoveBaseFeedbackConstPtr& feedback)
 {
   ROS_INFO("Callback called: Feedback received.");
-
-  // Just remember the current pose for track recording or track running
-  //currentPose = (*feedback).base_position;
-
-  // If a track is currently run, remember the robots pose
-  //if(doRunTrack)
-  //{
-  //  recordedRoutePoses.push_back(currentPose);
-  //}
+  // We have no interest in the feedback callback in this version
 }
 
 void goalActiveCallback(){
   ROS_INFO("Callback called: Goal went active.");
+  // We have no interest in the active callback in this version
 }
 
 void currentPoseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msg){
@@ -457,88 +476,154 @@ void currentPoseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPt
 
 int main(int argc, char **argv)
 {
-	ros::init(argc, argv, "waypoint_driver");
-	ros::NodeHandle n;
+  ros::init(argc, argv, "waypoint_driver");
+  ros::NodeHandle n;
 
-	// Initialize global storage path
-	std::stringstream path;
-	path << ros::package::getPath("waypoint") << "/storage/";
-	storagePath = path.str();
-	mkdir(storagePath.c_str(),0777);
+  // Initialize global storage path
+  std::stringstream path;
+  path << ros::package::getPath("waypoint") << "/storage/";
+  storagePath = path.str();
+  mkdir(storagePath.c_str(),0777);
 
-	// Initialize pose listening
-	ros::Subscriber sub = n.subscribe("amcl_pose", 1, currentPoseCallback);
+  // Initialize pose listening
+  ros::Subscriber sub = n.subscribe("amcl_pose", 1, currentPoseCallback);
 
-	// Initialize all offered services
-	ros::ServiceServer srvGetTracks     	= n.advertiseService("GetTracks", getTracks);
-	ros::ServiceServer srvGetRoutes     	= n.advertiseService("GetRoutes", getRoutes);
-	ros::ServiceServer srvStartTrack	= n.advertiseService("StartTrack", startTrack);
-	ros::ServiceServer srvSaveTrack		= n.advertiseService("SaveTrack", saveTrack);
-	ros::ServiceServer srvMarkWaypoint  	= n.advertiseService("MarkWaypoint", markWaypoint);
-	ros::ServiceServer srvStartRouteOfTrack	= n.advertiseService("StartRouteOfTrack", startRouteOfTrack);
-	ros::ServiceServer srvDeleteTrack	= n.advertiseService("DeleteTrack", deleteTrack);
-	ros::ServiceServer srvDeleteRoute	= n.advertiseService("DeleteRoute", deleteRoute);
-	ros::ServiceServer srvStartRoute	= n.advertiseService("StartRoute", startRoute);
-	ros::ServiceServer srvSaveRoute		= n.advertiseService("SaveRoute", saveRoute);
-	ROS_INFO("Services initialized");
+  // Initialize all offered services
+  ros::ServiceServer srvGetTracks 	    	= n.advertiseService("GetTracks", getTracks);
+  ros::ServiceServer srvGetRoutes     		= n.advertiseService("GetRoutes", getRoutes);
+  ros::ServiceServer srvStartTrack		= n.advertiseService("StartTrack", startTrack);
+  ros::ServiceServer srvSaveTrack		= n.advertiseService("SaveTrack", saveTrack);
+  ros::ServiceServer srvMarkWaypoint  		= n.advertiseService("MarkWaypoint", markWaypoint);
+  ros::ServiceServer srvStartRouteOfTrack	= n.advertiseService("StartRouteOfTrack", startRouteOfTrack);
+  ros::ServiceServer srvDeleteTrack		= n.advertiseService("DeleteTrack", deleteTrack);
+  ros::ServiceServer srvDeleteRoute		= n.advertiseService("DeleteRoute", deleteRoute);
+  ros::ServiceServer srvStartRoute		= n.advertiseService("StartRoute", startRoute);
+  ros::ServiceServer srvSaveRoute		= n.advertiseService("SaveRoute", saveRoute);
+  ROS_INFO("Services initialized");
+ 
+  // Initialize navigation server object
+  actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base", false);
+  server = &ac;
+  
+  // Handle all service requests
+  ros::Rate loop(1);
+  while (ros::ok())
+  {
 
-	// Initialize navigation server object
-	actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base", false);
-	server = &ac;
+    // Handle all waiting callbacks
+    ros::spinOnce();
 
-	// Handle all service requests
-	ros::Rate loop(10);
-	while (ros::ok())
-	{
+    // Shall we (re-)advertise all route topics?
+    // Do so, when system starts or routes where deleted or added
+    if(doAdvertiseRouteTopics)
+    {
+      doAdvertiseRouteTopics = false;
 
-		// Handle all waiting callbacks
-		ros::spinOnce();
+      // Since we do not know which routes may have changed,
+      // we cancel all advertised routes if there are any
+      if(publishedRoutes.size() > 0)
+      {
+        for(unsigned int i = 0; i < publishedRoutes.size(); ++i)
+        {
+          publishedRoutes[i].shutdown();
+        }
+        publishedRoutes.clear();
+        ROS_INFO("Canceled all advertised routes, readvertising...");
+      }
 
-		// Handle StartRouteOfTrack service command
-		if(doRunTrack)
-		{
+      // Get all routes driven so far
+      std::vector<std::string> availableFiles = getStorageFiles('R');
+      for(unsigned int i = 0; i < availableFiles.size(); ++i)
+      {
+        // Advertise this route as a topic
+        // Store publisher object for later useage
+        std::string name("/wpd/");
+        name.append(availableFiles[i].substr(0,availableFiles[i].size()-4));
+	ROS_INFO("Advertising route %s", name.c_str());
+        publishedRoutes.push_back(n.advertise<geometry_msgs::PoseArray>(name.c_str(), 1));
+      }
+    }
+    else
+    {
+      // Check if someone listens to any route topics we previously advertised
+      for(unsigned int i = 0; i < publishedRoutes.size(); ++i)
+      {
+        if(publishedRoutes[i].getNumSubscribers() > 0)
+        {
+          // Since someone is actually listening to that topic,
+          // we have to publish the poses
+          geometry_msgs::PoseArray poses;
+          poses.header.frame_id = "/map";
+          std::stringstream fileName;
+          std::string name(publishedRoutes[i].getTopic());
+          fileName << storagePath << name.substr(4,name.size()-4) << ".bag";
+          if(fileExists(fileName.str()))
+          {
+            rosbag::Bag bag(fileName.str().c_str());
+            rosbag::View view(bag, rosbag::TopicQuery("route"));
+            BOOST_FOREACH(rosbag::MessageInstance const m, view)
+            {
+              geometry_msgs::PoseWithCovarianceStampedConstPtr pose = m.instantiate<geometry_msgs::PoseWithCovarianceStamped>();
+              if (pose != NULL)
+                poses.poses.push_back(pose->pose.pose);
+            }
+            bag.close();
+            ROS_INFO("Publishing route %s", publishedRoutes[i].getTopic().c_str());
+            publishedRoutes[i].publish(poses);
+          }
+        }
+      }
+    }
 
-			// Handle event current waypoint reached
-			if(doSendNextGoal)
-			{
+    // Handle StartRouteOfTrack service command
+    if(doRunTrack)
+    {
 
-				// Have we reached the last waypoint from that track?
-				if(recordedTrackPoses.empty())
-				{
-					doRunTrack = false;
-					// Save recorded route to bag file
-					rosbag::Bag bag;
-					std::stringstream filename;
-					filename << storagePath << getCurrentTimeString() << "_R_" << recordedTrack.name << ".bag";
-					bag.open(filename.str().c_str(), rosbag::bagmode::Write);
-					for(unsigned int i = 0; i < recordedRoutePoses.size(); ++i)
-					{
-					bag.write("route", recordedRoutePoses[i].header.stamp, recordedRoutePoses[i]);
-					}
-					bag.close(); 
-					recordedRoutePoses.clear();
-					ROS_INFO("Route saved.");
-				}
-				else
-				{
-					// Still waypoints to go, sending next goal to move_base
-					move_base_msgs::MoveBaseGoal goal;
-					goal.target_pose.pose = recordedTrackPoses.front();
-					goal.target_pose.header.stamp = ros::Time::now();
-					server->sendGoal(goal, &goalFinishedCallback, &goalActiveCallback, &goalFeedbackCallback);
-					recordedTrackPoses.pop_front();
-					ROS_INFO("Waypoint sent as goal.");
-				}
+      // Handle event current waypoint reached
+      if(doSendNextGoal)
+      {
+ 
+        // Have we reached the last waypoint from that track?
+        if(recordedTrackPoses.empty())
+        {
+          doRunTrack = false;
+          // Save recorded route to bag file
+          rosbag::Bag bag;
+          std::stringstream filename;
+          filename << storagePath << getCurrentTimeString() << "_R_" << recordedTrack.name << ".bag";
+          bag.open(filename.str().c_str(), rosbag::bagmode::Write);
+          for(unsigned int i = 0; i < recordedRoutePoses.size(); ++i)
+          {
+            bag.write("route", recordedRoutePoses[i].header.stamp, recordedRoutePoses[i]);
+          }
+	  bag.close(); 
+          ROS_INFO("Route saved.");
 
-				doSendNextGoal = false;
-			}
+	  recordedRoutePoses.clear();
+          
+          // Make sure, this new route will be advertised
+          doAdvertiseRouteTopics = true;
+        }
+        else
+        {
+ 	  // Still waypoints to go, sending next goal to move_base
+	  move_base_msgs::MoveBaseGoal goal;
+	  goal.target_pose.pose = recordedTrackPoses.front();
+	  goal.target_pose.header.stamp = ros::Time::now();
+	  server->sendGoal(goal, &goalFinishedCallback, &goalActiveCallback, &goalFeedbackCallback);
+	  recordedTrackPoses.pop_front();
+	  ROS_INFO("Waypoint sent as goal.");
+        }
 
-		}
+        doSendNextGoal = false;
+      }
 
-		// Sleep until loop rate is over
-		loop.sleep();
+    }
 
-	}
+    // Sleep until loop rate is over
+    loop.sleep();
 
-	return 0;
+  }
+
+  return 0;
 }
