@@ -164,6 +164,7 @@ public class Turtle_RemoteActivity extends Activity {
 	public void onBackPressed() {
 
 		if (State.connection.loggedIn) {
+			State.connection.print('p');
 			State.connection.disconnect();
 			sensorManager.unregisterListener(State.drive);
 			State.drive.isDriving = false;
@@ -185,6 +186,7 @@ public class Turtle_RemoteActivity extends Activity {
 		if (State.drive.isDriving) {
 			sensorManager.unregisterListener(State.drive);
 			State.drive.isDriving = false;
+			State.connection.print('p');
 		}
 
 		State.persist(getPreferences(MODE_PRIVATE));
@@ -211,8 +213,7 @@ public class Turtle_RemoteActivity extends Activity {
 			State.drive.lockCurrentState();
 		} else{
 			sensorManager.unregisterListener(State.drive);
-			for (int i = 0; i < 10; ++i)
-				State.connection.print('p');
+			State.connection.print('p');
 		}
 		
 		Log.l(State.drive.isDriving ? "Driving started." : "Driving stopped.");

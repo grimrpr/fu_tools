@@ -3,6 +3,8 @@ package rimesime.fu.turtleremote;
 import java.io.PrintWriter;
 import java.util.Properties;
 
+import android.widget.Toast;
+
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
@@ -48,13 +50,14 @@ public class Connection {
 			}
 
 			println("export ROS_MASTER_URI=" + State.varRosMasterURI);
-			println("rosrun turtlebot_teleop turtlebot_teleop_keyCPY");
+			println("roslaunch fu_robot_2dnav teleop.launch");
 
 			// Switch to main view
 			State.operateOnViewThread(new Runnable() {
 				public void run() {
 					Turtle_RemoteActivity.trObj
 							.switchContentView(R.layout.main);
+					Toast.makeText(Turtle_RemoteActivity.trObj , "Tilt the device left/right to turn, tilt back/forth to drive.", Toast.LENGTH_LONG ).show();
 				}
 			});
 
