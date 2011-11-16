@@ -2,7 +2,6 @@ package rimesime.fu.turtleremote;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -10,14 +9,12 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Display;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnKeyListener;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -147,52 +144,7 @@ public class Turtle_RemoteActivity extends Activity {
 			this.setContentView(id);
 
 			// main content view
-			// final ScrollView scrollLog = (ScrollView)
-			// findViewById(R.id.logScroll);
-			// final TextView lblLog = (TextView) findViewById(R.id.log);
-			// final TextView lblStatus = (TextView) findViewById(R.id.status);
-			final EditText txtAccuracyMultiplyer = (EditText) findViewById(R.id.accuracy);
-			final EditText txtCommandmultiplyer = (EditText) findViewById(R.id.speed);
 			final Button btnDrive = (Button) findViewById(R.id.drive);
-
-			txtCommandmultiplyer
-					.setText(new Integer(State.varCommandMultiplyer).toString());
-			txtAccuracyMultiplyer.setText(Float
-					.toString(State.varAccuracyMultiplyer));
-
-			txtCommandmultiplyer.setOnKeyListener(new OnKeyListener() {
-				public boolean onKey(View v, int keyCode, KeyEvent event) {
-					int i = -1;
-
-					try {
-						i = Integer.parseInt(txtCommandmultiplyer.getText()
-								.toString());
-						txtCommandmultiplyer.setBackgroundColor(Color.WHITE);
-						State.varCommandMultiplyer = i;
-					} catch (NumberFormatException e) {
-						txtCommandmultiplyer.setBackgroundColor(Color.RED);
-					}
-
-					return false;
-				}
-			});
-
-			txtAccuracyMultiplyer.setOnKeyListener(new OnKeyListener() {
-				public boolean onKey(View v, int keyCode, KeyEvent event) {
-					float i = -1f;
-
-					try {
-						i = Float.parseFloat(txtAccuracyMultiplyer.getText()
-								.toString());
-						txtAccuracyMultiplyer.setBackgroundColor(Color.WHITE);
-						State.varAccuracyMultiplyer = i;
-					} catch (NumberFormatException e) {
-						txtAccuracyMultiplyer.setBackgroundColor(Color.RED);
-					}
-
-					return false;
-				}
-			});
 
 			btnDrive.setOnTouchListener(new OnTouchListener() {
 				public boolean onTouch(View v, MotionEvent event) {
@@ -257,9 +209,12 @@ public class Turtle_RemoteActivity extends Activity {
 			sensorManager.registerListener(State.drive, accelerometer,
 					SensorManager.SENSOR_DELAY_NORMAL);
 			State.drive.lockCurrentState();
-		} else
+		} else{
 			sensorManager.unregisterListener(State.drive);
-
+			for (int i = 0; i < 10; ++i)
+				State.connection.print('p');
+		}
+		
 		Log.l(State.drive.isDriving ? "Driving started." : "Driving stopped.");
 
 		Log.s("");

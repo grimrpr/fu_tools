@@ -8,16 +8,12 @@
         <TextView android:id="@+id/log" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="8sp"></TextView>
     </ScrollView>
 	<TextView android:id="@+id/status" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceSmall" android:text="" android:layout_width="match_parent"></TextView>
-	<LinearLayout android:layout_width="match_parent" android:id="@+id/linearLayout1" android:layout_height="wrap_content">
-		<LinearLayout android:layout_width="wrap_content" android:id="@+id/linearLayout2" android:layout_height="match_parent" android:orientation="vertical" android:weightSum="1">
-			<TextView android:id="@+id/textView3" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceSmall" android:text="Accuracy" android:layout_width="wrap_content"></TextView>
-			<EditText android:id="@+id/accuracy" android:layout_height="wrap_content" android:inputType="numberDecimal" android:layout_width="58dp">
-			</EditText>
-			<TextView android:text="Speed" android:id="@+id/TextView1" android:textAppearance="?android:attr/textAppearanceSmall" android:layout_width="match_parent" android:layout_height="wrap_content"></TextView>
-			<EditText android:id="@+id/speed" android:inputType="number" android:layout_height="wrap_content" android:layout_width="match_parent"></EditText>
-		</LinearLayout>
-		<LinearLayout android:layout_width="wrap_content" android:id="@+id/linearLayout3" android:layout_height="match_parent" android:orientation="vertical" android:weightSum="1">
-			<Button android:text="Push to drive" android:id="@+id/drive" android:layout_height="match_parent" android:layout_weight="1" android:layout_width="259dp"></Button>
-		</LinearLayout>
-	</LinearLayout>
+	
+		<Button
+		    android:id="@+id/drive"
+		    android:layout_width="match_parent"
+		    android:layout_height="115dp"
+		    android:text="Push to drive" >
+
+</Button>
 </LinearLayout>

@@ -1,8 +1,5 @@
 package rimesime.fu.turtleremote;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Properties;
 
@@ -44,23 +41,6 @@ public class Connection {
 
 			Log.l("Connected! Start driving!");
 			loggedIn = true;
-			// setDrivingEnabled(true);
-
-			final InputStream is = channel.getInputStream();
-			new Thread(new Runnable() {
-				public void run() {
-					try {
-						BufferedReader br = new BufferedReader(
-								new InputStreamReader(is));
-
-						String line;
-						while ((line = br.readLine()) != null)
-							Log.l(line);
-					} catch (Exception e) {
-						Log.l(e.getMessage());
-					}
-				}
-			}).start();
 
 			try {
 				Thread.sleep(1000);
@@ -68,7 +48,7 @@ public class Connection {
 			}
 
 			println("export ROS_MASTER_URI=" + State.varRosMasterURI);
-			println("roslaunch turtlebot_teleop keyboard_teleop.launch");
+			println("rosrun turtlebot_teleop turtlebot_teleop_keyCPY");
 
 			// Switch to main view
 			State.operateOnViewThread(new Runnable() {

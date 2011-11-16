@@ -2,20 +2,15 @@
 
 
   <!-- Start robot -->
-  <include file="$(find fu_robot_2dnav)/launch/robot.launch"/>
+  <include file="$(find fu_robot_2dnav)/launch/config/robot.launch"/>
 
 
   <!-- Start gmapping -->
   <include file="$(find fu_robot_2dnav)/launch/config/gmapping.launch"/>
 
 
-  <!-- Start move_base
+  <!-- Start move_base -->
   <include file="$(find fu_robot_2dnav)/launch/config/move_base.launch"/>
-  -->
-
-
-  <!-- Start rviz -->
-  <node pkg="rviz" type="rviz" respawn="false" name="rviz" args="-d $(find fu_robot_2dnav)/launch/config/params/rviz.vcg"/>
 
 
 </launch>

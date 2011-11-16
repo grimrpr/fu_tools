@@ -1,0 +1,21 @@
+<launch>
+
+
+  <!-- Start robot -->
+  <include file="$(find fu_robot_2dnav)/launch/config/robot.launch"/>
+
+
+  <!-- Start map server (providing one specific map defined via map argument by roslaunch ... map:=name) -->
+  <arg name="map" />
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find fu_robot_2dnav)/map/$(arg map).yaml"/>
+
+
+  <!-- Start AMCL -->
+  <include file="$(find fu_robot_2dnav)/launch/config/amcl.launch" />
+
+
+  <!-- Start move_base -->
+  <include file="$(find fu_robot_2dnav)/launch/config/move_base.launch"/>
+
+
+</launch>

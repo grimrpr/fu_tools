@@ -385,6 +385,7 @@ void show_menu_new_route_without_track()
           cout << "> Route was successfully started, drive around!" << endl;
           cout << "(0) Save current route" << endl;
           cout << "> Enter number: ";
+          unsigned int y = enter_number();
           waypoint ::SaveRoute srv2;
           if(clientSaveRoute.call(srv2))
           {

@@ -35,7 +35,7 @@ using namespace std;
 actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> *server;
 std::string storagePath;
 waypoint::Track recordedTrack;
-std::deque<geometry_msgs::Pose> recordedTrackPoses;
+std::deque<geometry_msgs::PoseStamped> recordedTrackPoses;
 std::deque<geometry_msgs::PoseWithCovarianceStamped> recordedRoutePoses;
 geometry_msgs::PoseWithCovarianceStamped currentPoseWCVS;
 std::vector<ros::Publisher> publishedRoutes;
@@ -318,7 +318,7 @@ bool startRouteOfTrack(waypoint::StartRouteOfTrack::Request &req, waypoint::Star
   rosbag::View view(bag, rosbag::TopicQuery("track"));
   BOOST_FOREACH(rosbag::MessageInstance const m, view)
   {
-    geometry_msgs::PoseConstPtr pose = m.instantiate<geometry_msgs::Pose>();
+    geometry_msgs::PoseStampedConstPtr pose = m.instantiate<geometry_msgs::PoseStamped>();
     if (pose != NULL)
       recordedTrackPoses.push_back(*pose);
   }
@@ -469,7 +469,10 @@ void currentPoseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPt
   {
     ROS_INFO("Marking waypoint");
     doMarkWaypoint = false;
-    recordedTrackPoses.push_back(currentPoseWCVS.pose.pose);
+    geometry_msgs::PoseStamped pose;
+    pose.header = currentPoseWCVS.header;
+    pose.pose = currentPoseWCVS.pose.pose;
+    recordedTrackPoses.push_back(pose);
   }
 
 }
@@ -608,7 +611,7 @@ int main(int argc, char **argv)
         {
  	  // Still waypoints to go, sending next goal to move_base
 	  move_base_msgs::MoveBaseGoal goal;
-	  goal.target_pose.pose = recordedTrackPoses.front();
+	  goal.target_pose = recordedTrackPoses.front();
 	  goal.target_pose.header.stamp = ros::Time::now();
 	  server->sendGoal(goal, &goalFinishedCallback, &goalActiveCallback, &goalFeedbackCallback);
 	  recordedTrackPoses.pop_front();
@@ -622,8 +625,5 @@ int main(int argc, char **argv)
 
     // Sleep until loop rate is over
     loop.sleep();
-
   }
-
-  return 0;
 }

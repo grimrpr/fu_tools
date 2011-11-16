@@ -7,15 +7,16 @@ import android.view.Surface;
 
 public class Drive implements SensorEventListener {
 
-	static char KEYCODE_R = 0x43;
-	static char KEYCODE_L = 0x44;
-	static char KEYCODE_U = 0x41;
-	static char KEYCODE_D = 0x42;
+	static char KEYCODE_R = 'd'; // 0x43;
+	static char KEYCODE_L = 'a'; // 0x44;
+	static char KEYCODE_U = 'w'; // 0x41;
+	static char KEYCODE_D = 's'; // 0x42;
 
 	boolean isDriving = false;
 
 	private boolean lockCurrentState = false;
 	private int lockedX = 0, lockedY = 0;
+	private int lastX = 0, lastY = 0;
 
 	public void onSensorChanged(SensorEvent event) {
 		if (event.sensor.getType() != Sensor.TYPE_ACCELEROMETER)
@@ -43,8 +44,8 @@ public class Drive implements SensorEventListener {
 			break;
 		}
 
-		int intX = Math.round(floatX * State.varAccuracyMultiplyer);
-		int intY = Math.round(floatY * State.varAccuracyMultiplyer);
+		int intX = Math.round(floatX);
+		int intY = Math.round(floatY);
 
 		if (lockCurrentState) {
 			lockCurrentState = false;
@@ -55,34 +56,43 @@ public class Drive implements SensorEventListener {
 		intX -= lockedX;
 		intY -= lockedY;
 
+		if (Math.abs(intX) == Math.abs(intY)) {
+			intX = 0;
+			intY = 0;
+		}
+
 		if (Math.abs(intX) > Math.abs(intY))
 			intY = 0;
 		else
 			intX = 0;
 
-		Log.s("Driving... (" + lockedX + "+" + intX + ", " + lockedY + "+"
-				+ intY + ")");
+		intX = intX > 0 ? 1 : (intX == 0 ? 0 : -1);
+		intY = intY > 0 ? 1 : (intY == 0 ? 0 : -1);
 
-		for (int i = 0; i < State.varCommandMultiplyer; ++i) {
-			int countDownX = intX, countDownY = intY;
-			while ((countDownX != 0) || (countDownY != 0)) {
-				if (countDownX > 0) {
-					countDownX--;
-					State.connection.print(KEYCODE_L);
-				}
-				if (countDownX < 0) {
-					countDownX++;
-					State.connection.print(KEYCODE_R);
-				}
-				if (countDownY > 0) {
-					countDownY--;
-					State.connection.print(KEYCODE_D);
-				}
-				if (countDownY < 0) {
-					countDownY++;
-					State.connection.print(KEYCODE_U);
-				}
-			}
+		if (intY == lastY && intX == lastX)
+			return;
+
+		lastX = intX;
+		lastY = intY;
+
+		Log.s("Driving... (X: " + intX + ", Y: " + intY + ")");
+
+		switch (intX) {
+		case +1:
+			State.connection.print(KEYCODE_L);
+			break;
+		case -1:
+			State.connection.print(KEYCODE_R);
+			break;
+		}
+		
+		switch (intY) {
+		case +1:
+			State.connection.print(KEYCODE_D);
+			break;
+		case -1:
+			State.connection.print(KEYCODE_U);
+			break;
 		}
 
 	}
