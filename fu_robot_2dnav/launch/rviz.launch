@@ -1,0 +1,6 @@
+<launch>
+
+  <!-- Start rviz -->
+  <node pkg="rviz" type="rviz" respawn="false" name="rviz" args="-d $(find fu_robot_2dnav)/launch/config/params/rviz.vcg" />
+
+</launch>
