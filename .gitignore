@@ -1,4 +1,5 @@
 # Ignoring any build and bin folder in all sub directories
+thesisSimon/
 build/
 bin/
 *~
