@@ -2,6 +2,7 @@
 #include <ros/package.h>
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include "geometry_msgs/PoseArray.h"
+#include "nav_msgs/Path.h"
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
 #include "rosbag/bag.h"
@@ -543,7 +544,7 @@ int main(int argc, char **argv)
         std::string name("/wpd/");
         name.append(availableFiles[i].substr(0,availableFiles[i].size()-4));
 	ROS_INFO("Advertising route %s", name.c_str());
-        publishedRoutes.push_back(n.advertise<geometry_msgs::PoseArray>(name.c_str(), 1));
+        publishedRoutes.push_back(n.advertise<nav_msgs::Path>(name.c_str(), 1));
       }
     }
     else
@@ -555,8 +556,8 @@ int main(int argc, char **argv)
         {
           // Since someone is actually listening to that topic,
           // we have to publish the poses
-          geometry_msgs::PoseArray poses;
-          poses.header.frame_id = "/map";
+          nav_msgs::Path path;
+          //path.header.frame_id = "/map";
           std::stringstream fileName;
           std::string name(publishedRoutes[i].getTopic());
           fileName << storagePath << name.substr(4,name.size()-4) << ".bag";
@@ -568,11 +569,16 @@ int main(int argc, char **argv)
             {
               geometry_msgs::PoseWithCovarianceStampedConstPtr pose = m.instantiate<geometry_msgs::PoseWithCovarianceStamped>();
               if (pose != NULL)
-                poses.poses.push_back(pose->pose.pose);
+              {
+                geometry_msgs::PoseStamped ps;
+                ps.header = pose->header;
+                ps.pose = pose->pose.pose;
+                path.poses.push_back(ps);
+              }
             }
             bag.close();
             ROS_INFO("Publishing route %s", publishedRoutes[i].getTopic().c_str());
-            publishedRoutes[i].publish(poses);
+            publishedRoutes[i].publish(path);
           }
         }
       }

@@ -12,11 +12,6 @@
 
   <!-- Start odometry transform publisher -->
   <node pkg="fu_robot_2dnav" type="odom_tf_pub" respawn="true" name="odom_tf_pub"/>
-  <!--include file="$(find fu_robot_2dnav)/launch/config/ekf.launch"/-->
-
-
-  <!-- Start the kinect (in the navigation stack way) -->
-  <!--include file="$(find fu_robot_2dnav)/launch/config/kinect.launch"/-->
 
 
 </launch>
